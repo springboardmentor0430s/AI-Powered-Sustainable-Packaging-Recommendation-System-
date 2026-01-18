@@ -60,7 +60,7 @@ app = Flask(__name__)
 # ✅ SINGLE CORS CONFIG (FIXES OPTIONS 404)
 CORS(
     app,
-    resources={r"/*": {"origins": "http://localhost:5173"}},
+    resources={r"/*": {"origins": "*"}},
     supports_credentials=True
 )
 
@@ -592,8 +592,10 @@ def predict(current_user_id):
             conn.commit()
             cur.close()
             conn.close()
-        except Exception as db_err:
-            print("❌ DB Save Error:", db_err)
+        except Exception as e:
+            print("❌ DB CONNECTION ERROR:", e)
+            return None
+
             # Don't fail the request just because history save failed, but log it.
 
         # 7️⃣ RESPONSE TO FRONTEND
@@ -773,4 +775,4 @@ def cost_summary(current_user_id):
     ])
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(host="0.0.0.0", port=5000)
