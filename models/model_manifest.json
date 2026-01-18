@@ -1,0 +1,15 @@
+{
+  "best_models": {
+    "cost": {
+      "file": "ecopackai_cost_stacking_cv_passthrough.joblib"
+    },
+    "co2": {
+      "file": "ecopackai_co2_stacking_cv_passthrough.joblib"
+    }
+  },
+  "targets": {
+    "cost": "estimated_cost_per_unit_usd",
+    "co2": "estimated_co2_per_unit_kg"
+  },
+  "prefix": "ecopackai"
+}
