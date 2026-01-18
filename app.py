@@ -9,10 +9,8 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "EcoPackAI_Secret_Key")
 
-# --- DATABASE CONFIGURATION (UPDATED FOR RENDER) ---
-# Render वरील Environment Variable वापरण्यासाठी हा बदल केला आहे
+# --- DATABASE CONFIGURATION (FOR RENDER) ---
 DB_URL = os.environ.get('SQLALCHEMY_DATABASE_URI')
-
 app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -20,26 +18,35 @@ db = SQLAlchemy(app)
 
 def get_db_connection():
     try:
-        # DB_URL रिकामे असल्यास एरर टाळण्यासाठी
         if not DB_URL:
-            print("❌ Error: SQLALCHEMY_DATABASE_URI is not set in Render Environment Variables")
+            print("❌ Error: SQLALCHEMY_DATABASE_URI is not set in Render")
             return None
         return psycopg2.connect(DB_URL)
     except Exception as e:
         print(f"❌ Cloud DB Error: {e}")
         return None
 
-# --- GOOGLE OAUTH CONFIGURATION ---
-app.config['GOOGLE_CLIENT_ID'] = os.environ.get('GOOGLE_CLIENT_ID', "854678979619-d687ehh7ju1jg74fdlra7rjfqmdl8jkk.apps.googleusercontent.com")
-app.config['GOOGLE_CLIENT_SECRET'] = os.environ.get('GOOGLE_CLIENT_SECRET', "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")
-
+# --- OAUTH CONFIGURATION (GOOGLE & GITHUB) ---
 oauth = OAuth(app)
+
+# Google Config
 google = oauth.register(
     name='google',
-    client_id=app.config['GOOGLE_CLIENT_ID'],
-    client_secret=app.config['GOOGLE_CLIENT_SECRET'],
+    client_id=os.environ.get('GOOGLE_CLIENT_ID', "854678979619-d687ehh7ju1jg74fdlra7rjfqmdl8jkk.apps.googleusercontent.com"),
+    client_secret=os.environ.get('GOOGLE_CLIENT_SECRET', "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"),
     server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
     client_kwargs={'scope': 'openid email profile'}
+)
+
+# GitHub Config (नवीन जोडलेले)
+github = oauth.register(
+    name='github',
+    client_id=os.environ.get('GITHUB_CLIENT_ID'), # Render वर Environment Variable मध्ये टाका
+    client_secret=os.environ.get('GITHUB_CLIENT_SECRET'), # Render वर टाका
+    access_token_url='https://github.com/login/oauth/access_token',
+    authorize_url='https://github.com/login/oauth/authorize',
+    api_base_url='https://api.github.com/',
+    client_kwargs={'scope': 'user:email'}
 )
 
 # --- AUTH ROUTES ---
@@ -47,6 +54,7 @@ google = oauth.register(
 def home(): 
     return render_template('auth.html')
 
+# Google Login Routes
 @app.route('/login/google')
 def login_google():
     redirect_uri = url_for('authorize', _external=True)
@@ -60,6 +68,25 @@ def authorize():
         resp = google.get('https://www.googleapis.com/oauth2/v3/userinfo')
         user_info = resp.json()
     session['user'] = user_info
+    return redirect(url_for('dashboard'))
+
+# GitHub Login Routes (अपडेटेड)
+@app.route('/login/github')
+def login_github():
+    redirect_uri = url_for('authorize_github', _external=True)
+    return github.authorize_redirect(redirect_uri)
+
+@app.route('/authorize_github')
+def authorize_github():
+    token = github.authorize_access_token()
+    resp = github.get('user')
+    user_info = resp.json()
+    # GitHub युजर माहिती सेव्ह करणे
+    session['user'] = {
+        'name': user_info.get('login'), 
+        'email': user_info.get('email'),
+        'picture': user_info.get('avatar_url')
+    }
     return redirect(url_for('dashboard'))
 
 @app.route('/login_check', methods=['POST'])
@@ -110,7 +137,6 @@ def predict():
         conn = get_db_connection()
         if conn:
             cur = conn.cursor()
-            # Database table creation
             cur.execute("""CREATE TABLE IF NOT EXISTS ai_predictions (
                             id SERIAL PRIMARY KEY,
                             product_name VARCHAR(100),
