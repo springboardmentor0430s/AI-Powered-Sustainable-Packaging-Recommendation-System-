@@ -1,0 +1,84 @@
+* {
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(120deg, #a8e063, #56ab2f);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-card {
+    background: rgba(176, 173, 227, 0.95);
+    width: 380px;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.auth-card h2 {
+    text-align: center;
+    color: #2e7d32;
+    margin-bottom: 5px;
+}
+
+.auth-card p {
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-top: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 18px;
+    border-radius: 8px;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.primary-btn {
+    background: #2e7d32;
+    color: white;
+}
+
+.primary-btn:hover {
+    background: #1b5e20;
+}
+
+.google-btn {
+    background: white;
+    border: 1px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.google-btn img {
+    width: 18px;
+}
+
+.divider {
+    text-align: center;
+    margin: 15px 0;
+    color: #888;
+}
+
+a {
+    color: #2e7d32;
+    text-decoration: none;
+    font-weight: 500;
+}

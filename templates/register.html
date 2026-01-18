@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EcoPack AI | Register</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="auth-card">
+    <h2>Create Account</h2>
+    <p>Join EcoPack AI 🌱</p>
+
+    
+    
+
+    <!-- Normal Register -->
+    <form method="POST">
+        <input type="text" name="name" placeholder="Full Name" required>
+        <input type="email" name="email" placeholder="Email address" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button class="primary-btn" type="submit">Create Account</button>
+    </form>
+    <div class="divider">OR</div>
+<!-- Google Signup -->
+    <a href="/google-login">
+        <button class="google-btn">
+            <img src="https://www.svgrepo.com/show/475656/google-color.svg">
+            Sign up with Google
+        </button>
+    </a>
+
+    <p style="margin-top:15px;">
+        Already registered?
+        <a href="/login">Login</a>
+    </p>
+</div>
+
+</body>
+</html>

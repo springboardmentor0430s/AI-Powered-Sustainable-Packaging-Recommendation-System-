@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoPackAI - Dashboard</title>
+    <link rel="stylesheet" href="/static/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- Sidebar Overlay -->
+    <div id="sidebar-overlay" class="sidebar-overlay hidden"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                    </path>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+            </div>
+            EcoPackAI
+        </div>
+
+        <nav class="nav-menu">
+            <a href="#" class="nav-item active" id="nav-recommendations">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                    </path>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                </svg>
+                <span class="nav-text">Recommendations</span>
+            </a>
+
+            <a href="#" class="nav-item" id="nav-analytics">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                <span class="nav-text">Analytics Dashboard</span>
+            </a>
+            <a href="#" class="nav-item" id="nav-history">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span class="nav-text">History</span>
+            </a>
+            <a href="/logout" class="nav-item" style="margin-top: auto;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                <span class="nav-text">Logout</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header>
+            <div class="search-bar">
+                <button id="sidebar-toggle" class="sidebar-toggle-btn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="3" y1="12" x2="21" y2="12"></line>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <line x1="3" y1="18" x2="21" y2="18"></line>
+                    </svg>
+                </button>
+                <span class="search-icon">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </span>
+                <input type="text" placeholder="Search">
+            </div>
+            <div class="user-actions">
+                <span>GB</span>
+                <div class="user-avatar">
+                    👤</div>
+            </div>
+        </header>
+
+        <!-- Content -->
+        <div class="content-wrapper">
+
+            <!-- VIEW: RECOMMENDATIONS -->
+            <div id="view-recommendations">
+                <div class="analysis-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                style="color: var(--primary-green);">
+                                <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"></path>
+                                <line x1="16" y1="8" x2="2" y2="22"></line>
+                                <line x1="17.5" y1="15" x2="9" y2="15"></line>
+                            </svg>
+                            AI Packaging Analysis
+                        </div>
+                        <a href="#" class="history-btn">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            History
+                        </a>
+                    </div>
+
+                    <form action="/dashboard" method="POST" class="analysis-form">
+
+                        <div class="form-group">
+                            <label>Product Name</label>
+                            <input type="text" name="product_name" placeholder=""
+                                value="{{ form_data.product_name if form_data else '' }}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Material Category</label>
+                            <select name="material_category">
+                                <option value="Electronics">Electronics</option>
+                                <option value="Food & Beverage">Food & Beverage</option>
+                                <option value="Pharmaceuticals">Pharmaceuticals</option>
+                                <option value="Automotive">Automotive</option>
+                                <option value="Consumer Goods">Consumer Goods</option>
+                            </select>
+                        </div>
+
+                        <!-- <div class="form-group">
+                            <label>Industry</label>
+                            <input type="text" name="industry" placeholder="Electronics"
+                                value="{{ form_data.industry if form_data else '' }}">
+                        </div> -->
+
+                        <div class="form-group">
+                            <label>Product Quality</label>
+                            <select name="product_quality">
+                                <option value="High" {% if form_data and form_data.product_quality=='High' %}selected{%
+                                    endif %}>High</option>
+                                <option value="Medium" {% if form_data and form_data.product_quality=='Medium'
+                                    %}selected{% endif %}>Medium</option>
+                                <option value="Low" {% if form_data and form_data.product_quality=='Low' %}selected{%
+                                    endif %}>Low</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>No. of Units</label>
+                            <input type="number" name="units" placeholder="100"
+                                value="{{ form_data.units if form_data else '' }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Product Quantity</label>
+                            <input type="number" name="quantity" placeholder="1000"
+                                value="{{ form_data.quantity if form_data else '' }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Current Unit Cost ($)</label>
+                            <input type="number" step="0.01" name="current_cost" placeholder="0.50"
+                                value="{{ form_data.current_cost if form_data else '' }}">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Strength (MPa)</label>
+                            <input type="number" name="strength" placeholder="50"
+                                value="{{ form_data.strength if form_data else '' }}">
+                        </div>
+
+                        <!-- Hidden fields for compatibility -->
+                        <input type="hidden" name="dimensions" value="10x10x10">
+                        <input type="hidden" name="weight" value="100">
+                        <input type="hidden" name="material" value="None">
+                        <input type="hidden" name="sustainability" value="5">
+
+                        <div class="submit-container">
+                            <button type="submit" class="btn-primary">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                </svg>
+                                Get Recommendations
+                            </button>
+                        </div>
+                    </form>
+
+                    {% if result %}
+                    <div class="results-section">
+                        <div class="result-card">
+                            <div class="result-header">Recommended Material</div>
+                            <h2 style="font-size: 1.5rem; color: var(--primary-green); margin-bottom: 0.5rem;">{{
+                                result.recommended_material }}</h2>
+
+                            <div
+                                style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;">
+                                <div>
+                                    <div style="font-size: 0.85rem; color: var(--primary-green);">Predicted Cost</div>
+                                    <div style="font-weight: 600;">${{ result.predicted_cost }}</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 0.85rem; color: var(--primary-green);">Sustainability Score
+                                    </div>
+                                    <div style="font-weight: 600;">{{ result.sustainability_score }}/100</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 0.85rem; color: var(--primary-green);">Protection Level</div>
+                                    <div style="font-weight: 600;">{{ result.protection_level }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- VIEW: ANALYTICS (Hidden by default) -->
+            <div id="view-analytics" class="hidden">
+
+                <!-- BI Analysis Section -->
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Cost Analysis</h3>
+                        <canvas id="costChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>CO2 Impact Analysis</h3>
+                        <canvas id="co2Chart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Material Compare Matrix -->
+                <div class="matrix-card">
+                    <h3>Material Comparison Matrix</h3>
+                    <div class="table-container">
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Material</th>
+                                    <th>Cost / Unit ($)</th>
+                                    <th>CO2 Emission (kg)</th>
+                                    <th>Sustainability</th>
+                                    <th>Strength</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Dynamic Rows Loaded via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- VIEW: HISTORY (Hidden by default) -->
+            <div id="view-history" class="hidden">
+                <div class="analysis-card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                style="color: var(--primary-green);">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            Recommendation History
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        {% if history %}
+                        <table class="comparison-table">
+                            <thead>
+                                <tr>
+                                    <th>Product Name</th>
+                                    <th>Category</th>
+                                    <th>Recommended Material</th>
+                                    <th>Current Cost</th>
+                                    <th>Predicted Cost</th>
+                                    <th>Date</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in history %}
+                                <tr>
+                                    <td>{{ row[0] }}</td> <!-- product_name -->
+                                    <td>{{ row[1] }}</td> <!-- material_category -->
+                                    <td><strong>{{ row[2] }}</strong></td>
+                                    <td>${{ row[3] }}</td>
+                                    <td style="font-weight: 600; color: var(--primary-green);">${{ row[4] }}</td>
+                                    <td style="color: var(--text-gray); font-size: 0.85rem;">{{
+                                        row[5] if row[5] else 'N/A' }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% else %}
+                        <div style="text-align: center; padding: 2rem; color: var(--text-gray);">
+                            No history available yet. Make a recommendation to see it here!
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/static/dashboard.js"></script>
+</body>
+
+</html>
