@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EcoPackAI | Material Comparison Matrix</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root { --deep-forest: #0b1f1a; --accent: #00ff88; --body-bg: #f4f7f6; }
+        body { background-color: var(--body-bg); font-family: 'Inter', sans-serif; display: flex; min-height: 100vh; margin: 0; }
+        .sidebar { width: 270px; background: var(--deep-forest); color: white; position: fixed; height: 100vh; z-index: 1000; padding: 25px; }
+        .nav-link { color: #94a3b8; padding: 14px; text-decoration: none; display: block; border-radius: 10px; margin-bottom: 5px; cursor: pointer; }
+        .nav-link.active, .nav-link:hover { color: var(--accent); background: rgba(0,255,136,0.08); }
+        .main-content { margin-left: 270px; flex: 1; padding: 40px; }
+        .section { display: none; }
+        .section.active { display: block; }
+        .glass-card { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 4px 25px rgba(0,0,0,0.05); margin-bottom: 30px; border: 1px solid #e2e8f0; }
+        .btn-analyze { background: var(--deep-forest); color: var(--accent); border: 2px solid var(--accent); padding: 14px; border-radius: 12px; font-weight: 700; width: 100%; transition: 0.3s; }
+        .rec-card { transition: 0.3s; border-top: 5px solid var(--accent); }
+        .form-label { font-size: 0.8rem; font-weight: 700; color: #475569; }
+        .prediction-history-container { max-height: 450px; overflow-y: auto; border: 1px solid #dee2e6; border-radius: 10px; }
+        .prediction-history-container thead { position: sticky; top: 0; z-index: 2; }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <h3 class="fw-bold mb-5" style="color: var(--accent)"><i class="fas fa-leaf"></i> ECOPACKAI</h3>
+        <nav>
+            <a id="nav-insights" class="nav-link active" onclick="showSection('insights')"><i class="fas fa-flask me-2"></i> AI Simulation</a>
+            <a id="nav-analytics" class="nav-link" onclick="showSection('analytics')"><i class="fas fa-table me-2"></i> Comparison Matrix</a>
+            <a id="nav-history" class="nav-link" onclick="showSection('history')"><i class="fas fa-history me-2"></i> History Logs</a>
+        </nav>
+        <div style="position: absolute; bottom: 30px; width: 220px;">
+            <a href="/download_report" class="nav-link text-info mb-2"><i class="fas fa-download me-2"></i> Export Report</a>
+            <a href="/logout" class="nav-link text-danger"><i class="fas fa-sign-out-alt me-2"></i> Logout</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div id="insights" class="section active">
+            <h2 class="fw-bold mb-4">Eco-Material Prediction</h2>
+            <div class="glass-card">
+                <form id="simulationForm">
+                    <div class="row g-3">
+                        <div class="col-md-3"><label class="form-label">Product Name</label><input type="text" name="product_name" class="form-control" required></div>
+                        <div class="col-md-3"><label class="form-label">Material Category</label><input type="text" name="category" class="form-control" required></div>
+                        <div class="col-md-3"><label class="form-label">Tensile Strength (MPa)</label><input type="number" name="strength" class="form-control"></div>
+                        <div class="col-md-3"><label class="form-label">Unit Cost ($)</label><input type="number" step="0.01" name="cost" class="form-control" required></div>
+                        <div class="col-md-4"><label class="form-label">Unit Weight (g)</label><input type="number" name="weight" class="form-control"></div>
+                        <div class="col-md-4"><label class="form-label">Quality Grade</label><select name="quality" class="form-select"><option>Premium</option><option>Standard</option></select></div>
+                        <div class="col-md-4"><label class="form-label">Number of Units</label><input type="number" name="units" class="form-control"></div>
+                        <div class="col-12 mt-3"><button type="submit" class="btn-analyze">GENERATE SUSTAINABILITY MATRIX <i class="fas fa-bolt ms-2"></i></button></div>
+                    </div>
+                </form>
+            </div>
+            
+            <div id="resultsGrid" class="row mt-4"></div>
+            
+            <div id="matrixContainer" class="glass-card mt-4" style="display:none;">
+                <h5 class="fw-bold mb-3"><i class="fas fa-th me-2 text-success"></i> Material Comparison Matrix</h5>
+                <div class="table-responsive">
+                    <table class="table table-hover border">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Recommended Material</th>
+                                <th>Sustainability Score</th>
+                                <th>Carbon Footprint</th>
+                                <th>Optimized Cost</th>
+                                <th>Performance</th>
+                            </tr>
+                        </thead>
+                        <tbody id="matrixTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="analytics" class="section">
+            <h2 class="fw-bold mb-4">Historical Analytics</h2>
+            <div class="row g-4">
+                <div class="col-md-6"><div class="glass-card"><h6>Cost Performance</h6><canvas id="c1"></canvas></div></div>
+                <div class="col-md-6"><div class="glass-card"><h6>Eco Index Trends</h6><canvas id="c2"></canvas></div></div>
+            </div>
+        </div>
+
+        <div id="history" class="section">
+            <h2 class="fw-bold mb-4">Prediction Logs</h2>
+            <div class="glass-card p-0 overflow-hidden">
+                <div class="prediction-history-container">
+                    <table class="table mb-0">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Product</th>
+                                <th>Category</th>
+                                <th>Opt. Cost</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let charts = {};
+
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.getElementById('nav-' + id).classList.add('active');
+            if(id === 'analytics') loadAnalytics();
+            if(id === 'history') loadHistory();
+        }
+
+        // DOMContentLoaded ensure karta hai ki form load hone ke baad hi script chale
+        document.addEventListener("DOMContentLoaded", function() {
+            const simForm = document.getElementById('simulationForm');
+            
+            if (simForm) {
+                simForm.onsubmit = async (e) => {
+                    e.preventDefault();
+                    try {
+                        const res = await fetch('/predict', { method: 'POST', body: new FormData(e.target) });
+                        const data = await res.json();
+
+                        // Edge Case Handling: Backend Error Alert
+                        if (data.status === "error") {
+                            alert("⚠️ Error: " + data.message);
+                            return;
+                        }
+
+                        if(data.status === "success") {
+                            const grid = document.getElementById('resultsGrid');
+                            const matrix = document.getElementById('matrixTableBody');
+                            document.getElementById('matrixContainer').style.display = 'block';
+                            
+                            grid.innerHTML = ""; matrix.innerHTML = "";
+                            data.top_recommendations.forEach(r => {
+                                grid.innerHTML += `
+                                    <div class="col-md-4 mb-4">
+                                        <div class="glass-card rec-card text-center">
+                                            <i class="fas ${r.icon} fa-2x text-success mb-3"></i><br>
+                                            <span class="badge bg-success mb-2">${r.tag}</span>
+                                            <h6 class="fw-bold">${r.name}</h6>
+                                            <h3 class="text-dark fw-bold">$${r.cost}</h3>
+                                            <div class="mt-2 small">Sustainability Score: <b>${r.score}</b></div>
+                                            <div class="progress mt-2" style="height:8px;"><div class="progress-bar bg-success" style="width:${r.score*100}%"></div></div>
+                                        </div>
+                                    </div>`;
+                                matrix.innerHTML += `
+                                    <tr>
+                                        <td><b>${r.name}</b></td>
+                                        <td><span class="badge bg-light text-success border">${r.score * 100}%</span></td>
+                                        <td><i class="fas fa-cloud me-1"></i> ${r.carbon}</td>
+                                        <td class="text-success fw-bold">$${r.cost}</td>
+                                        <td><div class="progress" style="height:5px;"><div class="progress-bar bg-primary" style="width:85%"></div></div></td>
+                                    </tr>`;
+                            });
+                        }
+                    } catch (err) {
+                        console.error("Fetch error:", err);
+                    }
+                };
+            }
+        });
+
+        async function loadAnalytics() {
+            const res = await fetch('/get_analytics_data');
+            const data = await res.json();
+            if(charts.a) charts.a.destroy(); if(charts.b) charts.b.destroy();
+            charts.a = new Chart(document.getElementById('c1'), { type: 'bar', data: { labels: data.labels, datasets: [{ label:'Cost', data: data.costs, backgroundColor: '#0b1f1a'}] }});
+            charts.b = new Chart(document.getElementById('c2'), { type: 'line', data: { labels: data.labels, datasets: [{ label:'Score', data: data.scores, borderColor: '#00ff88'}] }});
+        }
+
+        async function loadHistory() {
+            const res = await fetch('/get_history');
+            const data = await res.json();
+            document.getElementById('historyTable').innerHTML = data.map(h => `<tr><td><b>${h.product}</b></td><td>${h.category}</td><td>$${h.cost}</td><td>${h.date}</td></tr>`).join('');
+        }
+    </script>
+</body>
+</html>
