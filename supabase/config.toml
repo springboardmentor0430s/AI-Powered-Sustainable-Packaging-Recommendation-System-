@@ -1,0 +1,4 @@
+project_id = "wagnsgaunfsooqvybbpn"
+
+[functions.predict]
+verify_jwt = false
