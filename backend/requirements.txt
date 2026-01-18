@@ -9,3 +9,4 @@ pyjwt
 requests
 bcrypt
 python-dotenv
+gunicorn
