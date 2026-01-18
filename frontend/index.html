@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta content="" name="api-base-url"/>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EcoPackAI – Sustainable Packaging Recommendation</title>
+<!-- Bootstrap -->
+<link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-VoPFd+VL/UWOQOonkUJQcLKjK9s5/TtZdF36nqCeDvcTs5Z9mGmA6W5GzjXaIm4D" rel="stylesheet"/>
+<!-- Bootstrap Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+<!-- App styles -->
+<link href="css/styles.css" rel="stylesheet"/>
+</meta></head>
+<body class="d-flex flex-column min-vh-100">
+<!-- Skip link for keyboard navigation -->
+<a class="skip-link" href="#mainContent">Skip to main content</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+<div class="container-fluid">
+<a aria-label="EcoPackAI home" class="navbar-brand fw-bold" href="index.html">
+<i aria-hidden="true" class="bi bi-leaf me-2"></i>EcoPackAI
+      </a>
+<button aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-bs-target="#navbarMain" data-bs-toggle="collapse" type="button">
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarMain">
+<ul class="navbar-nav ms-auto align-items-lg-center gap-lg-1">
+<li class="nav-item">
+<a aria-current="page" class="nav-link active" href="index.html">
+<i aria-hidden="true" class="bi bi-stars me-1"></i>Recommend
+            </a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="dashboard.html">
+<i aria-hidden="true" class="bi bi-graph-up-arrow me-1"></i>Dashboard
+            </a>
+</li>
+<li class="nav-item">
+<a class="nav-link" href="compare.html">
+<i aria-hidden="true" class="bi bi-sliders me-1"></i>Compare
+            </a>
+</li><li class="nav-item"><a class="nav-link" href="forecast.html"><i aria-hidden="true" class="bi bi-bar-chart-line me-1"></i>Forecast</a></li>
+<li class="nav-item">
+<a class="nav-link" href="chat.html">
+<i aria-hidden="true" class="bi bi-chat-dots me-1"></i>Chat
+            </a>
+</li>
+<!-- Injected by JS:
+               - profile chip (email + company)
+               - logout button -->
+</ul>
+</div>
+</div>
+</nav>
+<main class="container my-4 flex-grow-1" id="mainContent">
+<!-- History Section: display past recommendation runs -->
+<section aria-labelledby="historyHeading" class="card shadow-sm mb-4" id="historySection">
+<div class="card-body">
+<h2 class="h5 mb-3" id="historyHeading">
+<i aria-hidden="true" class="bi bi-clock-history me-2"></i>Recommendation History
+        </h2>
+<!-- Category filter: allows users to restrict the history table to runs matching
+             a particular product category.  The options are populated by JavaScript
+             based on the main category select to ensure consistency. -->
+<div class="row mb-3">
+<div class="col-md-4">
+<label class="form-label" for="historyCategoryFilter">Filter by category</label>
+<select aria-label="Filter history by category" class="form-select" id="historyCategoryFilter">
+<option value="">All categories</option>
+</select>
+</div>
+</div>
+<div aria-live="polite" class="table-responsive">
+<table class="table table-striped align-middle mb-0" id="historyTable">
+<caption class="visually-hidden">Previous recommendation runs showing input parameters and top materials</caption>
+<thead class="table-light">
+<tr>
+<th scope="col">Run</th>
+<th scope="col">Date</th>
+<th scope="col">Product</th>
+<th scope="col">Parameters</th>
+<th scope="col">Top material</th>
+<th scope="col">Score</th>
+<th scope="col">Action</th>
+</tr>
+</thead>
+<tbody id="historyTableBody"></tbody>
+</table>
+</div>
+<p class="text-muted small mb-0" id="historyEmptyMessage" style="display:none;">No prior runs yet. Your history will appear here after you make recommendations.</p>
+</div>
+</section>
+<section class="hero-section mb-4">
+<div class="row gy-3 align-items-center">
+<div class="col-lg-8">
+<span class="badge text-bg-success rounded-pill mb-2">
+<i aria-hidden="true" class="bi bi-cpu me-1"></i>AI-powered
+          </span>
+<h1 class="display-6 fw-semibold mb-2">Sustainable Packaging Recommendations</h1>
+<p class="lead mb-0">
+            Enter product constraints to get ranked materials with predicted cost and CO₂ impact.
+          </p>
+</div>
+<div class="col-lg-4">
+<div class="card shadow-sm">
+<div class="card-body">
+<div class="metric-label">Quick tip</div>
+<p class="mb-0">
+                Tight budget? Compare the top-3 materials and check recyclability preference.
+              </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Input Form -->
+<section aria-labelledby="formHeading" class="card shadow-sm mb-4">
+<div class="card-body">
+<h2 class="h5 mb-3" id="formHeading">
+<i aria-hidden="true" class="bi bi-ui-checks-grid me-2"></i>Product requirements
+        </h2>
+<form class="needs-validation" id="productForm" novalidate="">
+<div class="row g-3">
+<div class="col-md-6">
+<label class="form-label" for="productName">Product name</label>
+<!-- Provide a datalist for product suggestions to support smart autofill.  The list attribute
+                   connects this input to the datalist below. -->
+<input class="form-control" id="productName" list="productSuggestions" placeholder="e.g., Snack Box" required="" type="text"/>
+<div class="invalid-feedback">Please enter a product name.</div>
+<!-- Suggestions for common products.  Users can still enter custom names. -->
+<datalist id="productSuggestions">
+<option value="Milk Bottle"></option>
+<option value="Snack Box"></option>
+<option value="Cereal Box"></option>
+<option value="Chocolate Bar"></option>
+<option value="Chips Packet"></option>
+<option value="Sauce Bottle"></option>
+<option value="Fresh Produce Bag"></option>
+</datalist>
+</div>
+<div class="col-md-6">
+<label class="form-label" for="category">Category</label>
+<select class="form-select" id="category" required="">
+<option disabled="" selected="" value="">Select a category</option>
+<option value="Milk &amp; Dairy">Milk &amp; Dairy</option>
+<option value="Grains &amp; Staples">Grains &amp; Staples</option>
+<option value="Pulses &amp; Lentils">Pulses &amp; Lentils</option>
+<option value="Ready-to-Eat">Ready-to-Eat</option>
+<option value="Bakery &amp; Breakfast">Bakery &amp; Breakfast</option>
+<option value="Bakery &amp; Snacks">Bakery &amp; Snacks</option>
+<option value="Confectionery">Confectionery</option>
+<option value="Snacks &amp; Nuts">Snacks &amp; Nuts</option>
+<option value="Oils &amp; Fats">Oils &amp; Fats</option>
+<option value="Condiments &amp; Sauces">Condiments &amp; Sauces</option>
+<option value="Staples &amp; Seasoning">Staples &amp; Seasoning</option>
+<option value="Beverages">Beverages</option>
+<option value="Frozen Food">Frozen Food</option>
+<option value="Chilled &amp; Fresh">Chilled &amp; Fresh</option>
+<option value="Fresh Produce">Fresh Produce</option>
+<option value="Sweets &amp; Desserts">Sweets &amp; Desserts</option>
+<option value="Health &amp; Wellness">Health &amp; Wellness</option>
+</select>
+<div class="invalid-feedback">Please select a category.</div>
+</div>
+<div class="col-md-4">
+<label class="form-label" for="weightKg">Weight (kg)</label>
+<input class="form-control" id="weightKg" min="0.01" required="" step="0.01" type="number"/>
+<div class="invalid-feedback">Enter weight in kg.</div>
+</div>
+<div class="col-md-4">
+<label class="form-label" for="fragility">Fragility (1–10)</label>
+<input class="form-control" id="fragility" max="10" min="1" required="" step="1" type="number"/>
+<div class="invalid-feedback">Enter fragility between 1 and 10.</div>
+</div>
+<div class="col-md-4">
+<label class="form-label" for="maxBudget">Max budget (USD / unit)</label>
+<input class="form-control" id="maxBudget" min="0.01" required="" step="0.01" type="number"/>
+<div class="invalid-feedback">Enter max budget per unit.</div>
+</div>
+<div class="col-md-4">
+<label class="form-label" for="shippingDistance">Shipping distance (km)</label>
+<input class="form-control" id="shippingDistance" min="0" required="" step="1" type="number" value="500"/>
+<div class="invalid-feedback">Enter shipping distance.</div>
+</div>
+<div class="col-md-4">
+<label class="form-label" for="moistureReq">Moisture resistance (0–10)</label>
+<input class="form-control" id="moistureReq" max="10" min="0" required="" step="1" type="number" value="5"/>
+<div class="invalid-feedback">Enter moisture requirement between 0 and 10.</div>
+</div>
+<!-- ✅ NEW: Oxygen Sensitivity -->
+<div class="col-md-4">
+<label class="form-label" for="oxygenSensitivity">Oxygen sensitivity (0–10)</label>
+<input aria-describedby="oxygenHelp" class="form-control" id="oxygenSensitivity" max="10" min="0" required="" step="1" type="number" value="5"/>
+<div class="form-text" id="oxygenHelp">
+                Higher values mean the product needs stronger oxygen barrier packaging.
+              </div>
+<div class="invalid-feedback">Enter oxygen sensitivity between 0 and 10.</div>
+</div>
+</div>
+<hr class="my-4"/>
+<div class="row g-3">
+<div class="col-md-6">
+<fieldset>
+<legend class="h6 mb-2">
+<i aria-hidden="true" class="bi bi-recycle me-1"></i>Preference: Biodegradable
+                </legend>
+<div class="form-check form-check-inline">
+<input class="form-check-input" id="bioYes" name="preferredBiodegradable" required="" type="radio" value="1"/>
+<label class="form-check-label" for="bioYes">Yes</label>
+</div>
+<div class="form-check form-check-inline">
+<input checked="" class="form-check-input" id="bioNo" name="preferredBiodegradable" required="" type="radio" value="0"/>
+<label class="form-check-label" for="bioNo">No</label>
+</div>
+</fieldset>
+</div>
+<div class="col-md-6">
+<fieldset>
+<legend class="h6 mb-2">
+<i aria-hidden="true" class="bi bi-arrow-repeat me-1"></i>Preference: Recyclable
+                </legend>
+<div class="form-check form-check-inline">
+<input class="form-check-input" id="recYes" name="preferredRecyclable" required="" type="radio" value="1"/>
+<label class="form-check-label" for="recYes">Yes</label>
+</div>
+<div class="form-check form-check-inline">
+<input checked="" class="form-check-input" id="recNo" name="preferredRecyclable" required="" type="radio" value="0"/>
+<label class="form-check-label" for="recNo">No</label>
+</div>
+</fieldset>
+</div>
+</div>
+<div class="d-flex flex-wrap gap-2 align-items-center mt-4">
+<button class="btn btn-primary px-4" type="submit">
+<i aria-hidden="true" class="bi bi-magic me-2"></i>Get recommendations
+            </button>
+<p aria-live="polite" class="text-muted mb-0" id="loadingIndicator" role="status" style="display:none;">
+              Loading recommendations…
+            </p>
+</div>
+</form>
+</div>
+</section>
+<!-- Results -->
+<section aria-labelledby="resultsHeading" id="resultsSection" style="display:none;">
+<div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-3">
+<h2 class="h5 mb-0" id="resultsHeading">
+<i aria-hidden="true" class="bi bi-list-check me-2"></i>Results
+        </h2>
+<span class="badge text-bg-secondary" id="resultsCountBadge">0 materials evaluated</span>
+</div>
+<!-- Summary metric cards -->
+<div aria-label="Recommendation summary" class="row g-3 mb-4 summary-cards">
+<div class="col-md-3">
+<div class="card h-100 shadow-sm">
+<div class="card-body">
+<div class="text-muted small">Top score</div>
+<div class="h5 mb-0" id="metricTopScore">—</div>
+</div>
+</div>
+</div>
+<div class="col-md-3">
+<div class="card h-100 shadow-sm">
+<div class="card-body">
+<div class="text-muted small">Top material</div>
+<div class="h5 mb-0" id="metricTopMaterial">—</div>
+</div>
+</div>
+</div>
+<div class="col-md-3">
+<div class="card h-100 shadow-sm">
+<div class="card-body">
+<div class="text-muted small">Lowest cost</div>
+<div class="h5 mb-0" id="metricCost">—</div>
+</div>
+</div>
+</div>
+<div class="col-md-3">
+<div class="card h-100 shadow-sm">
+<div class="card-body">
+<div class="text-muted small">Lowest CO₂</div>
+<div class="h5 mb-0" id="metricCO2">—</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Cards -->
+<div aria-label="Top recommendations" class="row g-3 mb-4" id="recommendationCards"></div>
+<!-- Ranking table -->
+<div class="card shadow-sm">
+<div class="card-body">
+<h3 class="h6 mb-3">
+<i aria-hidden="true" class="bi bi-table me-2"></i>Ranked materials
+          </h3>
+<div class="table-responsive">
+<table class="table table-striped align-middle mb-0">
+<thead>
+<tr>
+<th scope="col">Rank</th>
+<th scope="col">Material</th>
+<th scope="col">Cost (USD/unit)</th>
+<th scope="col">CO₂ (kg/unit)</th>
+<th scope="col">Score</th>
+<th scope="col">Reason</th>
+</tr>
+</thead>
+<tbody id="rankingTableBody"></tbody>
+</table>
+</div>
+</div>
+</div>
+<!-- What-if Scenario Simulator -->
+<section aria-labelledby="whatIfHeading" class="mt-4" id="whatIfSection" style="display:none;">
+<h3 class="h6 mb-3" id="whatIfHeading">
+<i aria-hidden="true" class="bi bi-sliders me-2"></i>What-if Scenario Simulator
+        </h3>
+<div class="row g-3">
+<div class="col-md-6">
+<label class="form-label" for="budgetMultiplier">Budget adjustment (%)</label>
+<input class="form-range" id="budgetMultiplier" max="100" min="-50" step="10" type="range" value="0"/>
+<div class="small text-muted" id="budgetMultiplierValue">0%</div>
+<div class="form-text">Increase or decrease the max budget by this percentage.</div>
+</div>
+<div class="col-md-6">
+<label class="form-label" for="shippingMultiplier">Shipping distance adjustment (%)</label>
+<input class="form-range" id="shippingMultiplier" max="50" min="-50" step="10" type="range" value="0"/>
+<div class="small text-muted" id="shippingMultiplierValue">0%</div>
+<div class="form-text">Increase or decrease the shipping distance by this percentage.</div>
+</div>
+</div>
+<button class="btn btn-secondary mt-3" id="applyWhatIf">Apply Changes</button>
+<p class="small mt-2 text-muted" id="whatIfStatus"></p>
+</section>
+<!-- Feedback Section -->
+<section aria-labelledby="feedbackHeading" class="mt-4" id="feedbackSection" style="display:none;">
+<h3 class="h6 mb-2" id="feedbackHeading">
+<i aria-hidden="true" class="bi bi-hand-thumbs-up me-2"></i>Rate this recommendation
+        </h3>
+<div aria-label="Rating" class="mb-2" id="ratingStars" role="radiogroup">
+<div class="form-check form-check-inline">
+<input class="form-check-input" id="rating1" name="rating" type="radio" value="1"/>
+<label class="form-check-label" for="rating1">1</label>
+</div>
+<div class="form-check form-check-inline">
+<input class="form-check-input" id="rating2" name="rating" type="radio" value="2"/>
+<label class="form-check-label" for="rating2">2</label>
+</div>
+<div class="form-check form-check-inline">
+<input class="form-check-input" id="rating3" name="rating" type="radio" value="3"/>
+<label class="form-check-label" for="rating3">3</label>
+</div>
+<div class="form-check form-check-inline">
+<input class="form-check-input" id="rating4" name="rating" type="radio" value="4"/>
+<label class="form-check-label" for="rating4">4</label>
+</div>
+<div class="form-check form-check-inline">
+<input checked="" class="form-check-input" id="rating5" name="rating" type="radio" value="5"/>
+<label class="form-check-label" for="rating5">5</label>
+</div>
+</div>
+<button class="btn btn-secondary" id="submitFeedback">Submit Feedback</button>
+<p class="small mt-2 text-muted" id="feedbackStatus"></p>
+</section>
+</section>
+</main>
+<footer class="border-top py-3 mt-auto">
+<div class="container">
+<p class="text-muted mb-0 small">EcoPackAI © 2025</p>
+</div>
+</footer>
+<script crossorigin="anonymous" integrity="sha384-/pUQGJN88AV72E98q6Ta8e+YoUT7LFCJ4I5MHvZo3PiF1iZ7SYJ3Du1Rp1fbbi3K" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/recommend.js" type="module"></script>
+</body>
+</html>

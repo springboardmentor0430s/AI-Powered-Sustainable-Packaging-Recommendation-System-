@@ -1,0 +1,25 @@
+__pycache__/
+*.py[cod]
+*.pyd
+
+venv/
+.venv/
+
+.env
+.env.*
+
+.git/
+.gitignore
+
+.DS_Store
+Thumbs.db
+
+.pytest_cache/
+.cache/
+.mypy_cache/
+
+*.log
+
+# Data/artifacts
+*.zip
+*.tar

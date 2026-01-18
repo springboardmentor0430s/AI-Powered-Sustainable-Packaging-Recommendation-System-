@@ -1,0 +1,51 @@
+MaterialID,MaterialName,MaterialType,StrengthRating,WeightCapacity_KG,BiodegradabilityScore,BiodegradationTime_Months,CO2_Emissions_KG_Per_Ton,RecyclabilityPercentage,CostPerKG_USD,Durability_Months,ChemicalResistance,MoistureBarrier,OxygenBarrier,CompostableStatus,SupplierAvailability,CompatibleProducts,ScaleRating,InnovationLevel,RegulationCompliance
+1.0,Recycled Cardboard (rCardboard),Paper/Cardboard,8.0,50.0,90.0,3.0,700.0,85.0,0.45,24.0,7.0,8.0,7.0,Industrial,High,"General, Electronics, Food, Cosmetics",10.0,3.0,"EU, FDA"
+2.0,Biodegradable PLA (Polylactic Acid),Bioplastic,6.0,15.0,98.0,6.0,1850.0,15.0,1.2,12.0,5.0,6.0,7.0,Home/Industrial,Medium,"Food, Beverages, Cosmetics",7.0,8.0,"EU, FDA, BPI"
+3.0,PHA (Polyhydroxyalkanoates),Bioplastic,7.0,20.0,99.0,4.0,950.0,25.0,1.8,18.0,6.0,7.0,8.0,Industrial,Low,"Food, Beverages, Medical",4.0,9.0,"EU, FDA, BPI"
+4.0,Recycled PET (rPET),Plastic,8.0,25.0,20.0,1000.0,824.0,70.0,0.95,36.0,8.0,9.0,8.0,No,High,"Beverages, Food, General",9.0,4.0,"EU, FDA"
+5.0,Bamboo Fiber Composite,Plant-Based Composite,8.0,35.0,95.0,6.0,2100.0,45.0,2.1,20.0,7.0,6.0,5.0,Industrial,Low,"Food, Cosmetics, Dry Goods",5.0,7.0,EU
+6.0,Mushroom Leather,Mycelium-Based,5.0,8.0,99.0,3.0,3500.0,5.0,3.5,8.0,4.0,3.0,2.0,Home/Industrial,Very Low,"Cosmetics, Electronics, Luxury",2.0,10.0,Emerging
+7.0,Seaweed-Based Plastic,Seaweed-Based,5.0,12.0,98.0,4.0,2800.0,10.0,2.8,10.0,4.0,4.0,3.0,Home/Industrial,Very Low,"Food, Cosmetics, Beverages",3.0,9.0,Emerging
+8.0,Palm Leaf Disposable,Plant-Based,4.0,5.0,98.0,3.0,1200.0,8.0,1.9,6.0,3.0,2.0,2.0,Home/Industrial,Medium,"Food, Catering, Events",6.0,6.0,"EU, FDA"
+9.0,Starch-Based Peanuts (Loose-fill),Starch-Based,2.0,0.5,99.0,0.25,450.0,0.0,0.35,2.0,1.0,1.0,1.0,Home,Medium,"Electronics, Fragile Items",8.0,7.0,"EU, FDA"
+10.0,Nano-Cellulose Film,Nano-Material,9.0,18.0,95.0,8.0,2950.0,20.0,3.2,14.0,8.0,7.0,8.0,Industrial,Very Low,"Food, Pharmaceuticals, High-value",2.0,10.0,"EU, Research"
+11.0,Plant Protein Film,Protein-Based,6.0,10.0,98.0,2.0,3200.0,12.0,2.95,6.0,3.0,2.0,2.0,Home,Very Low,"Food, Cosmetics, Pharmaceuticals",1.0,10.0,"EU, Research"
+12.0,Algae-Based Plastic,Algae-Based,5.0,12.0,97.0,5.0,2400.0,15.0,2.4,9.0,4.0,3.0,3.0,Industrial,Low,"Food, Beverages, General",3.0,8.0,Emerging
+13.0,FSC-Certified Paperboard,Paper/Cardboard,8.0,45.0,85.0,4.0,670.0,88.0,0.65,20.0,7.0,7.0,6.0,Home/Industrial,High,"General, Electronics, Food",9.0,4.0,"EU, FDA"
+14.0,Hemp Fiber Composite,Plant-Fiber,9.0,40.0,92.0,5.0,1900.0,35.0,1.75,22.0,8.0,5.0,4.0,Industrial,Low,"General, Food, High-strength",4.0,7.0,EU
+15.0,Corrugated Cardboard (Virgin),Paper/Cardboard,9.0,55.0,75.0,12.0,531.0,88.0,0.35,36.0,8.0,8.0,7.0,Industrial,High,"General, Heavy, Industrial",10.0,2.0,"EU, FDA"
+16.0,Recycled Paper Pulp,Paper/Cardboard,6.0,30.0,88.0,5.0,730.0,82.0,0.5,18.0,6.0,6.0,5.0,Industrial,High,"General, Food, Printed Materials",8.0,3.0,"EU, FDA"
+17.0,Sugarcane Bagasse (Bagasse),Plant-Based,5.0,10.0,96.0,4.0,1100.0,20.0,0.85,8.0,4.0,3.0,2.0,Home/Industrial,Medium,"Food, Catering, Disposables",6.0,5.0,"EU, FDA"
+18.0,Cotton/Jute Natural Fiber,Natural Fiber,7.0,8.0,99.0,6.0,2200.0,30.0,1.45,10.0,5.0,4.0,3.0,Home,Medium,"Clothing, Reusable, Fashion",5.0,5.0,EU
+19.0,Recycled Glass,Glass,10.0,100.0,5.0,1000.0,200.0,95.0,1.2,60.0,10.0,9.0,10.0,No,Medium,"Beverages, Spirits, Specialty",7.0,2.0,"EU, FDA"
+20.0,Recycled Aluminum Foil,Metal,10.0,80.0,15.0,1000.0,150.0,98.0,4.5,72.0,10.0,10.0,10.0,No,High,"Specialty, High-value, Long-term",8.0,2.0,"EU, FDA"
+21.0,Cork-based Composite,Natural Cork,6.0,12.0,90.0,12.0,2600.0,60.0,2.3,18.0,6.0,7.0,6.0,Industrial,Low,"Wine, Specialty, Decorative",4.0,6.0,EU
+22.0,Mycelium (Mushroom) Packaging,Mycelium-Based,4.0,6.0,99.0,1.0,4100.0,5.0,4.8,4.0,2.0,2.0,1.0,Home/Industrial,Very Low,"Electronics, Luxury, Cosmetics",1.0,10.0,Emerging
+23.0,Bio-polyester (Recycled),Bioplastic,7.0,22.0,60.0,18.0,1400.0,55.0,1.1,24.0,6.0,7.0,7.0,Industrial,Low,"Food, Beverages, Fashion",5.0,6.0,"EU, FDA"
+24.0,Rice Husk Fiber,Agricultural Waste,6.0,14.0,97.0,4.0,950.0,25.0,0.78,12.0,5.0,4.0,3.0,Home/Industrial,Medium,"Food, Catering, Agriculture",6.0,8.0,EU
+25.0,Cocoa Pod Husk Composite,Agricultural Waste,6.0,12.0,96.0,5.0,1050.0,15.0,0.92,10.0,5.0,3.0,2.0,Home/Industrial,Low,"Food, Beverages, Specialty",5.0,8.0,EU
+26.0,Recycled HDPE (rHDPE),Plastic,8.0,30.0,15.0,1200.0,900.0,75.0,1.1,48.0,8.0,8.0,8.0,No,High,"Household, Personal Care, Industrial",9.0,3.0,"EU, FDA"
+27.0,Recycled PP (rPP),Plastic,8.0,28.0,20.0,900.0,950.0,65.0,1.0,42.0,8.0,8.0,7.0,No,High,"Food (non-fatty), Personal Care, Caps",8.0,3.0,"EU, FDA"
+28.0,Compostable Paper Laminated with PLA,Paper/Cardboard Composite,7.0,20.0,95.0,6.0,2100.0,60.0,2.0,18.0,6.0,7.0,6.0,Industrial,Medium,"Dry Food, Bakery, Frozen",7.0,6.0,"EU, FDA, BPI"
+29.0,Cellulose Acetate Film (Bio-based),Bioplastic,6.0,10.0,85.0,12.0,2600.0,35.0,3.0,16.0,6.0,5.0,6.0,Industrial,Medium,"Snacks, Labels, Overwraps",6.0,6.0,"EU, FDA"
+30.0,Chitosan-Coated Paper,Bio-Coated Paper,6.0,15.0,98.0,4.0,2300.0,50.0,2.4,12.0,4.0,7.0,7.0,Industrial,Low,"Fresh Produce, Meat, Antimicrobial",4.0,8.0,"EU, Emerging"
+31.0,Cassava Starch Bioplastic,Starch-Based,5.0,8.0,99.0,3.0,2000.0,10.0,1.7,10.0,3.0,4.0,3.0,Home/Industrial,Low,"Food Trays, Films, Disposables",4.0,8.0,"EU, BPI"
+32.0,Banana Fiber Composite,Agricultural Waste,7.0,18.0,96.0,5.0,1500.0,30.0,1.6,20.0,5.0,5.0,4.0,Industrial,Low,"Produce Trays, Protective, Dry Goods",5.0,7.0,EU
+33.0,Wheat Straw Pulp Board,Agricultural Waste,7.0,35.0,92.0,6.0,1000.0,80.0,0.7,24.0,6.0,5.0,4.0,Industrial,Medium,"General, Foodservice, Cartons",8.0,4.0,"EU, FDA"
+34.0,Corn Husk Fiber Panel,Agricultural Waste,7.0,22.0,95.0,6.0,1200.0,40.0,1.5,20.0,6.0,4.0,4.0,Industrial,Low,"Electronics Cushioning, Inserts",5.0,7.0,EU
+35.0,Bio-PET (Partially Bio-based PET),Bioplastic,8.0,25.0,40.0,60.0,1900.0,35.0,1.4,48.0,8.0,8.0,8.0,No,Medium,"Beverages, Food, Personal Care",7.0,4.0,"EU, FDA"
+36.0,PVOH Water-Soluble Film,Water-Soluble Polymer,4.0,5.0,90.0,1.0,2800.0,20.0,4.0,6.0,4.0,3.0,4.0,Home/Industrial,Low,"Detergent Pods, Unit Dose",3.0,8.0,"EU, FDA"
+37.0,Paper with Bio-based Barrier Coating,Coated Paper,8.0,25.0,80.0,18.0,1300.0,70.0,1.8,20.0,7.0,8.0,7.0,Industrial,High,"Liquids, Dairy, Juices",8.0,5.0,"EU, FDA"
+38.0,Glassine Paper,Paper,6.0,15.0,85.0,6.0,900.0,85.0,1.2,18.0,5.0,6.0,5.0,Industrial,Medium,"Bakery Wraps, Confectionery",7.0,4.0,"EU, FDA"
+39.0,High-Barrier Aluminum-Laminated Paper,Paper/Metal Laminate,9.0,40.0,30.0,120.0,2500.0,30.0,3.5,36.0,9.0,9.0,9.0,No,Medium,"Coffee, Snacks, Pharma Blisters",7.0,4.0,"EU, FDA"
+40.0,Refillable Glass (Thickwall),Glass,10.0,120.0,5.0,1200.0,950.0,98.0,1.5,120.0,10.0,10.0,10.0,No,Medium,"Beverages, Cosmetics, Premium",6.0,3.0,"EU, FDA"
+41.0,Lightweight Returnable PET (rPET Blend),Plastic,8.0,30.0,25.0,96.0,820.0,70.0,1.0,60.0,8.0,8.0,8.0,No,Medium,"Beverages, RTD, Dairy",7.0,4.0,"EU, FDA"
+42.0,Paper Honeycomb Cushioning,Paper Structure,6.0,40.0,88.0,6.0,700.0,90.0,0.9,24.0,5.0,4.0,3.0,Industrial,Medium,"Electronics, Furniture, Appliances",9.0,4.0,EU
+43.0,Molded Pulp (High-Precision),Paper Pulp,6.0,25.0,92.0,4.0,750.0,85.0,0.8,18.0,5.0,4.0,3.0,Industrial,High,"Electronics, Food Trays, Eggs",9.0,4.0,"EU, FDA"
+44.0,Flexible Bio-based Multilayer Film,Bioplastic Composite,7.0,12.0,80.0,24.0,2300.0,40.0,4.2,24.0,7.0,8.0,8.0,Industrial,Low,"MAP Food, Snacks, Pet Food",5.0,7.0,"EU, FDA"
+45.0,Coated Kraft Paper (Barrier Sack),Paper,8.0,60.0,75.0,24.0,800.0,70.0,1.1,30.0,7.0,6.0,5.0,Industrial,High,"Bulk Ingredients, Flour, Cement",9.0,3.0,EU
+46.0,Recycled Steel Can,Metal,10.0,90.0,10.0,1200.0,1900.0,95.0,1.3,96.0,10.0,9.0,9.0,No,High,"Canned Food, Beverages, Aerosols",8.0,2.0,"EU, FDA"
+47.0,Sugar Beet Pulp Composite,Agricultural Waste,6.0,14.0,96.0,5.0,1150.0,25.0,1.3,16.0,4.0,4.0,3.0,Industrial,Low,"Trays, Inserts, Disposables",4.0,7.0,EU
+48.0,Upcycled Textile Fiber Board,Recycled Fiber Composite,7.0,30.0,70.0,36.0,1600.0,40.0,1.9,36.0,6.0,5.0,4.0,No,Low,"Fashion Packaging, Shoe Boxes",5.0,6.0,EU
+49.0,Active Antimicrobial Bioplastic (Silver/Plant Extract),Bioplastic,6.0,10.0,85.0,12.0,2600.0,20.0,5.5,18.0,7.0,7.0,8.0,Industrial,Very Low,"Meat, Ready Meals, High-Risk Food",3.0,9.0,"EU, Research"
+50.0,Intelligent Sensor-Integrated Film (Time–Temperature),Smart Packaging Film,5.0,8.0,70.0,24.0,3000.0,15.0,6.0,12.0,6.0,6.0,7.0,Industrial,Very Low,"Fresh Food, Pharma, Cold Chain",2.0,10.0,"EU, Research"

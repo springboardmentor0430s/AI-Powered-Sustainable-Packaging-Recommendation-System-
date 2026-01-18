@@ -1,0 +1,74 @@
+databases:
+  - name: ecopackai-db
+    plan: free
+    databaseName: ecopackai
+    user: ecopackai
+
+services:
+  - type: web
+    name: ecopackai-backend
+    env: python
+    plan: free
+
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+
+      # DB (recommended)
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ecopackai-db
+          property: connectionString
+
+      # DB (compat, if your code expects DB_* vars)
+      - key: DB_HOST
+        fromDatabase:
+          name: ecopackai-db
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: ecopackai-db
+          property: port
+      - key: DB_USER
+        fromDatabase:
+          name: ecopackai-db
+          property: user
+      - key: DB_PASS
+        fromDatabase:
+          name: ecopackai-db
+          property: password
+      - key: DB_NAME
+        fromDatabase:
+          name: ecopackai-db
+          property: databaseName
+
+      # Auth / app config
+      - key: JWT_SECRET
+        generateValue: true
+
+      # OpenAI (set secret in Render dashboard)
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4o-mini
+
+      # SMTP (set secrets in Render dashboard)
+      - key: SMTP_HOST
+        value: smtp.gmail.com
+      - key: SMTP_PORT
+        value: "587"
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: SMTP_FROM
+        sync: false
+      - key: SMTP_USE_TLS
+        value: "true"
+
+    buildCommand: pip install --no-cache-dir -r requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+
+  - type: static_site
+    name: ecopackai-frontend
+    staticPublishPath: frontend

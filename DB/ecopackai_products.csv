@@ -1,0 +1,801 @@
+ProductID,ProductName,ProductCategory,Weight_KG,RequiredStrength_Level,FragilityLevel,MoistureRequired,OxygenSensitivity,ShippingDistance_KM,ShelfLife_Months,PreferredBiodegradable,PreferredRecyclable,MaxBudgetPerUnit_USD
+1,UHT Milk 1L,Milk & Dairy,1.0,6,2,9,7,800,6.0,1,0,0.3
+2,Fresh Toned Milk 500ml,Milk & Dairy,0.5,6,2,9,7,200,0.5,1,0,0.18
+3,Plain Yogurt Cup 150g,Milk & Dairy,0.15,4,3,8,6,300,1.0,1,0,0.15
+4,Flavoured Yogurt Cup 100g,Milk & Dairy,0.1,4,3,8,6,300,1.0,1,0,0.18
+5,Greek Yogurt Cup 100g,Milk & Dairy,0.1,4,3,8,6,300,1.5,1,0,0.22
+6,Cheddar Cheese Block 200g,Milk & Dairy,0.2,5,3,7,7,1200,6.0,1,1,0.35
+7,Cheese Slices 200g,Milk & Dairy,0.2,5,3,7,7,1200,6.0,1,1,0.38
+8,Butter Brick 100g,Milk & Dairy,0.1,4,2,8,7,800,6.0,1,1,0.2
+9,Ghee Jar 500g,Milk & Dairy,0.5,5,3,7,6,1500,12.0,1,1,0.6
+10,Flavoured Milk 200ml,Milk & Dairy,0.2,4,2,8,7,600,3.0,1,0,0.25
+11,Whole Wheat Flour 5kg,Grains & Staples,5.0,7,1,3,3,600,12.0,1,1,0.4
+12,Refined Wheat Flour 1kg,Grains & Staples,1.0,6,1,3,3,800,12.0,1,1,0.25
+13,Basmati Rice 1kg,Grains & Staples,1.0,6,1,2,2,1200,18.0,1,1,0.28
+14,Idli Rice 2kg,Grains & Staples,2.0,6,1,2,2,1000,12.0,1,1,0.45
+15,Poha 500g,Grains & Staples,0.5,4,1,3,3,700,9.0,1,1,0.2
+16,Suji 500g,Grains & Staples,0.5,4,1,3,3,700,9.0,1,1,0.22
+17,Quick Oats 1kg,Grains & Staples,1.0,4,1,3,3,900,12.0,1,1,0.35
+18,Chana Dal 1kg,Pulses & Lentils,1.0,5,1,3,3,900,12.0,1,1,0.3
+19,Toor Dal 1kg,Pulses & Lentils,1.0,5,1,3,3,900,12.0,1,1,0.32
+20,Moong Dal 1kg,Pulses & Lentils,1.0,5,1,3,3,900,12.0,1,1,0.34
+21,Instant Noodles Pack 70g,Ready-to-Eat,0.07,3,2,5,4,1500,6.0,1,1,0.15
+22,Instant Noodles Family Pack 280g,Ready-to-Eat,0.28,4,2,5,4,1500,6.0,1,1,0.4
+23,Instant Pasta Cup 80g,Ready-to-Eat,0.08,4,2,5,4,1500,6.0,1,1,0.25
+24,Ready-to-Eat Dal Pouch 300g,Ready-to-Eat,0.3,4,2,7,6,1200,6.0,1,1,0.4
+25,Ready-to-Eat Rajma Pouch 300g,Ready-to-Eat,0.3,4,2,7,6,1200,6.0,1,1,0.42
+26,Microwave Rice Pouch 250g,Ready-to-Eat,0.25,4,2,6,5,1200,6.0,1,1,0.38
+27,Breakfast Cereal Box 375g,Bakery & Breakfast,0.38,4,1,3,3,2000,9.0,1,1,0.4
+28,Cornflakes 500g,Bakery & Breakfast,0.5,4,1,3,3,2000,9.0,1,1,0.45
+29,Granola Clusters 300g,Bakery & Breakfast,0.3,4,1,3,3,2000,9.0,1,1,0.5
+30,Multigrain Bread Loaf 400g,Bakery & Breakfast,0.4,4,4,6,6,50,0.25,1,1,0.25
+31,White Bread Loaf 400g,Bakery & Breakfast,0.4,4,4,6,6,50,0.2,1,1,0.22
+32,Rusk 300g,Bakery & Snacks,0.3,4,2,3,3,600,9.0,1,1,0.28
+33,Plain Biscuits 250g,Bakery & Snacks,0.25,3,2,3,3,500,9.0,1,1,0.2
+34,Whole Grain Biscuits 200g,Bakery & Snacks,0.2,3,2,3,3,500,9.0,1,1,0.25
+35,Chocolate Chip Cookies 200g,Bakery & Snacks,0.2,3,2,4,3,800,9.0,1,1,0.3
+36,Masala Potato Chips 100g,Bakery & Snacks,0.1,3,2,4,3,600,6.0,1,1,0.22
+37,Namkeen Mixture 200g,Bakery & Snacks,0.2,3,2,4,3,700,9.0,1,1,0.3
+38,Popcorn Kernels 500g,Bakery & Snacks,0.5,3,1,3,3,900,12.0,1,1,0.26
+39,Ready Popcorn 100g,Bakery & Snacks,0.1,3,2,3,3,900,6.0,1,1,0.28
+40,Protein Bar 50g,Bakery & Snacks,0.05,3,2,3,3,2000,9.0,1,1,0.35
+41,Dark Chocolate Bar 100g,Confectionery,0.1,3,2,3,4,2500,12.0,1,1,0.4
+42,Filled Chocolate Bar 45g,Confectionery,0.05,3,2,3,4,2500,12.0,1,1,0.3
+43,Assorted Candies Pouch 250g,Confectionery,0.25,3,2,3,3,1800,12.0,1,1,0.3
+44,Lollipops Pouch 200g,Confectionery,0.2,3,2,3,3,1800,12.0,1,1,0.28
+45,Roasted Peanuts 200g,Snacks & Nuts,0.2,4,1,3,4,1200,9.0,1,1,0.25
+46,Masala Cashews 200g,Snacks & Nuts,0.2,4,2,3,4,1500,9.0,1,1,0.6
+47,Mixed Dry Fruits 250g,Snacks & Nuts,0.25,4,2,3,4,2000,12.0,1,1,0.6
+48,Trail Mix 250g,Snacks & Nuts,0.25,4,2,3,4,2000,12.0,1,1,0.55
+49,Filtered Groundnut Oil 1L,Oils & Fats,0.9,5,2,6,6,1500,12.0,1,1,0.45
+50,Sunflower Oil 1L,Oils & Fats,0.9,5,2,6,6,1500,12.0,1,1,0.42
+51,Rice Bran Oil 1L,Oils & Fats,0.9,5,2,6,6,1500,12.0,1,1,0.48
+52,Olive Oil 500ml,Oils & Fats,0.45,5,2,6,6,2500,12.0,1,1,0.8
+53,Tomato Ketchup 500g,Condiments & Sauces,0.5,4,2,5,6,1200,12.0,1,1,0.4
+54,Hot & Sweet Chili Sauce 250g,Condiments & Sauces,0.25,4,2,5,6,1200,12.0,1,1,0.3
+55,Mango Pickle Jar 500g,Condiments & Sauces,0.5,5,3,4,6,800,12.0,1,1,0.35
+56,Green Chili Pickle Jar 300g,Condiments & Sauces,0.3,5,3,4,6,800,12.0,1,1,0.32
+57,Plain Salt 1kg,Staples & Seasoning,1.0,4,1,2,2,800,24.0,1,1,0.18
+58,Iodized Salt 1kg,Staples & Seasoning,1.0,4,1,2,2,800,24.0,1,1,0.2
+59,Refined Sugar 1kg,Staples & Seasoning,1.0,4,1,2,2,900,24.0,1,1,0.25
+60,Brown Sugar 1kg,Staples & Seasoning,1.0,4,1,2,2,900,18.0,1,1,0.32
+61,Orange Juice 1L,Beverages,1.0,5,3,8,7,1500,6.0,1,1,0.5
+62,Apple Juice 1L,Beverages,1.0,5,3,8,7,1500,6.0,1,1,0.5
+63,Mixed Fruit Juice 1L,Beverages,1.0,5,3,8,7,1500,6.0,1,1,0.55
+64,Tetra-pack Mango Drink 200ml,Beverages,0.2,4,3,8,7,1500,6.0,1,1,0.25
+65,Sparkling Water 500ml,Beverages,0.5,4,3,4,4,2000,6.0,1,1,0.3
+66,Energy Drink Can 250ml,Beverages,0.25,4,3,4,4,2000,6.0,1,1,0.55
+67,Ready-to-Drink Coffee 250ml,Beverages,0.25,4,3,4,4,2000,6.0,1,1,0.4
+68,Green Tea Bags 50ct,Beverages,0.1,2,1,1,1,2500,18.0,1,1,0.25
+69,Instant Coffee 100g,Beverages,0.1,3,1,2,3,2500,18.0,1,1,0.35
+70,Chocolate Drink Powder 500g,Beverages,0.5,3,1,2,3,2500,18.0,1,1,0.6
+71,Frozen Green Peas 500g,Frozen Food,0.5,4,3,8,6,1000,9.0,1,1,0.4
+72,Frozen Mixed Vegetables 500g,Frozen Food,0.5,4,3,8,6,1000,9.0,1,1,0.4
+73,Frozen French Fries 1kg,Frozen Food,1.0,5,3,8,6,1000,9.0,1,1,0.55
+74,Frozen Samosas 500g,Frozen Food,0.5,5,3,8,6,1000,6.0,1,1,0.6
+75,Ice Cream Tub 500ml,Frozen Food,0.45,4,3,8,7,800,6.0,1,1,0.7
+76,Ice Cream Sticks Multipack,Frozen Food,0.4,4,3,8,7,800,6.0,1,1,0.72
+77,Paneer Cubes 200g,Chilled & Fresh,0.2,4,3,8,7,500,1.0,1,1,0.35
+78,Fresh Curd 500g,Chilled & Fresh,0.5,4,3,8,7,300,0.5,1,1,0.3
+79,Fresh Spinach Bunch 250g,Fresh Produce,0.25,3,4,8,8,50,0.25,1,0,0.15
+80,Fresh Tomatoes 1kg,Fresh Produce,1.0,4,4,8,8,50,0.25,1,0,0.2
+81,Fresh Onions 1kg,Fresh Produce,1.0,4,3,6,6,200,1.0,1,0,0.18
+82,Fresh Potatoes 1kg,Fresh Produce,1.0,4,3,6,6,200,2.0,1,0,0.18
+83,Fresh Apples 1kg,Fresh Produce,1.0,4,3,6,6,200,1.0,1,0,0.35
+84,Fresh Bananas 1kg,Fresh Produce,1.0,3,3,6,6,200,0.5,1,0,0.25
+85,Fresh Grapes 500g,Fresh Produce,0.5,3,4,8,8,300,0.5,1,0,0.3
+86,Packaged Salad Mix 250g,Fresh Produce,0.25,3,4,8,8,300,0.5,1,1,0.4
+87,Ready Idli Batter 1kg,Chilled & Fresh,1.0,4,3,8,7,300,0.5,1,1,0.45
+88,Ready Dosa Batter 1kg,Chilled & Fresh,1.0,4,3,8,7,300,0.5,1,1,0.45
+89,Packaged Rasgulla Tin 1kg,Sweets & Desserts,1.0,4,3,6,6,800,12.0,1,1,0.6
+90,Packaged Gulab Jamun Tin 1kg,Sweets & Desserts,1.0,4,3,6,6,800,12.0,1,1,0.6
+91,Soan Papdi Box 500g,Sweets & Desserts,0.5,4,2,3,3,800,9.0,1,1,0.45
+92,Mysore Pak Box 400g,Sweets & Desserts,0.4,4,2,3,3,800,9.0,1,1,0.48
+93,Protein Cookie 60g,Health & Wellness,0.06,3,2,3,3,1800,9.0,1,1,0.5
+94,High Fiber Biscuit 200g,Health & Wellness,0.2,3,2,3,3,1800,9.0,1,1,0.45
+95,Multigrain Snack Mix 150g,Health & Wellness,0.15,3,2,3,3,1800,6.0,1,1,0.42
+96,Low Sugar Muesli 400g,Health & Wellness,0.4,4,1,3,3,1800,9.0,1,1,0.55
+97,Soya Chunks 200g,Health & Wellness,0.2,4,1,3,3,1200,18.0,1,1,0.35
+98,Almond Milk 1L,Health & Wellness,1.0,5,3,8,7,1500,6.0,1,1,0.7
+99,Oat Milk 1L,Health & Wellness,1.0,5,3,8,7,1500,6.0,1,1,0.7
+100,Coconut Water 300ml,Health & Wellness,0.3,4,3,6,6,1500,3.0,1,1,0.5
+101,Almond Milk 1L,Health & Wellness,1.0,5,3,8,7,1500,6.0,1,1,0.65
+102,Oat Milk 500ml,Health & Wellness,0.5,5,3,8,7,1200,6.0,1,1,0.35
+103,Soy Milk 1L,Health & Wellness,1.0,5,3,8,7,1300,6.0,1,1,0.55
+104,Coconut Milk 400ml,Health & Wellness,0.4,5,2,7,6,1400,9.0,1,1,0.45
+105,Rice Milk 1L,Health & Wellness,1.0,5,3,7,6,1500,6.0,1,1,0.6
+106,Quinoa 500g,Grains & Staples,0.5,5,1,2,2,900,18.0,1,1,0.4
+107,Brown Rice 1kg,Grains & Staples,1.0,6,1,2,2,1100,18.0,1,1,0.35
+108,Millets 1kg,Grains & Staples,1.0,6,1,3,3,800,15.0,1,1,0.3
+109,Barley 500g,Grains & Staples,0.5,5,1,3,3,1000,12.0,1,1,0.28
+110,Sorghum Flour 1kg,Grains & Staples,1.0,6,1,3,3,700,12.0,1,1,0.25
+111,Moong Dal Sprouts 200g,Pulses & Lentils,0.2,4,3,9,8,300,0.5,1,0,0.25
+112,Chickpea Flour 500g,Pulses & Lentils,0.5,4,1,3,3,800,12.0,1,1,0.22
+113,Black Gram Dal 1kg,Pulses & Lentils,1.0,5,1,3,3,900,12.0,1,1,0.35
+114,Urad Dal 500g,Pulses & Lentils,0.5,5,1,3,3,850,12.0,1,1,0.3
+115,Red Lentils 1kg,Pulses & Lentils,1.0,5,1,3,3,950,12.0,1,1,0.32
+116,Makhana 100g,Snacks & Nuts,0.1,3,2,4,4,1200,9.0,1,1,0.45
+117,Roasted Chana 200g,Snacks & Nuts,0.2,4,1,3,3,1000,12.0,1,1,0.25
+118,Almonds 200g,Snacks & Nuts,0.2,4,2,2,3,2000,18.0,1,1,0.7
+119,Walnuts 200g,Snacks & Nuts,0.2,4,2,2,3,2200,18.0,1,1,0.85
+120,Raisins 500g,Snacks & Nuts,0.5,4,2,4,4,1800,24.0,1,1,0.4
+121,Dates 500g,Snacks & Nuts,0.5,4,2,4,4,1600,24.0,1,1,0.45
+122,Dried Apricots 200g,Snacks & Nuts,0.2,4,2,4,4,1900,18.0,1,1,0.6
+123,Pistachios 100g,Snacks & Nuts,0.1,4,2,2,3,2300,18.0,1,1,0.9
+124,Cashew Butter 300g,Oils & Fats,0.3,5,2,5,5,1400,12.0,1,1,0.65
+125,Peanut Butter 500g,Oils & Fats,0.5,5,2,5,5,1200,12.0,1,1,0.4
+126,Almond Butter 250g,Oils & Fats,0.25,5,2,5,5,1500,12.0,1,1,0.7
+127,Mustard Oil 1L,Oils & Fats,0.9,5,2,6,6,1300,18.0,1,1,0.38
+128,Sesame Oil 500ml,Oils & Fats,0.45,5,2,6,6,1400,18.0,1,1,0.5
+129,Coconut Oil 1L,Oils & Fats,0.9,5,2,6,6,1500,24.0,1,1,0.55
+130,Ghee 1kg,Milk & Dairy,0.9,6,2,7,6,1200,18.0,1,1,0.8
+131,Milk Powder 500g,Milk & Dairy,0.5,5,1,3,3,1800,24.0,1,1,0.45
+132,Condensed Milk 400g,Milk & Dairy,0.4,5,2,7,6,1000,18.0,1,1,0.35
+133,Paneer 500g,Chilled & Fresh,0.5,5,3,9,8,400,0.75,1,1,0.6
+134,Mozzarella Cheese 200g,Milk & Dairy,0.2,5,3,7,7,1100,6.0,1,1,0.5
+135,Cream Cheese 200g,Milk & Dairy,0.2,4,3,8,7,900,6.0,1,1,0.45
+136,Sour Cream 200g,Milk & Dairy,0.2,4,3,8,7,700,1.0,1,1,0.4
+137,Lassi 500ml,Beverages,0.5,5,3,8,7,500,0.5,1,1,0.25
+138,Buttermilk 1L,Beverages,1.0,5,3,8,7,400,0.5,1,1,0.2
+139,Lemonade 1L,Beverages,1.0,5,3,7,6,1200,1.0,1,1,0.3
+140,Iced Tea 500ml,Beverages,0.5,4,3,4,4,1500,3.0,1,1,0.35
+141,Dark Chocolate 70% 100g,Confectionery,0.1,3,2,3,4,2000,12.0,1,1,0.45
+142,Milk Chocolate 100g,Confectionery,0.1,3,2,3,4,1800,12.0,1,1,0.35
+143,White Chocolate 100g,Confectionery,0.1,3,2,3,4,1900,12.0,1,1,0.4
+144,Chocolate Truffles 150g,Confectionery,0.15,3,3,4,4,1600,6.0,1,1,0.6
+145,Caramel Toffees 200g,Confectionery,0.2,3,2,3,3,1700,12.0,1,1,0.3
+146,Jam 500g,Condiments & Sauces,0.5,4,3,6,5,900,18.0,1,1,0.35
+147,Peanut Chutney 300g,Condiments & Sauces,0.3,4,2,6,5,700,9.0,1,1,0.28
+148,Coconut Chutney 250g,Condiments & Sauces,0.25,4,2,7,6,600,6.0,1,1,0.25
+149,Mayonnaise 250g,Condiments & Sauces,0.25,4,2,6,6,1100,6.0,1,1,0.4
+150,Soy Sauce 500ml,Condiments & Sauces,0.5,4,2,5,5,2000,24.0,1,1,0.3
+151,Tamarind Paste 500g,Condiments & Sauces,0.5,5,2,5,5,800,18.0,1,1,0.25
+152,Vinegar 1L,Condiments & Sauces,1.0,5,2,4,4,1500,24.0,1,1,0.22
+153,Baking Powder 100g,Staples & Seasoning,0.1,3,1,2,2,1200,24.0,1,1,0.15
+154,Baking Soda 500g,Staples & Seasoning,0.5,4,1,2,2,1100,36.0,1,1,0.12
+155,Yeast 50g,Staples & Seasoning,0.05,3,1,3,3,1300,24.0,1,1,0.2
+156,Spice Mix Garam Masala 100g,Staples & Seasoning,0.1,3,1,2,2,900,24.0,1,1,0.25
+157,Turmeric Powder 100g,Staples & Seasoning,0.1,3,1,2,2,800,36.0,1,1,0.15
+158,Red Chili Powder 100g,Staples & Seasoning,0.1,3,1,2,2,850,24.0,1,1,0.18
+159,Coriander Powder 200g,Staples & Seasoning,0.2,3,1,2,2,900,24.0,1,1,0.2
+160,Cumin Powder 100g,Staples & Seasoning,0.1,3,1,2,2,950,24.0,1,1,0.22
+161,Ginger Powder 100g,Staples & Seasoning,0.1,3,1,2,2,1000,24.0,1,1,0.25
+162,Fennel Seeds 100g,Staples & Seasoning,0.1,3,1,2,2,1100,36.0,1,1,0.2
+163,Basil Pesto 190g,Condiments & Sauces,0.19,4,2,6,6,1200,6.0,1,1,0.45
+164,Barbecue Sauce 300g,Condiments & Sauces,0.3,4,2,5,5,1300,9.0,1,1,0.35
+165,Salsa 400g,Condiments & Sauces,0.4,4,3,7,6,1100,1.0,1,1,0.3
+166,Honey 500g,Staples & Seasoning,0.5,4,2,5,5,1400,24.0,1,1,0.5
+167,Jaggery 1kg,Staples & Seasoning,1.0,5,2,4,4,700,18.0,1,1,0.25
+168,Molasses 500g,Staples & Seasoning,0.5,4,2,5,5,1200,18.0,1,1,0.3
+169,Dark Rum Mini 50ml,Beverages,0.05,3,4,3,3,2500,36.0,1,1,0.25
+170,Red Wine 750ml,Beverages,0.75,6,5,4,4,3000,24.0,1,1,2.5
+171,Beer Can 330ml,Beverages,0.33,4,4,4,4,1800,1.0,1,1,0.8
+172,Ginger Ale 300ml,Beverages,0.3,4,3,4,4,2000,6.0,1,1,0.35
+173,Tomato Puree 500g,Condiments & Sauces,0.5,4,3,7,6,800,12.0,1,1,0.25
+174,Pasta Sauce 400g,Condiments & Sauces,0.4,4,2,6,6,1100,9.0,1,1,0.35
+175,Canned Tuna 180g,Ready-to-Eat,0.18,4,3,6,6,1500,18.0,1,1,0.6
+176,Canned Sardines 125g,Ready-to-Eat,0.125,4,3,6,6,1600,24.0,1,1,0.45
+177,Baked Beans 400g,Ready-to-Eat,0.4,4,2,7,6,1200,18.0,1,1,0.3
+178,Corn Kernels 300g,Ready-to-Eat,0.3,4,2,7,6,1100,18.0,1,1,0.25
+179,Mushrooms Canned 400g,Ready-to-Eat,0.4,4,3,8,7,1000,12.0,1,1,0.35
+180,Pineapple Chunks 400g,Ready-to-Eat,0.4,4,3,8,7,1300,18.0,1,1,0.4
+181,Quark Cheese 200g,Milk & Dairy,0.2,4,3,8,7,600,2.0,1,1,0.4
+182,Ricotta 250g,Milk & Dairy,0.25,4,3,8,7,700,1.5,1,1,0.45
+183,Mascarpone 250g,Milk & Dairy,0.25,4,3,8,7,900,6.0,1,1,0.6
+184,Blue Cheese 150g,Milk & Dairy,0.15,5,3,7,7,1200,3.0,1,1,0.55
+185,Feta Cheese 200g,Milk & Dairy,0.2,5,3,7,7,1100,3.0,1,1,0.5
+186,Parmesan Grated 100g,Milk & Dairy,0.1,4,2,5,5,1500,18.0,1,1,0.45
+187,Gouda Cheese 200g,Milk & Dairy,0.2,5,3,7,7,1300,6.0,1,1,0.5
+188,Brie Cheese 125g,Milk & Dairy,0.125,4,3,7,7,1400,1.0,1,1,0.6
+189,Camembert 250g,Milk & Dairy,0.25,4,3,7,7,1500,1.0,1,1,0.65
+190,Goat Cheese 100g,Milk & Dairy,0.1,4,3,8,7,800,1.0,1,1,0.55
+191,Frozen Berries 500g,Frozen Food,0.5,4,3,8,7,1200,12.0,1,1,0.6
+192,Frozen Mango 400g,Frozen Food,0.4,4,3,8,7,1300,12.0,1,1,0.55
+193,Frozen Shrimp 500g,Frozen Food,0.5,5,3,8,7,2000,9.0,1,1,1.2
+194,Frozen Chicken Breast 1kg,Frozen Food,1.0,7,2,6,6,1500,6.0,1,1,1.5
+195,Frozen Pizza 300g,Frozen Food,0.3,4,4,6,6,1000,6.0,1,1,0.8
+196,Frozen Paratha 5pcs,Frozen Food,0.4,4,3,7,6,800,6.0,1,1,0.45
+197,Frozen Momos 12pcs,Frozen Food,0.3,4,3,8,7,700,3.0,1,1,0.5
+198,Ice Cream Cone Pack,Frozen Food,0.25,3,4,8,7,900,6.0,1,1,0.65
+199,Frozen Yogurt 500g,Frozen Food,0.5,4,3,8,7,800,3.0,1,1,0.55
+200,Fresh Mushrooms 250g,Fresh Produce,0.25,3,4,9,9,100,0.25,1,0,0.3
+201,Canned Green Peas 400g,Frozen Food,0.4,5,3,8,7,1000,12.0,1,1,0.4
+202,Frozen Mixed Vegetables 500g,Frozen Food,0.5,5,3,8,7,1100,12.0,1,1,0.45
+203,Frozen French Fries 1kg,Frozen Food,1.0,6,3,7,6,900,12.0,1,1,0.55
+204,Frozen Spinach 400g,Frozen Food,0.4,5,3,8,7,1100,12.0,1,1,0.5
+205,Frozen Broccoli 500g,Frozen Food,0.5,5,3,8,7,1200,12.0,1,1,0.55
+206,Frozen Berry Mix 300g,Frozen Food,0.3,4,3,8,7,1300,12.0,1,1,0.6
+207,Frozen Strawberry 500g,Frozen Food,0.5,4,3,8,7,1400,12.0,1,1,0.65
+208,Frozen Mango Chunks 400g,Frozen Food,0.4,4,3,8,7,1500,12.0,1,1,0.6
+209,Frozen Chicken Nuggets 500g,Frozen Food,0.5,7,4,7,7,1600,6.0,1,1,1.15
+210,Frozen Fish Fillets 600g,Frozen Food,0.6,7,4,7,7,1700,6.0,1,1,1.3
+211,Fresh Eggs Dozen,Chilled & Fresh,0.6,5,4,8,8,300,0.5,1,1,0.75
+212,Fresh Chicken Whole 1kg,Chilled & Fresh,1.0,7,3,7,6,1000,3.0,1,1,3.0
+213,Fresh Salmon Fillet 300g,Chilled & Fresh,0.3,7,4,6,6,1200,2.0,1,1,4.5
+214,Fresh Tilapia Fillet 400g,Chilled & Fresh,0.4,7,4,6,6,1100,2.0,1,1,3.8
+215,Fresh Whole Trout 700g,Chilled & Fresh,0.7,7,4,6,6,1300,2.0,1,1,5.0
+216,Fresh Paneer 200g,Chilled & Fresh,0.2,5,3,8,7,400,1.0,1,1,0.4
+217,Fresh Curd 500g,Chilled & Fresh,0.5,4,3,8,7,300,0.5,1,1,0.35
+218,Fresh Tofu 400g,Chilled & Fresh,0.4,5,3,8,7,500,3.0,1,1,0.45
+219,Fresh Broccoli 300g,Fresh Produce,0.3,3,4,9,9,100,0.25,1,1,0.3
+220,Fresh Cabbage 1kg,Fresh Produce,1.0,3,3,9,9,100,1.0,1,1,0.28
+221,Fresh Carrots 1kg,Fresh Produce,1.0,3,3,9,9,200,1.0,1,1,0.3
+222,Fresh Cauliflower 600g,Fresh Produce,0.6,3,4,9,9,150,0.5,1,1,0.38
+223,Fresh Cucumbers 500g,Fresh Produce,0.5,3,4,8,9,100,0.25,1,1,0.25
+224,Fresh Zucchini 400g,Fresh Produce,0.4,3,3,8,8,120,0.25,1,1,0.28
+225,Fresh Lettuce 300g,Fresh Produce,0.3,3,4,9,9,100,0.2,1,1,0.22
+226,Fresh Bell Peppers 500g,Fresh Produce,0.5,3,4,8,8,150,0.5,1,1,0.35
+227,Fresh Spinach Bunch 250g,Fresh Produce,0.25,3,4,9,9,50,0.25,1,0,0.18
+228,Fresh Tomatoes 1kg,Fresh Produce,1.0,4,4,8,8,50,0.25,1,0,0.2
+229,Fresh Onions 1kg,Fresh Produce,1.0,4,3,6,6,200,1.0,1,0,0.18
+230,Fresh Potatoes 1kg,Fresh Produce,1.0,4,3,6,6,200,2.0,1,0,0.18
+231,Fresh Apples 1kg,Fresh Produce,1.0,4,3,6,6,200,1.0,1,0,0.35
+232,Fresh Bananas 1kg,Fresh Produce,1.0,3,3,6,6,200,0.5,1,0,0.25
+233,Fresh Grapes 500g,Fresh Produce,0.5,3,4,8,8,300,0.5,1,0,0.3
+234,Packaged Salad Mix 250g,Fresh Produce,0.25,3,4,8,8,300,0.5,1,1,0.4
+235,Ready Idli Batter 1kg,Chilled & Fresh,1.0,4,3,8,7,300,0.5,1,1,0.45
+236,Ready Dosa Batter 1kg,Chilled & Fresh,1.0,4,3,8,7,300,0.5,1,1,0.45
+237,Packaged Rasgulla Tin 1kg,Sweets & Desserts,1.0,4,3,6,6,800,12.0,1,1,0.6
+238,Packaged Gulab Jamun Tin 1kg,Sweets & Desserts,1.0,4,3,6,6,800,12.0,1,1,0.6
+239,Soan Papdi Box 500g,Sweets & Desserts,0.5,4,2,3,3,800,9.0,1,1,0.45
+240,Mysore Pak Box 400g,Sweets & Desserts,0.4,4,2,3,3,800,9.0,1,1,0.48
+241,Protein Cookie 60g,Health & Wellness,0.06,3,2,3,3,1800,9.0,1,1,0.5
+242,High Fiber Biscuit 200g,Health & Wellness,0.2,3,2,3,3,1800,9.0,1,1,0.45
+243,Multigrain Snack Mix 150g,Health & Wellness,0.15,3,2,3,3,1800,6.0,1,1,0.42
+244,Low Sugar Muesli 400g,Health & Wellness,0.4,4,1,3,3,1800,9.0,1,1,0.55
+245,Soya Chunks 200g,Health & Wellness,0.2,4,1,3,3,1200,18.0,1,1,0.35
+246,Instant Coffee 100g,Beverages,0.1,3,1,2,3,2500,18.0,1,1,0.35
+247,Green Tea Bags 50ct,Beverages,0.1,2,1,1,1,2500,18.0,1,1,0.25
+248,Chocolate Drink Powder 500g,Beverages,0.5,3,1,2,3,2500,18.0,1,1,0.6
+249,Coffee Capsules 10pk,Beverages,0.05,3,2,2,3,2000,12.0,1,1,1.2
+250,Energy Drink Can 250ml,Beverages,0.25,4,3,4,4,2000,6.0,1,1,0.55
+251,Sparkling Water 500ml,Beverages,0.5,4,3,4,4,2000,6.0,1,1,0.3
+252,Soda Can 330ml,Beverages,0.33,4,3,4,4,1500,6.0,1,1,0.25
+253,Filtered Groundnut Oil 1L,Oils & Fats,0.9,5,2,6,6,1500,12.0,1,1,0.45
+254,Sunflower Oil 1L,Oils & Fats,0.9,5,2,6,6,1500,12.0,1,1,0.42
+255,Rice Bran Oil 1L,Oils & Fats,0.9,5,2,6,6,1500,12.0,1,1,0.48
+256,Olive Oil 500ml,Oils & Fats,0.45,5,2,6,6,2500,12.0,1,1,0.8
+257,Tomato Ketchup 500g,Condiments & Sauces,0.5,4,2,5,6,1200,12.0,1,1,0.4
+258,Hot & Sweet Chili Sauce 250g,Condiments & Sauces,0.25,4,2,5,6,1200,12.0,1,1,0.3
+259,Mango Pickle Jar 500g,Condiments & Sauces,0.5,5,3,4,6,800,12.0,1,1,0.35
+260,Green Chili Pickle Jar 300g,Condiments & Sauces,0.3,5,3,4,6,800,12.0,1,1,0.32
+261,Plain Salt 1kg,Staples & Seasoning,1.0,4,1,2,2,800,24.0,1,1,0.18
+262,Iodized Salt 1kg,Staples & Seasoning,1.0,4,1,2,2,800,24.0,1,1,0.2
+263,Refined Sugar 1kg,Staples & Seasoning,1.0,4,1,2,2,900,24.0,1,1,0.25
+264,Brown Sugar 1kg,Staples & Seasoning,1.0,4,1,2,2,900,18.0,1,1,0.32
+265,Orange Juice 1L,Beverages,1.0,5,3,8,7,1500,6.0,1,1,0.5
+266,Apple Juice 1L,Beverages,1.0,5,3,8,7,1500,6.0,1,1,0.5
+267,Mixed Fruit Juice 1L,Beverages,1.0,5,3,8,7,1500,6.0,1,1,0.55
+268,Tetra-pack Mango Drink 200ml,Beverages,0.2,4,3,8,7,1500,6.0,1,1,0.25
+269,Frozen Green Peas 500g,Frozen Food,0.5,4,3,8,6,1000,9.0,1,1,0.4
+270,Frozen Mixed Vegetables 500g,Frozen Food,0.5,4,3,8,6,1000,9.0,1,1,0.4
+271,Frozen French Fries 1kg,Frozen Food,1.0,5,3,8,6,1000,9.0,1,1,0.55
+272,Frozen Samosas 500g,Frozen Food,0.5,5,3,8,6,1000,6.0,1,1,0.6
+273,Ice Cream Tub 500ml,Frozen Food,0.45,4,3,8,7,800,6.0,1,1,0.7
+274,Ice Cream Sticks Multipack,Frozen Food,0.4,4,3,8,7,800,6.0,1,1,0.72
+275,Paneer Cubes 200g,Chilled & Fresh,0.2,4,3,8,7,500,1.0,1,1,0.35
+276,Fresh Curd 500g,Chilled & Fresh,0.5,4,3,8,7,300,0.5,1,1,0.3
+277,Fresh Spinach Bunch 250g,Fresh Produce,0.25,3,4,8,8,50,0.25,1,0,0.15
+278,Fresh Tomatoes 1kg,Fresh Produce,1.0,4,4,8,8,50,0.25,1,0,0.2
+279,Fresh Onions 1kg,Fresh Produce,1.0,4,3,6,6,200,1.0,1,0,0.18
+280,Fresh Potatoes 1kg,Fresh Produce,1.0,4,3,6,6,200,2.0,1,0,0.18
+281,Fresh Apples 1kg,Fresh Produce,1.0,4,3,6,6,200,1.0,1,0,0.35
+282,Fresh Bananas 1kg,Fresh Produce,1.0,3,3,6,6,200,0.5,1,0,0.25
+283,Fresh Grapes 500g,Fresh Produce,0.5,3,4,8,8,300,0.5,1,0,0.3
+284,Packaged Salad Mix 250g,Fresh Produce,0.25,3,4,8,8,300,0.5,1,1,0.4
+285,Ready Idli Batter 1kg,Chilled & Fresh,1.0,4,3,8,7,300,0.5,1,1,0.45
+286,Ready Dosa Batter 1kg,Chilled & Fresh,1.0,4,3,8,7,300,0.5,1,1,0.45
+287,Packaged Rasgulla Tin 1kg,Sweets & Desserts,1.0,4,3,6,6,800,12.0,1,1,0.6
+288,Packaged Gulab Jamun Tin 1kg,Sweets & Desserts,1.0,4,3,6,6,800,12.0,1,1,0.6
+289,Soan Papdi Box 500g,Sweets & Desserts,0.5,4,2,3,3,800,9.0,1,1,0.45
+290,Mysore Pak Box 400g,Sweets & Desserts,0.4,4,2,3,3,800,9.0,1,1,0.48
+291,Protein Cookie 60g,Health & Wellness,0.06,3,2,3,3,1800,9.0,1,1,0.5
+292,High Fiber Biscuit 200g,Health & Wellness,0.2,3,2,3,3,1800,9.0,1,1,0.45
+293,Multigrain Snack Mix 150g,Health & Wellness,0.15,3,2,3,3,1800,6.0,1,1,0.42
+294,Low Sugar Muesli 400g,Health & Wellness,0.4,4,1,3,3,1800,9.0,1,1,0.55
+295,Soya Chunks 200g,Health & Wellness,0.2,4,1,3,3,1200,18.0,1,1,0.35
+296,Instant Coffee 100g,Beverages,0.1,3,1,2,3,2500,18.0,1,1,0.35
+297,Green Tea Bags 50ct,Beverages,0.1,2,1,1,1,2500,18.0,1,1,0.25
+298,Chocolate Drink Powder 500g,Beverages,0.5,3,1,2,3,2500,18.0,1,1,0.6
+299,Coffee Capsules 10pk,Beverages,0.05,3,2,2,3,2000,12.0,1,1,1.2
+300,Redbull Energy Drink Can 250ml,Beverages,0.25,4,3,4,4,2000,6.0,1,1,0.55
+301,Whole Wheat Pasta 500g,Grains & Staples,0.5,5,1,3,3,900,18.0,1,1,0.38
+302,Organic Brown Rice 1kg,Grains & Staples,1.0,6,1,3,3,1100,24.0,1,1,0.42
+303,White Basmati Rice 1kg,Grains & Staples,1.0,6,1,2,2,1200,24.0,1,1,0.4
+304,Multigrain Bread Loaf 400g,Bakery & Breakfast,0.4,4,4,6,6,50,0.25,1,1,0.25
+305,White Bread Loaf 400g,Bakery & Breakfast,0.4,4,4,6,6,50,0.2,1,1,0.22
+306,Rusk 300g,Bakery & Snacks,0.3,4,2,3,3,600,9.0,1,1,0.28
+307,Plain Biscuits 250g,Bakery & Snacks,0.25,3,2,3,3,500,9.0,1,1,0.2
+308,Whole Grain Biscuits 200g,Bakery & Snacks,0.2,3,2,3,3,500,9.0,1,1,0.25
+309,Chocolate Chip Cookies 200g,Bakery & Snacks,0.2,3,2,4,3,800,9.0,1,1,0.3
+310,Masala Potato Chips 100g,Bakery & Snacks,0.1,3,2,4,3,600,6.0,1,1,0.22
+311,Namkeen Mixture 200g,Bakery & Snacks,0.2,3,2,4,3,700,9.0,1,1,0.3
+312,Popcorn Kernels 500g,Bakery & Snacks,0.5,3,1,3,3,900,12.0,1,1,0.26
+313,Ready Popcorn 100g,Bakery & Snacks,0.1,3,2,3,3,900,6.0,1,1,0.28
+314,Protein Bar 50g,Bakery & Snacks,0.05,3,2,3,3,2000,9.0,1,1,0.35
+315,Dark Chocolate Bar 100g,Confectionery,0.1,3,2,3,4,2500,12.0,1,1,0.4
+316,Filled Chocolate Bar 45g,Confectionery,0.05,3,2,3,4,2500,12.0,1,1,0.3
+317,Assorted Candies Pouch 250g,Confectionery,0.25,3,2,3,3,1800,12.0,1,1,0.3
+318,Lollipops Pouch 200g,Confectionery,0.2,3,2,3,3,1800,12.0,1,1,0.28
+319,Roasted Peanuts 200g,Snacks & Nuts,0.2,4,1,3,4,1200,9.0,1,1,0.25
+320,Masala Cashews 200g,Snacks & Nuts,0.2,4,2,3,4,1500,9.0,1,1,0.6
+321,Mixed Dry Fruits 250g,Snacks & Nuts,0.25,4,2,3,4,2000,12.0,1,1,0.6
+322,Trail Mix 250g,Snacks & Nuts,0.25,4,2,3,4,2000,12.0,1,1,0.55
+323,Filtered Groundnut Oil 1L,Oils & Fats,0.9,5,2,6,6,1500,12.0,1,1,0.45
+324,Sunflower Oil 1L,Oils & Fats,0.9,5,2,6,6,1500,12.0,1,1,0.42
+325,Rice Bran Oil 1L,Oils & Fats,0.9,5,2,6,6,1500,12.0,1,1,0.48
+326,Olive Oil 500ml,Oils & Fats,0.45,5,2,6,6,2500,12.0,1,1,0.8
+327,Tomato Ketchup 500g,Condiments & Sauces,0.5,4,2,5,6,1200,12.0,1,1,0.4
+328,Hot & Sweet Chili Sauce 250g,Condiments & Sauces,0.25,4,2,5,6,1200,12.0,1,1,0.3
+329,Mango Pickle Jar 500g,Condiments & Sauces,0.5,5,3,4,6,800,12.0,1,1,0.35
+330,Green Chili Pickle Jar 300g,Condiments & Sauces,0.3,5,3,4,6,800,12.0,1,1,0.32
+331,Plain Salt 1kg,Staples & Seasoning,1.0,4,1,2,2,800,24.0,1,1,0.18
+332,Iodized Salt 1kg,Staples & Seasoning,1.0,4,1,2,2,800,24.0,1,1,0.2
+333,Refined Sugar 1kg,Staples & Seasoning,1.0,4,1,2,2,900,24.0,1,1,0.25
+334,Brown Sugar 1kg,Staples & Seasoning,1.0,4,1,2,2,900,18.0,1,1,0.32
+335,Orange Juice 1L,Beverages,1.0,5,3,8,7,1500,6.0,1,1,0.5
+336,Apple Juice 1L,Beverages,1.0,5,3,8,7,1500,6.0,1,1,0.5
+337,Mixed Fruit Juice 1L,Beverages,1.0,5,3,8,7,1500,6.0,1,1,0.55
+338,Tetra-pack Mango Drink 200ml,Beverages,0.2,4,3,8,7,1500,6.0,1,1,0.25
+339,Sparkling Water 500ml,Beverages,0.5,4,3,4,4,2000,6.0,1,1,0.3
+340,Energy Drink Can 250ml,Beverages,0.25,4,3,4,4,2000,6.0,1,1,0.55
+341,Ready-to-Drink Coffee 250ml,Beverages,0.25,4,3,4,4,2000,6.0,1,1,0.4
+342,Green Tea Bags 50ct,Beverages,0.1,2,1,1,1,2500,18.0,1,1,0.25
+343,Instant Coffee 100g,Beverages,0.1,3,1,2,3,2500,18.0,1,1,0.35
+344,Chocolate Drink Powder 500g,Beverages,0.5,3,1,2,3,2500,18.0,1,1,0.6
+345,Frozen Green Peas 500g,Frozen Food,0.5,4,3,8,6,1000,9.0,1,1,0.4
+346,Frozen Mixed Vegetables 500g,Frozen Food,0.5,4,3,8,6,1000,9.0,1,1,0.4
+347,Frozen French Fries 1kg,Frozen Food,1.0,5,3,8,6,1000,9.0,1,1,0.55
+348,Frozen Samosas 500g,Frozen Food,0.5,5,3,8,6,1000,6.0,1,1,0.6
+349,Ice Cream Tub 500ml,Frozen Food,0.45,4,3,8,7,800,6.0,1,1,0.7
+350,Ice Cream Sticks Multipack,Frozen Food,0.4,4,3,8,7,800,6.0,1,1,0.72
+351,Paneer Cubes 200g,Chilled & Fresh,0.2,4,3,8,7,500,1.0,1,1,0.35
+352,Fresh Curd 500g,Chilled & Fresh,0.5,4,3,8,7,300,0.5,1,1,0.3
+353,Fresh Spinach Bunch 250g,Fresh Produce,0.25,3,4,8,8,50,0.25,1,0,0.15
+354,Fresh Tomatoes 1kg,Fresh Produce,1.0,4,4,8,8,50,0.25,1,0,0.2
+355,Fresh Onions 1kg,Fresh Produce,1.0,4,3,6,6,200,1.0,1,0,0.18
+356,Fresh Potatoes 1kg,Fresh Produce,1.0,4,3,6,6,200,2.0,1,0,0.18
+357,Fresh Apples 1kg,Fresh Produce,1.0,4,3,6,6,200,1.0,1,0,0.35
+358,Fresh Bananas 1kg,Fresh Produce,1.0,3,3,6,6,200,0.5,1,0,0.25
+359,Fresh Grapes 500g,Fresh Produce,0.5,3,4,8,8,300,0.5,1,0,0.3
+360,Packaged Salad Mix 250g,Fresh Produce,0.25,3,4,8,8,300,0.5,1,1,0.4
+361,Ready Idli Batter 1kg,Chilled & Fresh,1.0,4,3,8,7,300,0.5,1,1,0.45
+362,Ready Dosa Batter 1kg,Chilled & Fresh,1.0,4,3,8,7,300,0.5,1,1,0.45
+363,Packaged Rasgulla Tin 1kg,Sweets & Desserts,1.0,4,3,6,6,800,12.0,1,1,0.6
+364,Packaged Gulab Jamun Tin 1kg,Sweets & Desserts,1.0,4,3,6,6,800,12.0,1,1,0.6
+365,Soan Papdi Box 500g,Sweets & Desserts,0.5,4,2,3,3,800,9.0,1,1,0.45
+366,Mysore Pak Box 400g,Sweets & Desserts,0.4,4,2,3,3,800,9.0,1,1,0.48
+367,Protein Cookie 60g,Health & Wellness,0.06,3,2,3,3,1800,9.0,1,1,0.5
+368,High Fiber Biscuit 200g,Health & Wellness,0.2,3,2,3,3,1800,9.0,1,1,0.45
+369,Multigrain Snack Mix 150g,Health & Wellness,0.15,3,2,3,3,1800,6.0,1,1,0.42
+370,Low Sugar Muesli 400g,Health & Wellness,0.4,4,1,3,3,1800,9.0,1,1,0.55
+371,Soya Chunks 200g,Health & Wellness,0.2,4,1,3,3,1200,18.0,1,1,0.35
+372,Instant Coffee 100g,Beverages,0.1,3,1,2,3,2500,18.0,1,1,0.35
+373,Green Tea Bags 50ct,Beverages,0.1,2,1,1,1,2500,18.0,1,1,0.25
+374,Chocolate Drink Powder 500g,Beverages,0.5,3,1,2,3,2500,18.0,1,1,0.6
+375,Coffee Capsules 10pk,Beverages,0.05,3,2,2,3,2000,12.0,1,1,1.2
+376,Energy Drink Can 250ml,Beverages,0.25,4,3,4,4,2000,6.0,1,1,0.55
+377,Sparkling Water 500ml,Beverages,0.5,4,3,4,4,2000,6.0,1,1,0.3
+378,Soda Can 330ml,Beverages,0.33,4,3,4,4,1500,6.0,1,1,0.25
+379,Filtered Groundnut Oil 1L,Oils & Fats,0.9,5,2,6,6,1500,12.0,1,1,0.45
+380,Sunflower Oil 1L,Oils & Fats,0.9,5,2,6,6,1500,12.0,1,1,0.42
+381,Rice Bran Oil 1L,Oils & Fats,0.9,5,2,6,6,1500,12.0,1,1,0.48
+382,Olive Oil 500ml,Oils & Fats,0.45,5,2,6,6,2500,12.0,1,1,0.8
+383,Tomato Ketchup 500g,Condiments & Sauces,0.5,4,2,5,6,1200,12.0,1,1,0.4
+384,Hot & Sweet Chili Sauce 250g,Condiments & Sauces,0.25,4,2,5,6,1200,12.0,1,1,0.3
+385,Mango Pickle Jar 500g,Condiments & Sauces,0.5,5,3,4,6,800,12.0,1,1,0.35
+386,Green Chili Pickle Jar 300g,Condiments & Sauces,0.3,5,3,4,6,800,12.0,1,1,0.32
+387,Plain Salt 1kg,Staples & Seasoning,1.0,4,1,2,2,800,24.0,1,1,0.18
+388,Iodized Salt 1kg,Staples & Seasoning,1.0,4,1,2,2,800,24.0,1,1,0.2
+389,Refined Sugar 1kg,Staples & Seasoning,1.0,4,1,2,2,900,24.0,1,1,0.25
+390,Brown Sugar 1kg,Staples & Seasoning,1.0,4,1,2,2,900,18.0,1,1,0.32
+391,Orange Juice 1L,Beverages,1.0,5,3,8,7,1500,6.0,1,1,0.5
+392,Apple Juice 1L,Beverages,1.0,5,3,8,7,1500,6.0,1,1,0.5
+393,Mixed Fruit Juice 1L,Beverages,1.0,5,3,8,7,1500,6.0,1,1,0.55
+394,Tetra-pack Mango Drink 200ml,Beverages,0.2,4,3,8,7,1500,6.0,1,1,0.25
+395,Sparkling Water 500ml,Beverages,0.5,4,3,4,4,2000,6.0,1,1,0.3
+396,Energy Drink Can 250ml,Beverages,0.25,4,3,4,4,2000,6.0,1,1,0.55
+397,Ready-to-Drink Coffee 250ml,Beverages,0.25,4,3,4,4,2000,6.0,1,1,0.4
+398,Green Tea Bags 50ct,Beverages,0.1,2,1,1,1,2500,18.0,1,1,0.25
+399,Instant Coffee 100g,Beverages,0.1,3,1,2,3,2500,18.0,1,1,0.35
+400,Chocolate Drink Powder 500g,Beverages,0.5,3,1,2,3,2500,18.0,1,1,0.6
+401,Lentil Soup Can 400g,Ready-to-Eat,0.4,4,3,7,6,1200,18.0,1,1,0.35
+402,Vegetable Soup Pack 300g,Ready-to-Eat,0.3,4,3,7,6,1100,12.0,1,1,0.3
+403,Chicken Noodle Soup 400g,Ready-to-Eat,0.4,4,3,7,6,1300,18.0,1,1,0.4
+404,Mushroom Soup Can 400g,Ready-to-Eat,0.4,4,3,8,7,1200,12.0,1,1,0.38
+405,Tomato Soup Pack 500g,Ready-to-Eat,0.5,4,2,7,6,1000,12.0,1,1,0.32
+406,Canned Chickpeas 400g,Ready-to-Eat,0.4,5,2,6,5,1100,24.0,1,1,0.28
+407,Canned Black Beans 400g,Ready-to-Eat,0.4,5,2,6,5,1200,24.0,1,1,0.3
+408,Canned Kidney Beans 400g,Ready-to-Eat,0.4,5,2,6,5,1300,24.0,1,1,0.32
+409,Canned Corn 300g,Ready-to-Eat,0.3,4,2,7,6,1000,18.0,1,1,0.25
+410,Canned Pineapple Slices 400g,Ready-to-Eat,0.4,4,3,8,7,1400,24.0,1,1,0.35
+411,Granola Bar Pack 6pcs,Bakery & Snacks,0.18,3,2,3,3,1800,9.0,1,1,0.45
+412,Energy Bar Chocolate 50g,Bakery & Snacks,0.05,3,2,3,3,2000,12.0,1,1,0.4
+413,Fruit & Nut Bar 40g,Bakery & Snacks,0.04,3,2,4,4,1900,9.0,1,1,0.42
+414,Peanut Butter Bar 50g,Bakery & Snacks,0.05,3,2,4,4,1700,12.0,1,1,0.38
+415,Cereal Bar Oat 40g,Bakery & Snacks,0.04,3,2,3,3,1600,9.0,1,1,0.35
+416,Hazelnut Spread 350g,Condiments & Sauces,0.35,4,2,5,5,1500,12.0,1,1,0.65
+417,Almond Spread 300g,Condiments & Sauces,0.3,4,2,5,5,1600,12.0,1,1,0.6
+418,Mustard Sauce 250g,Condiments & Sauces,0.25,4,2,4,4,1400,12.0,1,1,0.25
+419,Worcestershire Sauce 150ml,Condiments & Sauces,0.15,3,3,4,4,1800,24.0,1,1,0.28
+420,Fish Sauce 200ml,Condiments & Sauces,0.2,4,3,5,5,2000,24.0,1,1,0.3
+421,Ginger Garlic Paste 200g,Condiments & Sauces,0.2,4,3,7,6,600,3.0,1,1,0.22
+422,Red Wine Vinegar 500ml,Condiments & Sauces,0.5,4,2,4,4,1700,24.0,1,1,0.35
+423,Balsamic Vinegar 250ml,Condiments & Sauces,0.25,4,3,4,4,1900,24.0,1,1,0.45
+424,Oregano Dried 50g,Staples & Seasoning,0.05,2,1,2,2,2200,24.0,1,1,0.18
+425,Thyme Dried 30g,Staples & Seasoning,0.03,2,1,2,2,2100,24.0,1,1,0.2
+426,Rosemary Dried 40g,Staples & Seasoning,0.04,2,1,2,2,2000,24.0,1,1,0.22
+427,Paprika Powder 100g,Staples & Seasoning,0.1,3,1,2,2,1800,24.0,1,1,0.25
+428,Black Pepper Powder 100g,Staples & Seasoning,0.1,3,1,2,2,1900,36.0,1,1,0.3
+429,White Pepper Powder 50g,Staples & Seasoning,0.05,3,1,2,2,2000,36.0,1,1,0.28
+430,Cinnamon Powder 100g,Staples & Seasoning,0.1,3,1,2,2,2100,36.0,1,1,0.25
+431,Cardamom Pods 50g,Staples & Seasoning,0.05,3,1,2,2,2200,24.0,1,1,0.4
+432,Cloves Whole 50g,Staples & Seasoning,0.05,3,1,2,2,2300,24.0,1,1,0.35
+433,Bay Leaves 20g,Staples & Seasoning,0.02,2,1,2,2,2400,36.0,1,1,0.2
+434,Nutmeg Powder 50g,Staples & Seasoning,0.05,3,1,2,2,2500,24.0,1,1,0.45
+435,Saffron 1g,Staples & Seasoning,0.001,2,1,1,1,3000,36.0,1,1,2.5
+436,Dried Red Chilies 100g,Staples & Seasoning,0.1,3,1,2,2,1700,24.0,1,1,0.22
+437,Corn Flour 1kg,Grains & Staples,1.0,5,1,3,3,800,18.0,1,1,0.25
+438,Rice Flour 1kg,Grains & Staples,1.0,5,1,3,3,900,18.0,1,1,0.22
+439,Maida Flour 1kg,Grains & Staples,1.0,5,1,3,3,850,18.0,1,1,0.2
+440,Besan Flour 1kg,Grains & Staples,1.0,5,1,3,3,750,18.0,1,1,0.28
+441,Ragi Flour 1kg,Grains & Staples,1.0,6,1,3,3,700,18.0,1,1,0.3
+442,Jowar Flour 1kg,Grains & Staples,1.0,6,1,3,3,750,18.0,1,1,0.28
+443,Bajra Flour 1kg,Grains & Staples,1.0,6,1,3,3,800,18.0,1,1,0.26
+444,Amaranth Flour 500g,Grains & Staples,0.5,5,1,3,3,900,15.0,1,1,0.35
+445,Buckwheat Flour 500g,Grains & Staples,0.5,5,1,3,3,950,15.0,1,1,0.32
+446,Semolina 1kg,Grains & Staples,1.0,5,1,3,3,850,12.0,1,1,0.25
+447,Vermicelli 500g,Grains & Staples,0.5,4,1,3,3,800,12.0,1,1,0.22
+448,Noodles Dry 500g,Grains & Staples,0.5,4,1,3,3,900,12.0,1,1,0.28
+449,Macaroni 500g,Grains & Staples,0.5,4,1,3,3,950,12.0,1,1,0.26
+450,Spaghetti 500g,Grains & Staples,0.5,4,1,3,3,1000,12.0,1,1,0.3
+451,Pineapple Juice 1L,Beverages,1.0,5,3,8,7,1600,6.0,1,1,0.55
+452,Grape Juice 1L,Beverages,1.0,5,3,8,7,1700,6.0,1,1,0.6
+453,Litchi Juice 1L,Beverages,1.0,5,3,8,7,1500,6.0,1,1,0.58
+454,Guava Juice 1L,Beverages,1.0,5,3,8,7,1400,6.0,1,1,0.52
+455,Pomegranate Juice 250ml,Beverages,0.25,4,3,8,7,1800,3.0,1,1,0.45
+456,Aam Panna Drink 1L,Beverages,1.0,5,3,7,6,1200,3.0,1,1,0.35
+457,Butter Milk Pack 500ml,Beverages,0.5,5,3,8,7,400,0.5,1,1,0.22
+458,Coconut Water 300ml,Health & Wellness,0.3,4,3,6,6,1500,3.0,1,1,0.5
+459,Probiotic Drink 200ml,Beverages,0.2,4,3,8,7,1300,1.0,1,1,0.4
+460,Kombucha 330ml,Beverages,0.33,4,3,5,5,2000,3.0,1,1,0.65
+461,Dried Figs 200g,Snacks & Nuts,0.2,4,2,3,3,2100,24.0,1,1,0.65
+462,Dried Cranberries 200g,Snacks & Nuts,0.2,4,2,4,4,2200,18.0,1,1,0.55
+463,Prunes 200g,Snacks & Nuts,0.2,4,2,4,4,2300,24.0,1,1,0.6
+464,Goji Berries 100g,Snacks & Nuts,0.1,4,2,3,3,2400,18.0,1,1,0.8
+465,Chia Seeds 200g,Health & Wellness,0.2,4,1,3,3,2500,24.0,1,1,0.45
+466,Flax Seeds 200g,Health & Wellness,0.2,4,1,3,3,2400,24.0,1,1,0.4
+467,Pumpkin Seeds 200g,Health & Wellness,0.2,4,1,3,3,2300,18.0,1,1,0.5
+468,Sunflower Seeds 200g,Health & Wellness,0.2,4,1,3,3,2200,18.0,1,1,0.35
+469,Sesame Seeds 200g,Health & Wellness,0.2,4,1,3,3,2100,24.0,1,1,0.3
+470,Hemp Seeds 200g,Health & Wellness,0.2,4,1,3,3,2600,18.0,1,1,0.7
+471,Whey Protein Powder 1kg,Health & Wellness,1.0,5,1,2,2,2700,24.0,1,1,15.0
+472,Plant Protein Powder 1kg,Health & Wellness,1.0,5,1,2,2,2600,24.0,1,1,14.5
+473,Collagen Powder 300g,Health & Wellness,0.3,4,1,2,2,2500,18.0,1,1,12.0
+474,BCAA Powder 500g,Health & Wellness,0.5,4,1,2,2,2800,24.0,1,1,8.5
+475,Creatine Powder 300g,Health & Wellness,0.3,4,1,2,2,2900,36.0,1,1,7.0
+476,Greek Yogurt 150g,Milk & Dairy,0.15,4,3,8,6,300,1.5,1,1,0.22
+477,Hung Curd 200g,Milk & Dairy,0.2,4,3,8,6,350,2.0,1,1,0.25
+478,Skyr Yogurt 150g,Milk & Dairy,0.15,4,3,8,6,400,1.5,1,1,0.28
+479,Probiotic Yogurt 100g,Milk & Dairy,0.1,4,3,8,6,300,1.0,1,1,0.24
+480,Kefir Drink 500ml,Milk & Dairy,0.5,5,3,8,7,450,0.75,1,1,0.35
+481,Mozzarella Balls 200g,Milk & Dairy,0.2,5,4,7,7,800,3.0,1,1,0.45
+482,Cheddar Cubes 200g,Milk & Dairy,0.2,5,2,7,7,1000,6.0,1,1,0.4
+483,Processed Cheese 200g,Milk & Dairy,0.2,4,2,7,7,900,6.0,1,1,0.35
+484,Cheese Spread 200g,Milk & Dairy,0.2,4,3,7,7,850,6.0,1,1,0.38
+485,Smoked Cheese 150g,Milk & Dairy,0.15,5,3,7,7,1100,4.0,1,1,0.55
+486,Parmesan Shavings 100g,Milk & Dairy,0.1,4,2,5,5,1500,12.0,1,1,0.6
+487,Gorgonzola 150g,Milk & Dairy,0.15,5,3,7,7,1300,2.0,1,1,0.65
+488,Roquefort 100g,Milk & Dairy,0.1,5,3,7,7,1400,2.0,1,1,0.7
+489,Mascarpone Cheese 250g,Milk & Dairy,0.25,4,3,8,7,900,6.0,1,1,0.6
+490,Ricotta Cheese 250g,Milk & Dairy,0.25,4,3,8,7,700,1.5,1,1,0.45
+491,Fresh Basil Bunch,Fresh Produce,0.1,2,5,9,9,50,0.25,1,0,0.15
+492,Fresh Coriander Bunch,Fresh Produce,0.1,2,5,9,9,50,0.25,1,0,0.12
+493,Fresh Mint Bunch,Fresh Produce,0.1,2,5,9,9,50,0.25,1,0,0.1
+494,Fresh Dill Bunch,Fresh Produce,0.1,2,5,9,9,50,0.25,1,0,0.13
+495,Fresh Parsley Bunch,Fresh Produce,0.1,2,5,9,9,50,0.25,1,0,0.14
+496,Lemon 1kg,Fresh Produce,1.0,3,4,8,8,150,0.75,1,0,0.25
+497,Lime 500g,Fresh Produce,0.5,3,4,8,8,150,0.75,1,0,0.22
+498,Ginger Root 250g,Fresh Produce,0.25,3,4,8,8,200,1.0,1,0,0.18
+499,Garlic Bulbs 250g,Fresh Produce,0.25,3,3,7,7,200,2.0,1,0,0.2
+500,Green Chilies 200g,Fresh Produce,0.2,2,4,8,8,100,0.5,1,0,0.15
+501,Fresh Strawberries 250g,Fresh Produce,0.25,3,5,9,9,200,0.25,1,0,0.45
+502,Fresh Blueberries 125g,Fresh Produce,0.125,3,5,9,9,300,0.25,1,0,0.55
+503,Fresh Raspberries 125g,Fresh Produce,0.125,3,5,9,9,250,0.25,1,0,0.6
+504,Fresh Kiwi Fruit 500g,Fresh Produce,0.5,3,4,8,8,300,0.75,1,0,0.4
+505,Fresh Mango 500g,Fresh Produce,0.5,3,4,8,8,250,0.5,1,0,0.38
+506,Fresh Papaya 1kg,Fresh Produce,1.0,3,4,8,8,200,0.5,1,0,0.35
+507,Fresh Pomegranate 500g,Fresh Produce,0.5,4,4,7,7,300,1.0,1,0,0.5
+508,Fresh Pineapple 1kg,Fresh Produce,1.0,4,3,8,7,400,1.0,1,0,0.45
+509,Avocado 2pcs,Fresh Produce,0.4,3,4,8,8,350,0.5,1,0,0.8
+510,Cherry Tomatoes 250g,Fresh Produce,0.25,3,5,9,9,100,0.25,1,0,0.35
+511,Organic Baby Spinach 200g,Fresh Produce,0.2,3,5,9,9,150,0.2,1,1,0.4
+512,Arugula Pack 100g,Fresh Produce,0.1,3,5,9,9,120,0.2,1,1,0.3
+513,Kale Bunch 300g,Fresh Produce,0.3,3,4,9,9,150,0.25,1,0,0.28
+514,Romaine Lettuce 400g,Fresh Produce,0.4,3,4,9,9,100,0.2,1,1,0.25
+515,Iceberg Lettuce 800g,Fresh Produce,0.8,3,4,9,9,100,0.25,1,1,0.22
+516,Red Cabbage 1kg,Fresh Produce,1.0,3,3,9,9,200,1.0,1,0,0.3
+517,Green Beans 500g,Fresh Produce,0.5,3,4,8,8,150,0.5,1,0,0.32
+518,Snow Peas 250g,Fresh Produce,0.25,3,4,8,8,200,0.5,1,0,0.35
+519,Asparagus Bunch 500g,Fresh Produce,0.5,3,5,9,9,250,0.25,1,0,0.65
+520,Brussels Sprouts 500g,Fresh Produce,0.5,3,4,8,8,200,1.0,1,0,0.4
+521,Fresh Yogurt Drink 200ml,Beverages,0.2,4,3,8,7,400,0.5,1,1,0.25
+522,Flaxseed Milk 1L,Health & Wellness,1.0,5,3,8,7,1600,6.0,1,1,0.7
+523,Hemp Milk 1L,Health & Wellness,1.0,5,3,8,7,1700,6.0,1,1,0.75
+524,Cashew Milk 500ml,Health & Wellness,0.5,5,3,8,7,1500,6.0,1,1,0.45
+525,Macadamia Milk 500ml,Health & Wellness,0.5,5,3,8,7,1800,6.0,1,1,0.85
+526,Turmeric Latte Mix 200g,Beverages,0.2,3,2,3,3,1400,12.0,1,1,0.5
+527,Matcha Green Tea Powder 100g,Beverages,0.1,2,1,1,1,2000,18.0,1,1,0.8
+528,Chai Tea Bags 25ct,Beverages,0.08,2,1,1,1,1600,18.0,1,1,0.3
+529,Rooibos Tea 50g,Beverages,0.05,2,1,1,1,1900,24.0,1,1,0.25
+530,Hibiscus Tea 50g,Beverages,0.05,2,1,1,1,1800,24.0,1,1,0.28
+531,Gluten Free Oats 1kg,Grains & Staples,1.0,4,1,3,3,1200,12.0,1,1,0.45
+532,Steel Cut Oats 1kg,Grains & Staples,1.0,4,1,3,3,1300,12.0,1,1,0.4
+533,Rolled Oats 1kg,Grains & Staples,1.0,4,1,3,3,1100,12.0,1,1,0.35
+534,Chia Pudding Mix 200g,Health & Wellness,0.2,3,2,5,5,1500,12.0,1,1,0.55
+535,Quinoa Flakes 300g,Grains & Staples,0.3,4,1,3,3,1400,12.0,1,1,0.42
+536,Amaranth Puffs 250g,Grains & Staples,0.25,3,1,3,3,1300,9.0,1,1,0.38
+537,Millet Puffs 250g,Grains & Staples,0.25,3,1,3,3,1200,9.0,1,1,0.35
+538,Buckwheat Groats 500g,Grains & Staples,0.5,5,1,3,3,1100,12.0,1,1,0.4
+539,Spelt Flour 1kg,Grains & Staples,1.0,6,1,3,3,1000,12.0,1,1,0.45
+540,Einkorn Flour 500g,Grains & Staples,0.5,5,1,3,3,950,12.0,1,1,0.5
+541,Kidney Bean Soup Mix 300g,Ready-to-Eat,0.3,4,2,6,5,1200,18.0,1,1,0.35
+542,Lentil Soup Mix 400g,Ready-to-Eat,0.4,4,2,6,5,1300,18.0,1,1,0.32
+543,Vegetable Broth Powder 250g,Ready-to-Eat,0.25,3,2,4,4,1400,24.0,1,1,0.28
+544,Miso Paste 400g,Condiments & Sauces,0.4,4,3,7,6,1500,12.0,1,1,0.45
+545,Tahini Paste 300g,Condiments & Sauces,0.3,4,2,5,5,1600,12.0,1,1,0.55
+546,Hummus 200g,Condiments & Sauces,0.2,4,3,7,6,1100,1.0,1,1,0.4
+547,Tzatziki 200g,Condiments & Sauces,0.2,4,3,8,7,1000,1.0,1,1,0.38
+548,Guacamole 200g,Condiments & Sauces,0.2,4,4,9,8,800,0.5,1,1,0.45
+549,Pesto Sauce 190g,Condiments & Sauces,0.19,4,3,6,6,1200,6.0,1,1,0.5
+550,Harissa Paste 100g,Condiments & Sauces,0.1,3,3,5,5,1300,12.0,1,1,0.35
+551,Dried Mushrooms 50g,Staples & Seasoning,0.05,3,2,4,4,2000,24.0,1,1,0.6
+552,Truffle Oil 100ml,Oils & Fats,0.1,3,4,3,3,2500,18.0,1,1,1.2
+553,Sesame Oil Toasted 250ml,Oils & Fats,0.25,4,3,4,4,2200,18.0,1,1,0.6
+554,Truffle Paste 50g,Condiments & Sauces,0.05,3,4,4,4,2600,12.0,1,1,1.5
+555,Wasabi Paste 40g,Condiments & Sauces,0.04,3,4,4,4,2400,12.0,1,1,0.8
+556,Sriracha Sauce 300g,Condiments & Sauces,0.3,4,2,5,5,1700,18.0,1,1,0.35
+557,Goat Cheese Log 150g,Milk & Dairy,0.15,4,3,8,7,1200,2.0,1,1,0.65
+558,Fresh Mozzarella 125g,Milk & Dairy,0.125,4,4,8,7,800,1.0,1,1,0.5
+559,Burrata 250g,Milk & Dairy,0.25,4,4,8,7,900,1.0,1,1,0.75
+560,Labneh 200g,Milk & Dairy,0.2,4,3,8,7,1000,2.0,1,1,0.45
+561,Cottage Cheese 200g,Milk & Dairy,0.2,4,3,8,7,700,1.0,1,1,0.35
+562,Ricotta Salata 200g,Milk & Dairy,0.2,5,2,6,6,1300,6.0,1,1,0.55
+563,Manchego Cheese 200g,Milk & Dairy,0.2,5,2,6,6,1400,6.0,1,1,0.6
+564,Emmental Cheese 200g,Milk & Dairy,0.2,5,2,6,6,1500,6.0,1,1,0.5
+565,Gruyere Cheese 200g,Milk & Dairy,0.2,5,2,6,6,1600,6.0,1,1,0.65
+566,Fontina Cheese 200g,Milk & Dairy,0.2,5,2,6,6,1700,4.0,1,1,0.6
+567,Provolone Cheese 200g,Milk & Dairy,0.2,5,2,6,6,1800,6.0,1,1,0.55
+568,Smoked Gouda 200g,Milk & Dairy,0.2,5,2,6,6,1900,6.0,1,1,0.6
+569,Halloumi Cheese 250g,Milk & Dairy,0.25,6,2,6,6,2000,6.0,1,1,0.7
+570,Feta in Brine 200g,Milk & Dairy,0.2,5,3,8,7,1100,3.0,1,1,0.5
+571,Smoked Salmon 200g,Chilled & Fresh,0.2,6,4,6,6,1500,2.0,1,1,3.5
+572,Smoked Trout 200g,Chilled & Fresh,0.2,6,4,6,6,1400,2.0,1,1,3.2
+573,Prawns Cooked 300g,Chilled & Fresh,0.3,6,4,8,7,1600,1.0,1,1,4.0
+574,Mussels Cooked 500g,Chilled & Fresh,0.5,6,4,8,7,1700,1.0,1,1,3.8
+575,Clams Cooked 400g,Chilled & Fresh,0.4,6,4,8,7,1800,1.0,1,1,4.2
+576,Octopus Cooked 500g,Chilled & Fresh,0.5,7,4,7,7,1900,2.0,1,1,5.5
+577,Squid Rings 300g,Chilled & Fresh,0.3,6,4,7,7,2000,2.0,1,1,4.8
+578,Calamari Frozen 400g,Frozen Food,0.4,6,4,7,7,2100,6.0,1,1,4.5
+579,Shrimp Tempura 300g,Frozen Food,0.3,5,4,7,7,2200,6.0,1,1,5.0
+580,Fish Fingers 500g,Frozen Food,0.5,6,4,6,6,2300,9.0,1,1,2.8
+581,Organic Chicken Breast 500g,Chilled & Fresh,0.5,7,3,6,6,1200,3.0,1,1,4.5
+582,Organic Turkey Breast 500g,Chilled & Fresh,0.5,7,3,6,6,1300,4.0,1,1,5.0
+583,Lamb Chops 400g,Chilled & Fresh,0.4,7,3,6,6,1400,3.0,1,1,6.5
+584,Pork Tenderloin 500g,Chilled & Fresh,0.5,7,3,6,6,1500,3.0,1,1,5.8
+585,Beef Mince 500g,Chilled & Fresh,0.5,7,2,6,6,1600,2.0,1,1,6.0
+586,Organic Eggs 6pcs,Chilled & Fresh,0.3,5,4,8,8,400,0.75,1,1,1.2
+587,Duck Breast 300g,Chilled & Fresh,0.3,7,3,6,6,1700,3.0,1,1,7.5
+588,Quail Eggs 12pcs,Chilled & Fresh,0.15,4,5,8,8,1800,1.0,1,1,2.0
+589,Tofu Smoked 200g,Chilled & Fresh,0.2,5,3,8,7,1000,4.0,1,1,0.55
+590,Tempeh 200g,Chilled & Fresh,0.2,5,2,7,6,1100,3.0,1,1,0.6
+591,Seitan 300g,Chilled & Fresh,0.3,6,2,6,6,1200,4.0,1,1,0.65
+592,Jackfruit Prepared 400g,Chilled & Fresh,0.4,5,3,8,7,800,2.0,1,1,0.45
+593,Plantain Chips 100g,Bakery & Snacks,0.1,3,2,3,3,1400,9.0,1,1,0.3
+594,Yuca Chips 100g,Bakery & Snacks,0.1,3,2,3,3,1500,9.0,1,1,0.35
+595,Kettle Cooked Chips 150g,Bakery & Snacks,0.15,3,2,4,3,1600,6.0,1,1,0.4
+596,Tortilla Chips 200g,Bakery & Snacks,0.2,3,2,3,3,1700,9.0,1,1,0.32
+597,Pita Chips 150g,Bakery & Snacks,0.15,3,2,3,3,1800,9.0,1,1,0.35
+598,Rice Crackers 100g,Bakery & Snacks,0.1,3,2,3,3,1900,12.0,1,1,0.28
+599,Seaweed Snacks 30g,Bakery & Snacks,0.03,2,3,7,7,2000,9.0,1,1,0.45
+600,Mochi Rice Cakes 200g,Bakery & Snacks,0.2,3,3,6,6,2100,12.0,1,1,0.4
+601,Sushi Rice 1kg,Grains & Staples,1.0,5,1,3,3,1100,12.0,1,1,0.35
+602,Arborio Rice 1kg,Grains & Staples,1.0,5,1,3,3,1200,18.0,1,1,0.45
+603,Jasmine Rice 1kg,Grains & Staples,1.0,6,1,2,2,1300,24.0,1,1,0.4
+604,Couscous 500g,Grains & Staples,0.5,4,1,3,3,1000,18.0,1,1,0.3
+605,Bulgur Wheat 500g,Grains & Staples,0.5,4,1,3,3,950,18.0,1,1,0.28
+606,Farro 500g,Grains & Staples,0.5,5,1,3,3,1050,12.0,1,1,0.42
+607,Freekeh 500g,Grains & Staples,0.5,5,1,3,3,1150,12.0,1,1,0.38
+608,Wild Rice Blend 500g,Grains & Staples,0.5,5,1,2,2,1250,18.0,1,1,0.5
+609,Lentils Red 500g,Pulses & Lentils,0.5,4,1,3,3,900,12.0,1,1,0.25
+610,Lentils Green 500g,Pulses & Lentils,0.5,4,1,3,3,950,15.0,1,1,0.28
+611,Black Eyed Peas 500g,Pulses & Lentils,0.5,5,1,3,3,850,12.0,1,1,0.3
+612,Pinto Beans 500g,Pulses & Lentils,0.5,5,1,3,3,1000,18.0,1,1,0.32
+613,Navy Beans 500g,Pulses & Lentils,0.5,5,1,3,3,1050,18.0,1,1,0.3
+614,Lima Beans 500g,Pulses & Lentils,0.5,5,1,3,3,1100,18.0,1,1,0.35
+615,Adzuki Beans 500g,Pulses & Lentils,0.5,4,1,3,3,1200,18.0,1,1,0.4
+616,Edamame Frozen 500g,Frozen Food,0.5,4,3,8,7,1300,12.0,1,1,0.55
+617,Frozen Okra 500g,Frozen Food,0.5,4,3,8,7,1100,12.0,1,1,0.45
+618,Frozen Corn 500g,Frozen Food,0.5,4,2,7,6,1000,18.0,1,1,0.4
+619,Frozen Cauliflower 500g,Frozen Food,0.5,4,3,8,7,1200,12.0,1,1,0.48
+620,Frozen Brussels Sprouts 500g,Frozen Food,0.5,4,3,8,7,1150,12.0,1,1,0.5
+621,Artichoke Hearts Canned 400g,Ready-to-Eat,0.4,4,3,8,7,1400,24.0,1,1,0.6
+622,Hearts of Palm 400g,Ready-to-Eat,0.4,4,3,8,7,1500,24.0,1,1,0.65
+623,Bamboo Shoots 400g,Ready-to-Eat,0.4,4,2,7,6,1600,18.0,1,1,0.35
+624,Water Chestnuts 300g,Ready-to-Eat,0.3,4,3,8,7,1700,18.0,1,1,0.4
+625,Roasted Seaweed Sheets 50g,Bakery & Snacks,0.05,2,3,6,6,2000,12.0,1,1,0.45
+626,Rice Crackers Spicy 150g,Bakery & Snacks,0.15,3,2,3,3,1800,12.0,1,1,0.35
+627,Wasabi Peas 100g,Bakery & Snacks,0.1,3,2,4,4,1900,12.0,1,1,0.4
+628,Edamame Snacks 100g,Bakery & Snacks,0.1,3,2,4,4,1850,9.0,1,1,0.38
+629,Tempeh Chips 100g,Bakery & Snacks,0.1,3,2,4,4,1750,6.0,1,1,0.45
+630,Kale Chips 50g,Bakery & Snacks,0.05,2,4,8,8,1650,3.0,1,1,0.55
+631,Matcha Cookies 150g,Bakery & Snacks,0.15,3,2,3,3,2100,9.0,1,1,0.5
+632,Mochi Ice Cream 6pcs,Frozen Food,0.3,3,4,8,7,2200,6.0,1,1,1.2
+633,Matcha Ice Cream 500ml,Frozen Food,0.45,4,3,8,7,2300,6.0,1,1,1.5
+634,Mango Sorbet 500ml,Frozen Food,0.45,4,3,8,7,2000,6.0,1,1,1.0
+635,Lemon Sorbet 500ml,Frozen Food,0.45,4,3,8,7,2100,6.0,1,1,1.1
+636,Berry Sorbet 500ml,Frozen Food,0.45,4,3,8,7,2200,6.0,1,1,1.2
+637,Coconut Yogurt 500g,Health & Wellness,0.5,4,3,8,7,1800,6.0,1,1,0.65
+638,Cashew Yogurt 400g,Health & Wellness,0.4,4,3,8,7,1900,6.0,1,1,0.7
+639,Almond Yogurt 400g,Health & Wellness,0.4,4,3,8,7,2000,6.0,1,1,0.68
+640,Soy Yogurt 400g,Health & Wellness,0.4,4,3,8,7,1700,6.0,1,1,0.45
+641,Kimchi 500g,Chilled & Fresh,0.5,4,3,8,7,800,3.0,1,1,0.75
+642,Sauerkraut 500g,Chilled & Fresh,0.5,4,3,8,7,900,6.0,1,1,0.4
+643,Pickled Beets 500g,Chilled & Fresh,0.5,4,3,7,6,1000,12.0,1,1,0.45
+644,Pickled Cucumbers 500g,Chilled & Fresh,0.5,4,3,7,6,950,12.0,1,1,0.35
+645,Kimchi Fried Rice 400g,Frozen Food,0.4,4,3,7,6,1100,6.0,1,1,1.0
+646,Frozen Gyoza 500g,Frozen Food,0.5,5,3,7,6,1200,9.0,1,1,1.2
+647,Vegetable Spring Rolls 400g,Frozen Food,0.4,4,4,7,6,1300,9.0,1,1,0.9
+648,Frozen Wontons 400g,Frozen Food,0.4,4,4,7,6,1400,9.0,1,1,1.0
+649,Ramen Noodle Soup Pack 85g,Ready-to-Eat,0.085,3,2,5,4,1500,12.0,1,1,0.25
+650,Udon Noodles Dry 400g,Grains & Staples,0.4,4,2,5,4,1600,18.0,1,1,0.35
+651,Soba Noodles 300g,Grains & Staples,0.3,4,2,5,4,1700,12.0,1,1,0.4
+652,Rice Noodles 300g,Grains & Staples,0.3,4,2,5,4,1800,12.0,1,1,0.3
+653,Bean Thread Noodles 200g,Grains & Staples,0.2,3,2,5,4,1900,18.0,1,1,0.28
+654,Mung Bean Sprouts 200g,Fresh Produce,0.2,2,5,9,9,50,0.25,1,0,0.18
+655,Bok Choy 500g,Fresh Produce,0.5,3,4,9,9,100,0.5,1,0,0.25
+656,Napa Cabbage 1kg,Fresh Produce,1.0,3,3,9,9,150,1.0,1,0,0.28
+657,Daikon Radish 1kg,Fresh Produce,1.0,3,3,8,8,200,2.0,1,0,0.3
+658,Watercress Bunch 200g,Fresh Produce,0.2,2,5,9,9,100,0.25,1,0,0.22
+659,Enoki Mushrooms 200g,Fresh Produce,0.2,2,5,9,9,120,0.5,1,0,0.35
+660,Shiitake Mushrooms 200g,Fresh Produce,0.2,3,4,9,9,150,1.0,1,0,0.45
+661,Dashi Powder 100g,Staples & Seasoning,0.1,2,1,2,2,2000,24.0,1,1,0.4
+662,Mirin Cooking Wine 500ml,Staples & Seasoning,0.5,4,3,3,3,2100,24.0,1,1,0.45
+663,Rice Vinegar 500ml,Staples & Seasoning,0.5,4,2,3,3,2200,36.0,1,1,0.35
+664,Soy Sauce Low Sodium 500ml,Staples & Seasoning,0.5,4,2,4,4,2300,24.0,1,1,0.38
+665,Tamari Gluten Free 500ml,Staples & Seasoning,0.5,4,2,4,4,2400,24.0,1,1,0.55
+666,White Miso Paste 400g,Staples & Seasoning,0.4,4,2,6,5,2500,18.0,1,1,0.6
+667,Red Miso Paste 400g,Staples & Seasoning,0.4,4,2,6,5,2600,18.0,1,1,0.65
+668,Furikake Seasoning 50g,Staples & Seasoning,0.05,2,1,2,2,2700,24.0,1,1,0.5
+669,Shichimi Togarashi 50g,Staples & Seasoning,0.05,2,1,2,2,2800,24.0,1,1,0.45
+670,Sesame Seeds Toasted 100g,Staples & Seasoning,0.1,3,1,2,2,2900,24.0,1,1,0.35
+671,Tofu Silk 300g,Chilled & Fresh,0.3,4,4,8,7,500,3.0,1,1,0.35
+672,Tofu Firm 400g,Chilled & Fresh,0.4,5,3,8,7,600,5.0,1,1,0.4
+673,Tofu Smoked 200g,Chilled & Fresh,0.2,4,3,8,7,700,4.0,1,1,0.5
+674,Yuba Sheets 200g,Chilled & Fresh,0.2,4,2,6,5,800,6.0,1,1,0.6
+675,Natto Fermented 50g,Chilled & Fresh,0.05,3,3,8,7,900,1.0,1,1,0.45
+676,Kombu Seaweed Dried 50g,Staples & Seasoning,0.05,2,2,7,6,3000,36.0,1,1,0.55
+677,Wakame Seaweed Dried 50g,Staples & Seasoning,0.05,2,3,8,7,3100,36.0,1,1,0.5
+678,Nori Seaweed Sheets 50g,Staples & Seasoning,0.05,2,3,6,6,3200,24.0,1,1,0.6
+679,Agar Agar Powder 100g,Staples & Seasoning,0.1,2,1,2,2,3300,36.0,1,1,0.4
+680,Kudzu Root Powder 100g,Staples & Seasoning,0.1,2,1,2,2,3400,36.0,1,1,0.65
+681,Maple Syrup 250ml,Staples & Seasoning,0.3,4,3,3,3,2500,24.0,1,1,1.2
+682,Agave Nectar 350ml,Staples & Seasoning,0.35,4,3,3,3,2600,24.0,1,1,0.9
+683,Coconut Sugar 500g,Staples & Seasoning,0.5,4,1,2,2,2700,18.0,1,1,0.45
+684,Date Syrup 350ml,Staples & Seasoning,0.35,4,3,4,4,2800,12.0,1,1,0.55
+685,Rice Syrup 350ml,Staples & Seasoning,0.35,4,2,3,3,2900,18.0,1,1,0.5
+686,Quinoa Milk 1L,Health & Wellness,1.0,5,3,8,7,3000,6.0,1,1,0.75
+687,Buckwheat Milk 1L,Health & Wellness,1.0,5,3,8,7,3100,6.0,1,1,0.8
+688,Spelt Milk 1L,Health & Wellness,1.0,5,3,8,7,3200,6.0,1,1,0.85
+689,Millet Milk 1L,Health & Wellness,1.0,5,3,8,7,3300,6.0,1,1,0.7
+690,Amaranth Milk 1L,Health & Wellness,1.0,5,3,8,7,3400,6.0,1,1,0.78
+691,Teff Flour 500g,Grains & Staples,0.5,5,1,3,3,3500,12.0,1,1,0.55
+692,Sorghum Flour 500g,Grains & Staples,0.5,5,1,3,3,3600,12.0,1,1,0.45
+693,Teff Grain 500g,Grains & Staples,0.5,5,1,3,3,3700,12.0,1,1,0.6
+694,Millet Grain 500g,Grains & Staples,0.5,5,1,3,3,3800,15.0,1,1,0.35
+695,Fonio Grain 500g,Grains & Staples,0.5,5,1,3,3,3900,12.0,1,1,0.65
+696,Kamut Flour 500g,Grains & Staples,0.5,6,1,3,3,4000,12.0,1,1,0.55
+697,Spelt Berries 500g,Grains & Staples,0.5,6,1,3,3,4100,18.0,1,1,0.5
+698,Einkorn Berries 500g,Grains & Staples,0.5,6,1,3,3,4200,18.0,1,1,0.6
+699,Emmer Flour 500g,Grains & Staples,0.5,6,1,3,3,4300,12.0,1,1,0.58
+700,Rye Flour 1kg,Grains & Staples,1.0,6,1,3,3,4400,12.0,1,1,0.4
+701,Aashirvaad Superior MP Atta 1kg,Grains & Staples,1.0,6,1,2,2,900,12.0,1,1,0.38
+702,Aashirvaad Sharbati Atta 1kg,Grains & Staples,1.0,6,1,2,2,950,12.0,1,1,0.42
+703,Aashirvaad Multigrains Atta 1kg,Grains & Staples,1.0,7,1,2,2,1000,12.0,1,1,0.45
+704,Aashirvaad Ready Rava Idli 500g,Grains & Staples,0.5,4,1,3,3,850,9.0,1,1,0.28
+705,Aashirvaad Ready Dosa Mix 500g,Grains & Staples,0.5,4,1,3,3,900,9.0,1,1,0.3
+706,Sunfeast Marie Gold Biscuits 250g,Bakery & Snacks,0.25,3,2,3,3,1100,12.0,1,1,0.25
+707,Sunfeast Glucose Biscuits 250g,Bakery & Snacks,0.25,3,2,3,3,1050,12.0,1,1,0.22
+708,Sunfeast Bourbon Biscuits 150g,Bakery & Snacks,0.15,3,2,3,3,1200,9.0,1,1,0.28
+709,Sunfeast Choco Stick Biscuits 75g,Bakery & Snacks,0.075,3,2,4,3,1300,9.0,1,1,0.18
+710,Sunfeast Mom's Magic Cookies 150g,Bakery & Snacks,0.15,4,3,4,3,1250,9.0,1,1,0.35
+711,Yippee Magic Masala Noodles 70g,Ready-to-Eat,0.07,4,2,5,4,1400,6.0,1,1,0.18
+712,Yippee Classic Magic Masala 140g,Ready-to-Eat,0.14,4,2,5,4,1350,6.0,1,1,0.32
+713,Yippee! Power Up Atta Masala 70g,Ready-to-Eat,0.07,4,2,5,4,1450,6.0,1,1,0.2
+714,Yippee! Mood Masala 70g,Ready-to-Eat,0.07,4,2,5,4,1500,6.0,1,1,0.22
+715,Yippee! Pasta Magic Masala 70g,Ready-to-Eat,0.07,4,2,5,4,1400,6.0,1,1,0.2
+716,Ashirvaad Ready Meals Dal Makhani 300g,Ready-to-Eat,0.3,4,3,7,6,1000,9.0,1,1,0.4
+717,Ashirvaad Ready Meals Paneer Makhani 300g,Ready-to-Eat,0.3,4,3,7,6,1050,9.0,1,1,0.45
+718,Ashirvaad Ready Meals Rajma 300g,Ready-to-Eat,0.3,4,3,7,6,1100,9.0,1,1,0.38
+719,Ashirvaad Ready Meals Chana Masala 300g,Ready-to-Eat,0.3,4,3,7,6,1150,9.0,1,1,0.38
+720,B Natural Apple Juice 1L,Beverages,1.0,5,3,8,7,1400,6.0,1,1,0.55
+721,B Natural Orange Juice 1L,Beverages,1.0,5,3,8,7,1450,6.0,1,1,0.55
+722,B Natural Cranberry Juice 1L,Beverages,1.0,5,3,8,7,1500,6.0,1,1,0.65
+723,B Natural Litchi Juice 1L,Beverages,1.0,5,3,8,7,1550,6.0,1,1,0.58
+724,Real Fruit Juice Guava 1L,Beverages,1.0,5,3,8,7,1600,6.0,1,1,0.52
+725,Sunfeast Farmlite Digestive Biscuits 150g,Bakery & Snacks,0.15,3,2,3,3,1300,12.0,1,1,0.35
+726,Sunfeast Farmlite Oats Biscuits 150g,Bakery & Snacks,0.15,3,2,3,3,1350,12.0,1,1,0.38
+727,Sunfeast Farmlite Multigrain Biscuits 150g,Bakery & Snacks,0.15,3,2,3,3,1400,12.0,1,1,0.4
+728,Ashirvaad Sunfeast Bread White 400g,Bakery & Breakfast,0.4,4,4,6,6,200,0.2,1,1,0.28
+729,Ashirvaad Sunfeast Bread Brown 400g,Bakery & Breakfast,0.4,4,4,6,6,200,0.22,1,1,0.32
+730,Ashirvaad Sunfeast Bread Multigrain 400g,Bakery & Breakfast,0.4,4,4,6,6,200,0.25,1,1,0.35
+731,Ashirvaad Instant Chole Masala 40g,Staples & Seasoning,0.04,2,1,2,2,1200,12.0,1,1,0.15
+732,Ashirvaad Instant Dal Masala 40g,Staples & Seasoning,0.04,2,1,2,2,1150,12.0,1,1,0.15
+733,Ashirvaad Instant Sambar Masala 40g,Staples & Seasoning,0.04,2,1,2,2,1100,12.0,1,1,0.18
+734,Ashirvaad Iodised Salt 1kg,Staples & Seasoning,1.0,4,1,2,2,900,24.0,1,1,0.18
+735,Ashirvaad Ready to Cook Biryani Masala 50g,Staples & Seasoning,0.05,2,1,2,2,1300,12.0,1,1,0.22
+736,Sunfeast Farmlite Oats Cookies 100g,Bakery & Snacks,0.1,3,2,3,3,1400,9.0,1,1,0.3
+737,Sunfeast Farmlite Digestive Cookies 100g,Bakery & Snacks,0.1,3,2,3,3,1350,9.0,1,1,0.28
+738,Yippee! Power Up Green Apple Noodles 70g,Ready-to-Eat,0.07,4,2,5,4,1450,6.0,1,1,0.22
+739,Yippee! Power Up Orange Noodles 70g,Ready-to-Eat,0.07,4,2,5,4,1500,6.0,1,1,0.22
+740,Ashirvaad Ready Meals Biryani 300g,Ready-to-Eat,0.3,4,3,6,6,1200,9.0,1,1,0.45
+741,Ashirvaad Ready Meals Pulao 300g,Ready-to-Eat,0.3,4,3,6,6,1150,9.0,1,1,0.42
+742,B Natural Guava Juice 200ml,Beverages,0.2,4,3,8,7,1400,6.0,1,1,0.18
+743,B Natural Pomegranate Juice 200ml,Beverages,0.2,4,3,8,7,1450,6.0,1,1,0.25
+744,B Natural Watermelon Juice 1L,Beverages,1.0,5,3,8,7,1500,6.0,1,1,0.55
+745,Real Fruit Juice Pineapple 1L,Beverages,1.0,5,3,8,7,1550,6.0,1,1,0.52
+746,Sunfeast Glucose Energy Biscuits 250g,Bakery & Snacks,0.25,3,2,3,3,1200,12.0,1,1,0.28
+747,Sunfeast Monaco Salt Biscuits 250g,Bakery & Snacks,0.25,3,2,3,3,1250,12.0,1,1,0.25
+748,Sunfeast Monaco Masala Biscuits 250g,Bakery & Snacks,0.25,3,2,3,3,1300,12.0,1,1,0.28
+749,Ashirvaad Instant Upma Mix 100g,Ready-to-Eat,0.1,3,2,4,4,900,9.0,1,1,0.22
+750,Ashirvaad Instant Poha Mix 100g,Ready-to-Eat,0.1,3,2,4,4,950,9.0,1,1,0.22
+751,Ashirvaad Instant Rava Dosa Mix 100g,Ready-to-Eat,0.1,3,2,4,4,1000,9.0,1,1,0.25
+752,Yippee! Pasta Loop Surprise 70g,Ready-to-Eat,0.07,4,2,5,4,1400,6.0,1,1,0.2
+753,Yippee! Pasta Penne Surprise 70g,Ready-to-Eat,0.07,4,2,5,4,1450,6.0,1,1,0.2
+754,Sunfeast Dark Fantasy Creme Filled Biscuits 75g,Bakery & Snacks,0.075,3,3,4,3,1500,9.0,1,1,0.25
+755,Sunfeast Dark Fantasy Choco Fills Cookies 300g,Bakery & Snacks,0.3,4,3,4,3,1550,9.0,1,1,0.95
+756,Ashirvaad Ready Meals Hyderabadi Biryani 285g,Ready-to-Eat,0.285,4,3,6,6,1200,9.0,1,1,0.48
+757,Ashirvaad Ready Meals Methi Chicken 300g,Ready-to-Eat,0.3,4,3,7,6,1250,9.0,1,1,0.5
+758,Ashirvaad Ready Meals Chicken Curry 300g,Ready-to-Eat,0.3,4,3,7,6,1300,9.0,1,1,0.48
+759,B Natural Peach Nectar 1L,Beverages,1.0,5,3,8,7,1600,6.0,1,1,0.55
+760,B Natural Apricot Nectar 1L,Beverages,1.0,5,3,8,7,1650,6.0,1,1,0.58
+761,Real Fruit Juice Musambi 1L,Beverages,1.0,5,3,8,7,1700,6.0,1,1,0.52
+762,Real Fruit Juice Sweet Lime 1L,Beverages,1.0,5,3,8,7,1750,6.0,1,1,0.52
+763,Sunfeast Farmlite Veggie Twist Cookies 100g,Bakery & Snacks,0.1,3,2,3,3,1400,12.0,1,1,0.32
+764,Sunfeast Farmlite Oats & Honey Cookies 100g,Bakery & Snacks,0.1,3,2,3,3,1450,12.0,1,1,0.35
+765,Ashirvaad Instant Gulab Jamun Mix 100g,Ready-to-Eat,0.1,3,3,6,5,900,12.0,1,1,0.25
+766,Ashirvaad Instant Jalebi Mix 100g,Ready-to-Eat,0.1,3,3,6,5,950,12.0,1,1,0.28
+767,Ashirvaad Instant Sooji Halwa Mix 100g,Ready-to-Eat,0.1,3,2,4,4,1000,12.0,1,1,0.25
+768,Yippee! Power Up Gud Chana Noodles 70g,Ready-to-Eat,0.07,4,2,5,4,1500,6.0,1,1,0.22
+769,Sunfeast Bounce Energy Biscuits 250g,Bakery & Snacks,0.25,3,2,3,3,1550,12.0,1,1,0.35
+770,Sunfeast The Sport Nutrition Biscuits 250g,Bakery & Snacks,0.25,3,2,3,3,1600,12.0,1,1,0.38
+771,Ashirvaad Ready Meals Vegetable Biryani 285g,Ready-to-Eat,0.285,4,3,7,6,1200,9.0,1,1,0.45
+772,Ashirvaad Ready Meals Aloo Mutter 300g,Ready-to-Eat,0.3,4,3,8,7,1100,9.0,1,1,0.42
+773,Ashirvaad Ready Meals Pav Bhaji 300g,Ready-to-Eat,0.3,4,3,7,6,1150,9.0,1,1,0.42
+774,B Natural Strawberry Juice 200ml,Beverages,0.2,4,3,8,7,1650,6.0,1,1,0.22
+775,B Natural Blueberry Juice 200ml,Beverages,0.2,4,3,8,7,1700,6.0,1,1,0.28
+776,Real Fruit Juice Grape 1L,Beverages,1.0,5,3,8,7,1750,6.0,1,1,0.55
+777,Real Fruit Juice Black Currant 1L,Beverages,1.0,5,3,8,7,1800,6.0,1,1,0.6
+778,Sunfeast Marie Gold Mild Vanilla 250g,Bakery & Snacks,0.25,3,2,3,3,1650,12.0,1,1,0.3
+779,Sunfeast Marie Gold Elaichi 250g,Bakery & Snacks,0.25,3,2,3,3,1700,12.0,1,1,0.3
+780,Sunfeast Monaco Classic Salt 82g,Bakery & Snacks,0.082,3,2,3,3,1750,12.0,1,1,0.18
+781,Yippee! Noodle Soup Chicken 70g,Ready-to-Eat,0.07,4,2,5,4,1800,6.0,1,1,0.22
+782,Yippee! Noodle Soup Veg 70g,Ready-to-Eat,0.07,4,2,5,4,1850,6.0,1,1,0.22
+783,Ashirvaad Instant Mysore Bonda Mix 100g,Ready-to-Eat,0.1,3,3,7,6,900,9.0,1,1,0.25
+784,Ashirvaad Instant Medu Vada Mix 100g,Ready-to-Eat,0.1,3,3,7,6,950,9.0,1,1,0.25
+785,Ashirvaad Instant Rava Kesari Mix 100g,Ready-to-Eat,0.1,3,2,4,4,1000,12.0,1,1,0.25
+786,Sunfeast Dark Fantasy Oreo Choco 150g,Bakery & Snacks,0.15,4,3,4,3,1900,9.0,1,1,0.45
+787,Sunfeast Bounce Chocolate Energy Biscuits 150g,Bakery & Snacks,0.15,3,2,3,3,1950,12.0,1,1,0.35
+788,Ashirvaad Ready Meals Chicken Biryani 285g,Ready-to-Eat,0.285,4,3,6,6,1200,9.0,1,1,0.55
+789,Ashirvaad Ready Meals Mutton Curry 300g,Ready-to-Eat,0.3,4,3,7,6,1250,9.0,1,1,0.6
+790,Ashirvaad Ready Meals Fish Curry 300g,Ready-to-Eat,0.3,4,3,7,6,1300,9.0,1,1,0.55
+791,B Natural Passion Fruit Juice 1L,Beverages,1.0,5,3,8,7,1850,6.0,1,1,0.58
+792,B Natural Jamun Juice 1L,Beverages,1.0,5,3,8,7,1900,6.0,1,1,0.55
+793,Real Fruit Juice Sitaphal 1L,Beverages,1.0,5,3,8,7,1950,6.0,1,1,0.6
+794,Sunfeast Farmlite Veggie Maria 150g,Bakery & Snacks,0.15,3,2,3,3,2000,12.0,1,1,0.35
+795,Yippee! Pasta Star Twinkle 70g,Ready-to-Eat,0.07,4,2,5,4,2050,6.0,1,1,0.2
+796,Ashirvaad Instant Appam Mix 200g,Grains & Staples,0.2,4,3,7,6,900,9.0,1,1,0.28
+797,Ashirvaad Instant Puttu Mix 200g,Grains & Staples,0.2,4,2,4,4,950,12.0,1,1,0.3
+798,Ashirvaad Instant Akki Roti Mix 200g,Grains & Staples,0.2,4,2,3,3,1000,12.0,1,1,0.28
+799,Sunfeast The Sport Active Oats 250g,Bakery & Snacks,0.25,3,2,3,3,2100,12.0,1,1,0.4
+800,Ashirvaad Instant Ragi Java Mix 200g,Grains & Staples,0.2,4,2,4,4,1050,12.0,1,1,0.35
