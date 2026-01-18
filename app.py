@@ -4,9 +4,10 @@ import pandas as pd
 import psycopg2 
 from datetime import datetime
 from authlib.integrations.flask_client import OAuth
+from flask_sqlalchemy import SQLAlchemy  
 
 app = Flask(__name__)
-app.secret_key = "EcoPackAI_Secret_Key" # Session management
+app.secret_key = os.environ.get("SECRET_KEY", "EcoPackAI_Secret_Key")
 
 # --- GOOGLE OAUTH CONFIGURATION ---
 app.config['GOOGLE_CLIENT_ID'] = "854678979619-d687ehh7ju1jg74fdlra7rjfqmdl8jkk.apps.googleusercontent.com" 
@@ -21,18 +22,20 @@ google = oauth.register(
     client_kwargs={'scope': 'openid email profile'}
 )
 
-# --- Database Connection ---
+# --- NEON CLOUD DATABASE CONNECTION (UPDATED BY AI) ---
+# Maine aapka Neon URL yahan paste kar diya hai:
+DB_URL = "postgresql://user:password@ep-example-123456.us-east-2.aws.neon.tech/neondb?sslmode=require"
+
+app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
 def get_db_connection():
     try:
-        return psycopg2.connect(
-            database="eco_materials_db", 
-            user="postgres", 
-            password="Nandini", 
-            host="127.0.0.1",
-            port="5432"
-        )
+        return psycopg2.connect(DB_URL)
     except Exception as e:
-        print(f"❌ DB Error: {e}")
+        print(f"❌ Cloud DB Error: {e}")
         return None
 
 # --- AUTH ROUTES ---
@@ -79,7 +82,7 @@ def logout():
     session.pop('user', None)
     return redirect(url_for('home'))
 
-# --- CORE LOGIC: PREDICTION (With Edge Case Handling) ---
+# --- CORE LOGIC: PREDICTION ---
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
@@ -87,9 +90,8 @@ def predict():
         category = request.form.get('category')
         strength_val = request.form.get('strength')
         tensile = float(strength_val) if strength_val else 0
-        
-        # UPDATE: Edge Case Handling for Cost
         cost_in = float(request.form.get('cost', 0))
+
         if cost_in <= 0:
             return jsonify({"status": "error", "message": "Unit Cost must be greater than 0!"})
         
@@ -104,6 +106,15 @@ def predict():
         conn = get_db_connection()
         if conn:
             cur = conn.cursor()
+            cur.execute("""CREATE TABLE IF NOT EXISTS ai_predictions (
+                            id SERIAL PRIMARY KEY,
+                            product_name VARCHAR(100),
+                            product_category VARCHAR(100),
+                            input_cost FLOAT,
+                            optimized_cost FLOAT,
+                            sustainability_score FLOAT,
+                            created_at TIMESTAMP)""")
+            
             cur.execute("""INSERT INTO ai_predictions (product_name, product_category, input_cost, optimized_cost, sustainability_score, created_at) 
                            VALUES (%s, %s, %s, %s, %s, %s)""", 
                         (p_name, category, cost_in, recs[0]['cost'], recs[0]['score'], datetime.now()))
@@ -114,44 +125,37 @@ def predict():
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)})
 
-# --- NEW: DOWNLOAD REPORT ROUTE (Enhancement) ---
+# --- ANALYTICS & HISTORY ---
 @app.route('/download_report')
 def download_report():
     conn = get_db_connection()
     if conn:
         df = pd.read_sql_query("SELECT * FROM ai_predictions ORDER BY created_at DESC", conn)
         conn.close()
-        # Report ko CSV format mein download karwana
         csv_data = df.to_csv(index=False)
-        return Response(
-            csv_data,
-            mimetype="text/csv",
-            headers={"Content-disposition": "attachment; filename=EcoPackAI_Report.csv"}
-        )
+        return Response(csv_data, mimetype="text/csv", headers={"Content-disposition": "attachment; filename=EcoPackAI_Report.csv"})
     return "Database Error", 500
 
-# --- ANALYTICS & HISTORY ---
 @app.route('/get_analytics_data')
 def get_analytics_data():
     conn = get_db_connection()
     if conn:
-        df = pd.read_sql_query("SELECT product_name, optimized_cost, sustainability_score FROM ai_predictions ORDER BY id DESC LIMIT 8", conn)
+        df = pd.read_sql_query("SELECT product_name, optimized_cost, sustainability_score FROM ai_predictions ORDER BY created_at DESC LIMIT 8", conn)
         conn.close()
-        return jsonify({
-            "labels": df['product_name'].tolist(), 
-            "costs": df['optimized_cost'].tolist(), 
-            "scores": df['sustainability_score'].tolist()
-        })
+        return jsonify({"labels": df['product_name'].tolist(), "costs": df['optimized_cost'].tolist(), "scores": df['sustainability_score'].tolist()})
     return jsonify({"labels": [], "costs": [], "scores": []})
 
 @app.route('/get_history')
 def get_history():
     conn = get_db_connection()
     if conn:
-        df = pd.read_sql_query("SELECT product_name, product_category, optimized_cost, created_at FROM ai_predictions ORDER BY id DESC LIMIT 15", conn)
-        conn.close()
-        return jsonify([{"product": r[0], "category": r[1], "cost": r[2], "date": r[3].strftime("%d %b, %H:%M")} for r in df.values])
+        cur = conn.cursor()
+        cur.execute("SELECT product_name, product_category, optimized_cost, created_at FROM ai_predictions ORDER BY created_at DESC LIMIT 15")
+        rows = cur.fetchall()
+        cur.close(); conn.close()
+        return jsonify([{"product": r[0], "category": r[1], "cost": r[2], "date": r[3].strftime("%d %b, %H:%M")} for r in rows])
     return jsonify([])
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
