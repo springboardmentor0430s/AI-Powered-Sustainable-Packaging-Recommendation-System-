@@ -9,9 +9,29 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "EcoPackAI_Secret_Key")
 
+# --- DATABASE CONFIGURATION (UPDATED FOR RENDER) ---
+# Render वरील Environment Variable वापरण्यासाठी हा बदल केला आहे
+DB_URL = os.environ.get('SQLALCHEMY_DATABASE_URI')
+
+app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
+
+def get_db_connection():
+    try:
+        # DB_URL रिकामे असल्यास एरर टाळण्यासाठी
+        if not DB_URL:
+            print("❌ Error: SQLALCHEMY_DATABASE_URI is not set in Render Environment Variables")
+            return None
+        return psycopg2.connect(DB_URL)
+    except Exception as e:
+        print(f"❌ Cloud DB Error: {e}")
+        return None
+
 # --- GOOGLE OAUTH CONFIGURATION ---
-app.config['GOOGLE_CLIENT_ID'] = "854678979619-d687ehh7ju1jg74fdlra7rjfqmdl8jkk.apps.googleusercontent.com" 
-app.config['GOOGLE_CLIENT_SECRET'] = "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"
+app.config['GOOGLE_CLIENT_ID'] = os.environ.get('GOOGLE_CLIENT_ID', "854678979619-d687ehh7ju1jg74fdlra7rjfqmdl8jkk.apps.googleusercontent.com")
+app.config['GOOGLE_CLIENT_SECRET'] = os.environ.get('GOOGLE_CLIENT_SECRET', "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")
 
 oauth = OAuth(app)
 google = oauth.register(
@@ -21,22 +41,6 @@ google = oauth.register(
     server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
     client_kwargs={'scope': 'openid email profile'}
 )
-
-# --- NEON CLOUD DATABASE CONNECTION (UPDATED BY AI) ---
-# Maine aapka Neon URL yahan paste kar diya hai:
-DB_URL = "postgresql://user:password@ep-example-123456.us-east-2.aws.neon.tech/neondb?sslmode=require"
-
-app.config['SQLALCHEMY_DATABASE_URI'] = DB_URL
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-db = SQLAlchemy(app)
-
-def get_db_connection():
-    try:
-        return psycopg2.connect(DB_URL)
-    except Exception as e:
-        print(f"❌ Cloud DB Error: {e}")
-        return None
 
 # --- AUTH ROUTES ---
 @app.route('/')
@@ -106,6 +110,7 @@ def predict():
         conn = get_db_connection()
         if conn:
             cur = conn.cursor()
+            # Database table creation
             cur.execute("""CREATE TABLE IF NOT EXISTS ai_predictions (
                             id SERIAL PRIMARY KEY,
                             product_name VARCHAR(100),
