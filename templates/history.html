@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>History</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="sidebar">
+<h2>EcoPackAI</h2>
+<a href="/dashboard">Dashboard</a>
+<a href="/impact">Impact Insights</a>
+<a href="/history">History</a>
+</div>
+
+<div class="main">
+<div class="section">
+<h3>Recommendation History</h3>
+
+<table id="historyTable">
+<tr>
+<th>Date & Time</th>
+<th>Material</th>
+<th>Shape</th>
+<th>Strength</th>
+<th>Food Group</th>
+<th>Qty</th>
+<th>Pkg Wt</th>
+<th>Recycle %</th>
+<th>Predicted Cost</th>
+<th>Predicted CO₂</th>
+<th>Best Alt</th>
+</tr>
+</table>
+
+</div>
+</div>
+
+<script>
+const history = JSON.parse(localStorage.getItem("history")) || [];
+const table = document.getElementById("historyTable");
+
+history.forEach(h => {
+    const row = table.insertRow();
+    row.innerHTML = `
+        <td>${h.dateTime}</td>
+        <td><span class="badge">${h.material}</span></td>
+        <td>${h.shape}</td>
+        <td>${h.strength}</td>
+        <td>${h.food}</td>
+        <td>${h.qty} g</td>
+        <td>${h.pkgwt} g</td>
+        <td>${h.recycle}%</td>
+        <td>₹${h.predictedCost}</td>
+        <td>${h.predictedCO2}</td>
+        <td><span class="badge">${h.bestAlt}</span></td>
+    `;
+});
+</script>
+
+</body>
+</html>

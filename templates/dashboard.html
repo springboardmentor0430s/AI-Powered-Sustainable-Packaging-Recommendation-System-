@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+<link rel="stylesheet" href="/static/style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="sidebar">
+<h2>🌿 EcoPackAI</h2>
+<a href="/dashboard">📊 Recommendations</a>
+<a href="/impact">🌍 Impact Insights</a>
+<a href="/history">🕒 History</a>
+</div>
+
+<div class="main">
+
+<div class="cards">
+<div class="card"><h3>📈 Total Recommendations</h3><h1 id="k1">0</h1></div>
+<div class="card"><h3>💰 Cost Savings</h3><h1 id="k2">₹0</h1></div>
+<div class="card"><h3>🌱 CO₂ Reduced</h3><h1 id="k3">0</h1></div>
+<div class="card"><h3>♻️ Sustainability</h3><h1 id="k4">0%</h1></div>
+</div>
+
+<div class="section">
+<h3>📦 Packaging Inputs</h3>
+
+<input id="qty" placeholder="⚖️ Product Quantity (g)">
+<input id="pkgwt" placeholder="📦 Package Weight (g)">
+<input id="recycle" placeholder="♻️ Recyclability %">
+
+<select id="material">
+<option>🧴 Plastic</option>
+<option>🥫 Aluminium</option>
+<option>🍶 Glass</option>
+<option>📄 Paper</option>
+<option>📦 Cardboard</option>
+<option>🌱 Biodegradable Plastic</option>
+<option>🪵 Molded Pulp</option>
+</select>
+
+<select id="shape">
+<option>📦 Box</option>
+<option>🫙 Container</option>
+<option>🍾 Bottle</option>
+<option>🏺 Jar</option>
+<option>🛍️ Pouch</option>
+<option>🥫 Can</option>
+</select>
+
+<select id="strength">
+<option>🟢 Low</option>
+<option>🟡 Medium</option>
+<option>🔴 High</option>
+</select>
+
+<select id="food">
+<option>🍷 Alcoholic Beverages</option>
+<option>🥤 Non-Alcoholic Beverages</option>
+<option>🥛 Dairy Products</option>
+<option>❄️ Frozen Foods</option>
+<option>🍰 Bakery & Confectionery</option>
+<option>🍱 Ready-to-Eat Meals</option>
+<option>🍎 Fruits & Vegetables</option>
+<option>🥩 Meat & Seafood</option>
+<option>🍿 Snacks</option>
+<option>🌾 Dry Foods & Grains</option>
+</select>
+
+<button type="button" onclick="recommend()">✨ Get Recommendation</button>
+</div>
+
+<div class="section">
+<h3>✅ Recommendation Output</h3>
+<div id="out"></div>
+</div>
+
+<div class="section">
+<h3>📊 Cost Comparison</h3>
+<canvas id="costChart"></canvas>
+</div>
+
+</div>
+
+<script src="/static/recommend.js"></script>
+</body>
+</html>

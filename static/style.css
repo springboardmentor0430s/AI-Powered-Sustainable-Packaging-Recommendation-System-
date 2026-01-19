@@ -1,0 +1,99 @@
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: #f4f7fb;
+    color: #1f2937;
+}
+
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    position: fixed;
+    background: white;
+    border-right: 1px solid #e5e7eb;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    color: #047857;
+}
+
+.sidebar a {
+    display: block;
+    margin: 14px 0;
+    color: #374151;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.main {
+    margin-left: 240px;
+    padding: 30px;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.card, .section {
+    background: white;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+}
+
+.card h3 {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.card h1 {
+    color: #047857;
+}
+
+input, select {
+    width: 100%;
+    padding: 11px;
+    margin-top: 10px;
+    border-radius: 10px;
+    border: 1px solid #d1d5db;
+}
+
+button {
+    background: #047857;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    margin-top: 16px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+}
+
+.badge {
+    background: #d1fae5;
+    color: #065f46;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.pie-container {
+  width: 280px;     
+  height: 280px;
+  margin: auto;
+}
