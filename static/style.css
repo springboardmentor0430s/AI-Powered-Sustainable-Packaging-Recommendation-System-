@@ -1,0 +1,203 @@
+/* ===============================
+   GLOBAL RESET & BASE
+================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    background: #f4f7fb;
+    color: #2c3e50;
+    min-height: 100vh;
+}
+
+/* ===============================
+   NAVBAR
+================================ */
+.navbar {
+    background: #0f172a;
+    color: #ffffff;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar h1 {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.navbar a {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    margin-left: 20px;
+}
+
+/* ===============================
+   MAIN LAYOUT
+================================ */
+.page {
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+}
+
+/* ===============================
+   CARDS
+================================ */
+.card {
+    background: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.card h2 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* ===============================
+   FORM GRID
+================================ */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.form-group label {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 14px;
+}
+
+/* ===============================
+   BUTTON
+================================ */
+button {
+    background: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+button:hover {
+    background: #1e40af;
+}
+
+/* ===============================
+   METRICS
+================================ */
+.metrics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.metric-box {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: white;
+    padding: 20px;
+    border-radius: 14px;
+    text-align: center;
+}
+
+.metric-box.co2 {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+}
+
+.metric-box h3 {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.metric-box p {
+    font-size: 26px;
+    font-weight: bold;
+}
+
+/* ===============================
+   TABLE
+================================ */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+table th {
+    background: #f1f5f9;
+    padding: 12px;
+    text-align: left;
+    font-size: 13px;
+}
+
+table td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+}
+
+table tr:hover {
+    background: #f9fafb;
+}
+
+/* ===============================
+   FOOTER LINKS
+================================ */
+.logout {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.logout a {
+    color: #ef4444;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 900px) {
+    .form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .metrics {
+        grid-template-columns: 1fr;
+    }
+}

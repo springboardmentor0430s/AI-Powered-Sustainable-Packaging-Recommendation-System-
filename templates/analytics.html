@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>EcoPackAI | Analytics</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body { background-color: #f4f7fb; }
+
+        .sidebar {
+            width: 240px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background-color: #198754;
+            color: white;
+            padding: 20px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .sidebar a.active,
+        .sidebar a:hover {
+            background-color: #157347;
+        }
+
+        .content {
+            margin-left: 260px;
+            padding: 25px;
+        }
+
+        .card {
+            border-radius: 14px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+        }
+
+        .stat-card {
+            background: #198754;
+            color: white;
+            border-radius: 14px;
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h5>🌱 EcoPackAI</h5>
+    <a href="/dashboard">📦 Recommendations</a>
+    <a href="/analytics" class="active">📊 Analytics</a>
+    <a href="/history">📜 History</a>
+    <hr>
+    <a href="/logout">🚪 Logout</a>
+</div>
+
+<div class="content">
+
+    <h4 class="mb-4">📊 Sustainability Analytics</h4>
+
+    <!-- SUMMARY -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="stat-card">
+                <small>Average Cost Saved (₹)</small>
+                <h4 id="avgCostSaved">₹0</h4>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="stat-card">
+                <small>Average CO₂ Reduction (%)</small>
+                <h4 id="avgCo2Reduction">0%</h4>
+            </div>
+        </div>
+    </div>
+
+    <!-- LINE CHARTS -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-6">
+            <div class="card p-3">
+                <h6 class="text-success mb-3">Cost Savings Trend</h6>
+                <canvas id="costChart"></canvas>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card p-3">
+                <h6 class="text-primary mb-3">CO₂ Reduction Trend</h6>
+                <canvas id="co2Chart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- MATERIAL BAR -->
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card p-3">
+                <h6 class="text-dark mb-3">Material Usage Trend</h6>
+                <canvas id="materialChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- DONUT + SCORECARD (NEW SECTION) -->
+    <div class="row g-4">
+
+        <!-- DONUT -->
+        <div class="col-md-6">
+            <div class="card p-3">
+                <h6 class="mb-3">Material Distribution</h6>
+                <canvas id="materialDonutChart"></canvas>
+                <small class="text-muted d-block mt-2">
+                    Most used materials in recommendations
+                </small>
+            </div>
+        </div>
+
+        <!-- SCORECARD -->
+        <div class="col-md-6">
+            <div class="card p-3">
+                <h6 class="mb-3">Performance Scorecard</h6>
+
+                <table class="table table-sm align-middle">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Metric</th>
+                            <th>Value</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Avg Cost Saving</td>
+                            <td id="scoreCost">₹0</td>
+                            <td><span id="costStatus" class="badge"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Avg CO₂ Reduction</td>
+                            <td id="scoreCo2">0%</td>
+                            <td><span id="co2Status" class="badge"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Total Recommendations</td>
+                            <td id="scoreCount">0</td>
+                            <td><span id="countStatus" class="badge"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+let costChart, co2Chart, materialChart;
+
+async function loadAnalytics() {
+    const res = await fetch("/api/analytics", { credentials: "include" });
+    const data = await res.json();
+
+    if (!data.labels.length) return;
+
+    // SUMMARY CARDS
+    avgCostSaved.innerText = data.avg_cost_saved;
+    avgCo2Reduction.innerText = data.avg_co2_reduction + "%";
+
+    if (costChart) costChart.destroy();
+    if (co2Chart) co2Chart.destroy();
+    if (materialChart) materialChart.destroy();
+
+    /* COST SAVINGS (GREEN – SPIKY LIKE IMAGE) */
+    costChart = new Chart(document.getElementById("costChart"), {
+        type: "line",
+        data: {
+            labels: data.labels,
+            datasets: [{
+                label: "Cost Saved (₹)",
+                data: data.cost_values,
+                borderColor: "#198754",
+                backgroundColor: "rgba(25,135,84,0.15)",
+                pointRadius: 4,
+                tension: 0,
+                fill: false
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 700,
+                    ticks: { stepSize: 100 }
+                },
+                x: {
+                    ticks: {
+                        maxRotation: 45,
+                        minRotation: 45
+                    }
+                }
+            }
+        }
+    });
+
+    /* CO₂ REDUCTION (BLUE – SPIKY LIKE IMAGE) */
+    co2Chart = new Chart(document.getElementById("co2Chart"), {
+        type: "line",
+        data: {
+            labels: data.labels,
+            datasets: [{
+                label: "CO₂ Reduction (%)",
+                data: data.co2_values,
+                borderColor: "#0d6efd",
+                backgroundColor: "rgba(13,110,253,0.15)",
+                pointRadius: 4,
+                tension: 0,
+                fill: false
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 80,
+                    ticks: { stepSize: 10 }
+                },
+                x: {
+                    ticks: {
+                        maxRotation: 45,
+                        minRotation: 45
+                    }
+                }
+            }
+        }
+    });
+
+    /* MATERIAL USAGE */
+    materialChart = new Chart(document.getElementById("materialChart"), {
+        type: "bar",
+        data: {
+            labels: Object.keys(data.materials),
+            datasets: [{
+                label: "Recommendation Count",
+                data: Object.values(data.materials),
+                backgroundColor: "#198754"
+            }]
+        },
+        options: { indexAxis: "y" }
+    });
+
+
+
+    // DONUT
+    materialDonutChart = new Chart(document.getElementById("materialDonutChart"), {
+        type: "doughnut",
+        data: {
+            labels: Object.keys(data.materials),
+            datasets: [{
+                data: Object.values(data.materials)
+            }]
+        },
+        options: {
+            cutout: "65%",
+            plugins: { legend: { position: "bottom" } }
+        }
+    });
+
+    // SCORECARD
+    scoreCost.innerText = "₹" + data.avg_cost_saved;
+    scoreCo2.innerText = data.avg_co2_reduction + "%";
+    const total = Object.values(data.materials).reduce((a,b)=>a+b,0);
+    scoreCount.innerText = total;
+
+    costStatus.className = "badge bg-success";
+    costStatus.innerText = "Good";
+
+    co2Status.className = "badge bg-primary";
+    co2Status.innerText = "On Track";
+
+    countStatus.className = "badge bg-success";
+    countStatus.innerText = "Active";
+}
+
+loadAnalytics();
+</script>
+
+</body>
+</html>

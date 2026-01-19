@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EcoPackAI | Dashboard</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            background-color: #f4f7fb;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 240px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background-color: #198754;
+            color: white;
+            padding: 20px;
+        }
+
+        .sidebar h5 {
+            margin-bottom: 30px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background-color: #157347;
+        }
+
+        /* MAIN CONTENT */
+        .content {
+            margin-left: 260px;
+            padding: 25px;
+        }
+
+        .card {
+            border-radius: 14px;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+        }
+
+        .stat-card {
+            background: #198754;
+            color: white;
+            border-radius: 14px;
+            padding: 18px;
+        }
+
+        .btn-green {
+            background-color: #198754;
+            color: white;
+            font-weight: 500;
+        }
+
+        .btn-green:hover {
+            background-color: #157347;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h5>🌱 EcoPackAI</h5>
+
+    <a href="/dashboard" class="active">📦 Recommendations</a>
+    <a href="/analytics">📊 Analytics</a>
+    <a href="/history">📜 History</a>
+
+    <hr>
+    <a href="/logout">🚪 Logout</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="content">
+
+    <!-- SUMMARY CARDS -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="stat-card text-center">
+                <small>Top Recommendations</small>
+                <h4 id="totalRecs">0</h4>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card text-center">
+                <small>Predicted Cost (₹)</small>
+                <h4 id="totalCost">0</h4>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="stat-card text-center">
+                <small>Predicted CO₂ (kg)</small>
+                <h4 id="totalCo2">0</h4>
+            </div>
+        </div>
+    </div>
+
+    <!-- INPUT + OUTPUT CARD -->
+    <div class="card p-4">
+
+        <h6 class="mb-3">Get Packaging Recommendations</h6>
+
+        <!-- INPUTS -->
+        <div class="row g-3">
+
+            <div class="col-md-4">
+                <label class="form-label">Material</label>
+                <select id="material" class="form-select">
+                    <option value="paper-based">Paper-based</option>
+                    <option value="synthetic polymer">Synthetic Polymer</option>
+                    <option value="natural fiber">Natural Fiber</option>
+                    <option value="wood-based">Wood-based</option>
+                    <option value="biopolymer">Biopolymer</option>
+                    <option value="biodegradable polymer">Biodegradable Polymer</option>
+                    <option value="metal">Metal</option>
+                </select>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Product Quantity</label>
+                <input id="qty" type="number" class="form-control" value="1000">
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Strength (MPa)</label>
+                <input id="strength" type="number" class="form-control" value="50">
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Weight Capacity (Kg)</label>
+                <input id="weight" type="number" class="form-control" value="10">
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Temperature (°C)</label>
+                <input id="temp" type="number" class="form-control" value="25">
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">CO₂ Score</label>
+                <input id="co2score" type="number" class="form-control" value="5">
+            </div>
+
+            <div class="col-md-12">
+                <button type="button" onclick="predict()" class="btn btn-green w-100 mt-2">
+                    Get Recommendations
+                </button>
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <!-- TOP 5 TABLE -->
+        <h6>Top 5 Recommended Materials</h6>
+
+        <table class="table table-bordered mt-2">
+            <thead class="table-light">
+                <tr>
+                    <th>Rank</th>
+                    <th>Material</th>
+                    <th>Cost (₹)</th>
+                    <th>CO₂ (kg)</th>
+                </tr>
+            </thead>
+            <tbody id="resultTable"></tbody>
+        </table>
+
+        <!-- CHARTS -->
+        <div class="row mt-4">
+
+            <div class="col-md-6">
+                <div class="card p-3">
+                    <h6 class="text-success mb-3">CO₂ Emissions Comparison</h6>
+                    <canvas id="co2Chart"></canvas>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card p-3">
+                    <h6 class="text-primary mb-3">Cost Comparison</h6>
+                    <canvas id="costChart"></canvas>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+let co2Chart = null;
+let costChart = null;
+
+async function predict() {
+
+    const payload = {
+        material: material.value,
+        product_quantity: Number(qty.value),
+        strength: Number(strength.value),
+        weight: Number(weight.value),
+        temperature: Number(temp.value),
+        co2_score: Number(co2score.value)
+    };
+
+    const res = await fetch("/api/predict", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) {
+        alert("Session expired. Please login again.");
+        return;
+    }
+
+    const data = await res.json();
+
+    // SUMMARY
+    totalRecs.innerText = data.top5.length;
+    totalCost.innerText = data.user_result.cost;
+    totalCo2.innerText = data.user_result.co2;
+
+    // TABLE
+    resultTable.innerHTML = "";
+    data.top5.forEach((r, i) => {
+        resultTable.innerHTML += `
+            <tr>
+                <td>${i + 1}</td>
+                <td>${r.material}</td>
+                <td>₹ ${r.cost}</td>
+                <td>${r.co2}</td>
+            </tr>`;
+    });
+
+    const labels = data.top5.map(r => r.material);
+
+    // CO2 CHART
+    if (co2Chart) co2Chart.destroy();
+    co2Chart = new Chart(document.getElementById("co2Chart"), {
+        type: "bar",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "CO₂ (kg)",
+                data: data.top5.map(r => r.co2),
+                backgroundColor: "#198754"
+            }]
+        }
+    });
+
+    // COST CHART
+    if (costChart) costChart.destroy();
+    costChart = new Chart(document.getElementById("costChart"), {
+        type: "bar",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Cost (₹)",
+                data: data.top5.map(r => r.cost),
+                backgroundColor: "#0d6efd"
+            }]
+        }
+    });
+}
+</script>
+
+</body>
+</html>
