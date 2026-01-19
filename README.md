@@ -55,8 +55,8 @@ EcoPackAI/
 
 1. **Clone the repository**
 ```bash
-git clone https://github.com/yourusername/ecopackai.git
-cd ecopackai
+git clone https://github.com/springboardmentor0430s/AI-Powered-Sustainable-Packaging-Recommendation-System-.git
+cd AI-Powered-Sustainable-Packaging-Recommendation-System-
 ```
 
 2. **Create virtual environment**
