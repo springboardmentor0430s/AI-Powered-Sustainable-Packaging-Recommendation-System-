@@ -24,13 +24,33 @@ EcoPackAI is an AI-powered web application that recommends eco-friendly and cost
 
 ## Project Structure
 EcoPackAI/
-├── app.py
+├── Dataset/
+│   └── ecopack_food_packaging.csv     # Training dataset
+│
 ├── models/
+│   ├── cost_model.pkl                 # Trained cost prediction model
+│   ├── co2_model.pkl                  # Trained CO₂ prediction model
+│   └── scaler.pkl                     # Feature scaler
+│
 ├── database/
+│   └── db.py                          # PostgreSQL connection logic
+│
 ├── templates/
+│   ├── login.html                     # Login page
+│   ├── signup.html                    # Registration page
+│   ├── dashboard.html                 # Main dashboard
+│   ├── analytics.html                 # Prediction analytics
+│   └── history.html                   # Prediction history
+│
 ├── static/
-├── requirements.txt
+│   ├── style.css                      # Custom styles
+│   └── bootstrap.min.css              # UI framework
+│
+├── app.py                             # Flask backend & ML inference
+├── infosys.ipynb                      # Model training & experimentation
+├── requirements.txt                  # Python dependencies
 └── README.md
+
 
 
 ## How to Run
