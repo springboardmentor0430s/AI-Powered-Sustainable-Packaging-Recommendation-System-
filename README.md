@@ -28,3 +28,6 @@ Clone the repository and switch to the Rajnandini_EcoPackAI branch.
 Install dependencies: pip install -r requirements.txt.
 Set up the PostgreSQL database connection in app.py.
 Run the application: python app.py.
+
+Successful Deployment: The application is fully functional and has been successfully deployed on the Render platform.
+Live URL: https://ecopack-ai-live.onrender.com
