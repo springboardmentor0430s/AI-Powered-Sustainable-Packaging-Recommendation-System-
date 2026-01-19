@@ -1,7 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="120" height="24" viewBox="0 0 120 24" fill="none">
-  <rect width="120" height="24" rx="4" fill="white" />
-  <text x="32" y="16" font-family="Inter, Arial" font-size="14" fill="#1F2937">aurora</text>
-  <g transform="translate(4,4)">
-    <circle cx="6" cy="6" r="6" fill="#34D399" />
-  </g>
-</svg>
