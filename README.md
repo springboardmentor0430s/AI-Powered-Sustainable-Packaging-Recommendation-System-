@@ -22,3 +22,5 @@ The packaging industry is one of the largest contributors to global plastic wast
 <li>Backend: Node.js / FastAPI</li>
 <li>Database: PostgreSQL</li>
 
+<h2>Demo Link </h2>
+https://ecopackai.netlify.app
