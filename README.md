@@ -23,6 +23,7 @@ EcoPackAI is an AI-powered web application that recommends eco-friendly and cost
 ---
 
 ## Project Structure
+```
 EcoPackAI/
 ├── Dataset/
 │   └── ecopack_food_packaging.csv     # Training dataset
@@ -51,7 +52,7 @@ EcoPackAI/
 ├── requirements.txt                  # Python dependencies
 └── README.md
 
-
+```
 
 ## How to Run
 1. Clone the repository  
