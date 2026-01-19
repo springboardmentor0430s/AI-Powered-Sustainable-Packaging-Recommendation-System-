@@ -168,7 +168,7 @@ http://localhost:3000
 
 ---
 
-## 11. Deployment (Planned)
+## 11. Deployment
 
 * **Backend**: Render
 * **Database**: PostgreSQL (Cloud)
