@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+{% block title %}Product Input - EcoPackAI{% endblock %}
+
+{% block extra_css %}
+<style>
+    .form-section {
+        background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+        border-radius: 20px;
+        padding: 30px;
+        margin-bottom: 30px;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+    }
+    .form-section:hover {
+        border-color: #198754;
+        box-shadow: 0 10px 30px rgba(25, 135, 84, 0.15);
+    }
+    .parameter-slider {
+        height: 8px;
+        border-radius: 10px;
+    }
+    .slider-value {
+        min-width: 70px;
+        font-weight: bold;
+        color: #198754;
+    }
+    .preview-card {
+        background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+        border-radius: 20px;
+        padding: 25px;
+        border: 2px solid #e9ecef;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+<div class="row g-4">
+<!-- FORM -->
+<div class="col-lg-8">
+<div class="card shadow-sm border-0">
+<div class="card-body p-4">
+
+<form id="productForm">
+
+<h5 class="fw-bold text-success mb-3">
+<i class="fas fa-box me-2"></i>Product Information
+</h5>
+
+<div class="row mb-4">
+<div class="col-md-6">
+<input type="text" class="form-control" id="productName" placeholder="Product name" required>
+</div>
+<div class="col-md-6">
+<select class="form-select" id="productCategory" required>
+<option value="">Select category</option>
+<option value="Food">Food</option>
+<option value="Electronics">Electronics</option>
+<option value="Cosmetics">Cosmetics</option>
+<option value="Pharmaceutical">Pharmaceutical</option>
+<option value="Clothing">Clothing</option>
+<option value="Other">Other</option>
+</select>
+</div>
+</div>
+
+<h6 class="fw-bold text-success mb-2">Weight (kg)</h6>
+<input type="range" id="productWeight" class="form-range"
+       min="0.01" max="5" step="0.01" value="0.50">
+<span class="slider-value" id="weightValue">0.50 kg</span>
+
+<hr>
+
+<h6 class="fw-bold text-success mb-2">Fragility (1–10)</h6>
+<input type="range" id="fragilityLevel" class="form-range"
+       min="1" max="10" value="3">
+<span class="slider-value" id="fragilityValue">3 / 10</span>
+
+<hr>
+
+<h6 class="fw-bold text-success mb-2">Temperature Sensitive?</h6>
+<div class="btn-group w-100">
+<input type="radio" class="btn-check" name="temperatureSensitive" id="tempNo" value="false" checked>
+<label class="btn btn-outline-success" for="tempNo">No</label>
+
+<input type="radio" class="btn-check" name="temperatureSensitive" id="tempYes" value="true">
+<label class="btn btn-outline-success" for="tempYes">Yes</label>
+</div>
+
+<div class="alert alert-danger d-none mt-3" id="errorAlert"></div>
+<div class="alert alert-success d-none mt-3" id="successAlert">Analysis complete</div>
+
+<button type="submit" class="btn btn-success btn-lg mt-4 w-100" id="analyzeBtn">
+Analyze Now
+</button>
+
+</form>
+</div>
+</div>
+</div>
+
+<!-- PREVIEW -->
+<div class="col-lg-4">
+<div class="preview-card sticky-top" style="top:20px;">
+<h5 class="fw-bold" id="previewName">Enter Product Name</h5>
+<span class="badge bg-success" id="previewCategory">Category</span>
+<hr>
+<p><strong>Weight:</strong> <span id="previewWeight">0.50 kg</span></p>
+<p><strong>Fragility:</strong> <span id="previewFragility">3</span>/10</p>
+<p><strong>Temperature:</strong> <span id="previewTemp">No</span></p>
+</div>
+</div>
+
+</div>
+</div>
+
+<script>
+const productName = document.getElementById("productName");
+const productCategory = document.getElementById("productCategory");
+const productWeight = document.getElementById("productWeight");
+const fragilityLevel = document.getElementById("fragilityLevel");
+
+const weightValue = document.getElementById("weightValue");
+const fragilityValue = document.getElementById("fragilityValue");
+
+const previewName = document.getElementById("previewName");
+const previewCategory = document.getElementById("previewCategory");
+const previewWeight = document.getElementById("previewWeight");
+const previewFragility = document.getElementById("previewFragility");
+const previewTemp = document.getElementById("previewTemp");
+
+productName.oninput = () => previewName.textContent = productName.value || "Enter Product Name";
+productCategory.onchange = () => previewCategory.textContent = productCategory.value || "Category";
+
+productWeight.oninput = () => {
+const v = parseFloat(productWeight.value).toFixed(2);
+weightValue.textContent = v + " kg";
+previewWeight.textContent = v + " kg";
+};
+
+fragilityLevel.oninput = () => {
+fragilityValue.textContent = fragilityLevel.value + " / 10";
+previewFragility.textContent = fragilityLevel.value;
+};
+
+document.querySelectorAll("[name='temperatureSensitive']").forEach(r =>
+r.onchange = () => previewTemp.textContent = r.value === "true" ? "Yes" : "No"
+);
+
+document.getElementById("productForm").onsubmit = async e => {
+e.preventDefault();
+const token = localStorage.getItem("token");
+if (!token) return location.href = "/login";
+
+const payload = {
+product_name: productName.value,
+category: productCategory.value,
+weight_kg: parseFloat(productWeight.value),
+fragility_level: parseInt(fragilityLevel.value),
+temperature_sensitive: document.querySelector("[name='temperatureSensitive']:checked").value === "true"
+};
+
+const res = await fetch("/api/recommendations/recommend", {
+method: "POST",
+headers: {
+"Content-Type": "application/json",
+Authorization: `Bearer ${token}`
+},
+body: JSON.stringify(payload)
+});
+
+const data = await res.json();
+if (res.ok) {
+localStorage.setItem("currentRecommendations", JSON.stringify(data.recommendations));
+location.href = "/recommendations";
+}
+};
+</script>
+{% endblock %}

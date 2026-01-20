@@ -1,0 +1,232 @@
+{% extends "base.html" %}
+{% block title %}AI Recommendations - EcoPackAI{% endblock %}
+
+{% block extra_css %}
+<style>
+.recommendation-card{
+    background:#fff;
+    border-radius:16px;
+    border-left:5px solid transparent;
+    transition:.3s;
+}
+.recommendation-card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 15px 30px rgba(0,0,0,.12);
+}
+.rank-1{border-left-color:#ffc107}
+.rank-2{border-left-color:#adb5bd}
+.rank-3{border-left-color:#cd7f32}
+
+.rank-badge{
+    width:40px;height:40px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:700;color:#fff
+}
+.score-circle{
+    width:90px;height:90px;border-radius:50%;
+    border:4px solid #198754;
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.6rem;font-weight:700;color:#198754
+}
+.metric-badge{
+    padding:5px 10px;border-radius:12px;font-weight:600;font-size:.85rem
+}
+.green{background:#d1e7dd;color:#0f5132}
+.orange{background:#fff3cd;color:#664d03}
+.blue{background:#cff4fc;color:#055160}
+.view-btn{
+    border:2px solid #e9ecef;background:#fff;
+    padding:6px 14px;border-radius:8px;cursor:pointer
+}
+.view-btn.active{
+    background:#198754;color:#fff;border-color:#198754
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-2">
+    <div>
+        <h3 class="fw-bold mb-1"><i class="fas fa-lightbulb me-2 text-success"></i>AI Recommendations</h3>
+        <p class="text-muted mb-0">Ranked sustainable packaging materials</p>
+    </div>
+    <div class="d-flex gap-2">
+        <button class="view-btn active" onclick="switchView('card',this)">Cards</button>
+        <button class="view-btn" onclick="switchView('table',this)">Table</button>
+        <a href="/product-input" class="btn btn-success">New Analysis</a>
+    </div>
+</div>
+
+<div id="loading" class="text-center py-5">
+    <div class="spinner-border text-success"></div>
+    <p class="mt-3">Loading recommendations…</p>
+</div>
+
+<div id="noData" class="text-center py-5 d-none">
+    <h5>No recommendations found</h5>
+    <a href="/product-input" class="btn btn-success mt-3">Analyze Product</a>
+</div>
+
+<div id="results" class="d-none">
+
+<div id="topRecSection" class="mb-5 d-none">
+    <h5 class="fw-bold mb-3">Top Recommendation</h5>
+    <div class="row align-items-center g-4" id="topRec"></div>
+</div>
+
+<div id="cardView">
+    <div class="row g-4" id="allRecsCards"></div>
+</div>
+
+<div id="tableView" class="d-none">
+    <div class="table-responsive">
+        <table class="table table-bordered align-middle">
+            <thead class="table-success">
+                <tr>
+                    <th>Rank</th>
+                    <th>Material</th>
+                    <th>Score</th>
+                    <th>Recyclable</th>
+                    <th>Strength</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+</div>
+
+</div>
+</div>
+
+<script>
+/* ================= SAFE FORMATTER ================= */
+function fmt(val, digits = 2) {
+    if (val === undefined || val === null || isNaN(val)) return "—";
+    return Number(val).toFixed(digits);
+}
+
+document.addEventListener("DOMContentLoaded", load);
+
+function load(){
+    const local = localStorage.getItem("currentRecommendations");
+    if(local){
+        // Map API response keys to UI keys
+        const raw = JSON.parse(local);
+        const list = raw.map(r => ({
+            material_name: r.material_name,
+            score: r.score,
+            co2: r.co2_reduction_percent,
+            cost: r.cost_savings_percent,
+            recyclability: r.recyclability,
+            strength: r.strength,
+            costkg: r.cost_per_kg
+        }));
+        render(list);
+    } else {
+        fetchHistory();
+    }
+}
+
+async function fetchHistory(){
+    try{
+        const res = await fetch("/api/recommendations/history",{
+            headers:{ Authorization:"Bearer " + localStorage.getItem("token") }
+        });
+        const data = await res.json();
+        if(data.recommendations?.length){
+            render(data.recommendations.map(mapHistory));
+        } else showNoData();
+    } catch {
+        showNoData();
+    }
+}
+
+function mapHistory(r){
+    return{
+        material_name: r.material_name,
+        score: r.recommendation_score ?? 0,
+        co2: r.co2_reduction_percent ?? 0,
+        cost: r.cost_savings_percent ?? 0,
+        recyclability: r.material_details?.recyclability_percent ?? 0,
+        strength: r.material_details?.strength_rating ?? 0,
+        costkg: r.material_details?.cost_per_kg ?? 0
+    }
+}
+
+function render(list){
+    loading.classList.add("d-none");
+    results.classList.remove("d-none");
+    if(!list.length){ showNoData(); return; }
+    renderTop(list[0]);
+    renderCards(list);
+    renderTable(list);
+}
+
+function renderTop(r){
+    topRecSection.classList.remove("d-none");
+    const scorePct = r.score * 100; // Assuming score is 0-1 (e.g. 0.725 -> 72.5%)
+
+    topRec.innerHTML = `
+        <div class="col-md-4 text-center">
+            <div class="score-circle mx-auto mb-2">${fmt(scorePct,1)}%</div>
+            <small class="text-muted">Eco Score</small>
+        </div>
+        <div class="col-md-8">
+            <h4 class="fw-bold">${r.material_name || "N/A"}</h4>
+            <p class="mb-1">CO₂ Reduction: <strong>${fmt(r.co2,1)}%</strong></p>
+            <p class="mb-1">Cost Savings: <strong>${fmt(r.cost,1)}%</strong></p>
+            <p class="mb-1">Recyclability: <strong>${fmt(r.recyclability,0)}%</strong></p>
+        </div>`;
+}
+
+function renderCards(list){
+    allRecsCards.innerHTML = list.map((r,i)=>{
+        const scorePct = r.score * 100;
+        return `
+        <div class="col-md-4">
+            <div class="card recommendation-card rank-${i+1}">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-2">
+                        <div class="rank-badge bg-success">${i+1}</div>
+                        <span class="metric-badge green">${fmt(scorePct,1)}%</span>
+                    </div>
+                    <h5 class="fw-bold">${r.material_name}</h5>
+                    <p class="mb-1">CO₂ ↓ ${fmt(r.co2,1)}%</p>
+                    <p class="mb-1">Cost ↓ ${fmt(r.cost,1)}%</p>
+                    <p class="mb-1">Recyclable ${fmt(r.recyclability,0)}%</p>
+                    <p class="mb-0">Cost/kg $${fmt(r.costkg,2)}</p>
+                </div>
+            </div>
+        </div>`;
+    }).join("");
+}
+
+function renderTable(list){
+    tableBody.innerHTML = list.map((r,i)=>{
+        const scorePct = r.score * 100;
+        return `
+        <tr>
+            <td>#${i+1}</td>
+            <td>${r.material_name}</td>
+            <td>${fmt(scorePct,1)}%</td>
+            <td>${fmt(r.recyclability,0)}%</td>
+            <td>${r.strength || "—"}/10</td>
+        </tr>`;
+    }).join("");
+}
+
+function showNoData(){
+    loading.classList.add("d-none");
+    noData.classList.remove("d-none");
+}
+
+function switchView(view,btn){
+    document.querySelectorAll(".view-btn").forEach(b=>b.classList.remove("active"));
+    btn.classList.add("active");
+    cardView.classList.toggle("d-none", view !== "card");
+    tableView.classList.toggle("d-none", view !== "table");
+}
+</script>
+{% endblock %}

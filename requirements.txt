@@ -1,0 +1,22 @@
+Flask==2.3.3
+Flask-SQLAlchemy==3.0.5
+Flask-Login==0.6.2
+Flask-CORS==4.0.0
+Flask-JWT-Extended==4.5.3
+python-dotenv==1.0.0
+openpyxl==3.1.2
+Werkzeug==2.3.7
+
+# PostgreSQL driver (REQUIRED)
+psycopg2-binary==2.9.9
+reportlab==4.0.8
+# Data processing and visualization
+pandas==2.0.3
+plotly==5.16.1
+numpy==1.24.3
+
+# Excel export support
+xlsxwriter==3.1.2
+
+# Additional utilities
+requests==2.31.0

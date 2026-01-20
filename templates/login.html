@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Login - EcoPackAI{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card border-0 shadow-lg my-5">
+                <div class="card-body p-5">
+
+                    <!-- Header (NO IMAGE) -->
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold text-success mb-1">Welcome Back</h2>
+                        <p class="text-muted mb-0">
+                            Sign in to your EcoPackAI account
+                        </p>
+                    </div>
+
+                    <div id="alertContainer"></div>
+
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label class="form-label fw-semibold">Username</label>
+                            <input
+                                type="text"
+                                class="form-control form-control-lg"
+                                id="username"
+                                placeholder="Enter your username"
+                                required
+                            >
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Password</label>
+                            <input
+                                type="password"
+                                class="form-control form-control-lg"
+                                id="password"
+                                placeholder="Enter your password"
+                                required
+                            >
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="btn btn-success btn-lg w-100"
+                            id="loginBtn"
+                        >
+                            Login
+                        </button>
+
+                        <div class="text-center mt-4">
+                            <p class="mb-0 text-muted">
+                                Don’t have an account?
+                                <a href="/signup" class="fw-bold text-success text-decoration-none">
+                                    Sign Up
+                                </a>
+                            </p>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const form = document.getElementById("loginForm");
+const btn = document.getElementById("loginBtn");
+const alertContainer = document.getElementById("alertContainer");
+
+form.addEventListener("submit", async function(e) {
+    e.preventDefault();
+    alertContainer.innerHTML = "";
+
+    btn.disabled = true;
+    btn.textContent = "Signing in...";
+
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value;
+
+    try {
+        const res = await fetch("/api/auth/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password })
+        });
+
+        const data = await res.json();
+
+        if (res.ok && data.access_token) {
+            localStorage.setItem("token", data.access_token);
+            window.location.href = "/dashboard";
+        } else {
+            showAlert(data.error || "Invalid username or password");
+        }
+    } catch (err) {
+        showAlert("Server error. Please try again.");
+    } finally {
+        btn.disabled = false;
+        btn.textContent = "Login";
+    }
+});
+
+function showAlert(message) {
+    const alert = document.createElement("div");
+    alert.className = "alert alert-danger alert-dismissible fade show";
+    alert.innerHTML = `
+        ${message}
+        <button class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    alertContainer.appendChild(alert);
+}
+</script>
+{% endblock %}

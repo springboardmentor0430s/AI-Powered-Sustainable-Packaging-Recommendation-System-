@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}Analytics Dashboard - EcoPackAI{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1"><i class="fas fa-chart-line me-2 text-success"></i>Analytics Dashboard</h3>
+            <p class="text-muted mb-0">Track your environmental impact and savings</p>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-outline-success dropdown-toggle" data-bs-toggle="dropdown">
+                <i class="fas fa-download me-1"></i> Export Report
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#" onclick="EcoPackAI.exportData('pdf')"><i class="fas fa-file-pdf me-2 text-danger"></i>Export PDF</a></li>
+                <li><a class="dropdown-item" href="#" onclick="EcoPackAI.exportData('excel')"><i class="fas fa-file-excel me-2 text-success"></i>Export Excel</a></li>
+                <li><a class="dropdown-item" href="#" onclick="EcoPackAI.exportData('csv')"><i class="fas fa-file-csv me-2 text-primary"></i>Export CSV</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Key Metrics -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100" style="background: linear-gradient(135deg, #d1e7dd 0%, #ffffff 100%);">
+                <div class="card-body">
+                    <h6 class="text-success fw-bold text-uppercase small mb-2">Avg CO₂ Reduction</h6>
+                    <h2 class="fw-bold mb-0" id="avgCO2">0%</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100" style="background: linear-gradient(135deg, #cfe2ff 0%, #ffffff 100%);">
+                <div class="card-body">
+                    <h6 class="text-primary fw-bold text-uppercase small mb-2">Avg Cost Savings</h6>
+                    <h2 class="fw-bold mb-0" id="avgCost">0%</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100" style="background: linear-gradient(135deg, #fff3cd 0%, #ffffff 100%);">
+                <div class="card-body">
+                    <h6 class="text-warning fw-bold text-uppercase small mb-2">Recommendations</h6>
+                    <h2 class="fw-bold mb-0" id="totalRecs">0</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card border-0 shadow-sm h-100" style="background: linear-gradient(135deg, #f8d7da 0%, #ffffff 100%);">
+                <div class="card-body">
+                    <h6 class="text-danger fw-bold text-uppercase small mb-2">Top Material</h6>
+                    <h2 class="fw-bold mb-0 fs-4" id="topMaterial">—</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row 1 -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-8">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <div id="co2Chart" style="width:100%; height:350px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm h-100">
+                <div class="card-body">
+                    <div id="materialChart" style="width:100%; height:350px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Row 2 -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-12">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div id="costChart" style="width:100%; height:350px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Material Insights -->
+    <h4 class="fw-bold mb-3">Material Insights</h4>
+    <div class="row g-4" id="insightsContainer">
+        <div class="col-12 text-center py-4">
+            <div class="spinner-border text-success" role="status"></div>
+            <p class="mt-2 text-muted">Loading insights...</p>
+        </div>
+    </div>
+</div>
+
+<!-- Plotly JS -->
+<script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
+
+<style>
+.metric-card { background: #f8f9fa; border-radius: 12px; padding: 1.5rem; height: 100%; border-left: 4px solid #198754; transition: transform 0.2s; }
+.metric-card:hover { transform: translateY(-5px); box-shadow: 0 .5rem 1rem rgba(0,0,0,.15); }
+</style>
+{% endblock %}

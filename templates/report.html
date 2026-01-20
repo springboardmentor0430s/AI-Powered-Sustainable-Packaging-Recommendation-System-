@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+{% block title %}Reports - EcoPackAI{% endblock %}
+
+{% block extra_css %}
+<style>
+.report-card{transition:.3s;border-radius:12px}
+.report-card:hover{transform:translateY(-3px);box-shadow:0 10px 20px rgba(0,0,0,.1)}
+.report-icon{width:60px;height:60px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px}
+.preview{border-radius:12px;padding:2rem;color:#fff;background:linear-gradient(135deg,#667eea,#764ba2)}
+.template-card{border:2px dashed #dee2e6;border-radius:12px;cursor:pointer;transition:.3s}
+.template-card:hover{border-color:#198754;background:rgba(25,135,84,.05)}
+.template-card.active{border-color:#198754;background:rgba(25,135,84,.1)}
+.param{padding:.4rem .9rem;border-radius:20px;font-weight:500;cursor:pointer}
+.param.active{background:#198754!important;color:#fff!important}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+<!-- HEADER -->
+<div class="mb-4">
+<nav class="breadcrumb">
+<a class="breadcrumb-item" href="/dashboard">Dashboard</a>
+<span class="breadcrumb-item active">Reports</span>
+</nav>
+
+<div class="d-flex justify-content-between align-items-center">
+<h2 class="fw-bold"><i class="fas fa-file-alt me-2"></i>Reports & Export</h2>
+<button class="btn btn-success" onclick="generateReport()" id="genBtn">
+<i class="fas fa-magic me-2"></i>Generate Report
+</button>
+</div>
+<p class="text-muted">Create sustainability and impact reports</p>
+</div>
+
+<!-- PREVIEW -->
+<div class="card border-0 shadow-sm mb-4">
+<div class="preview">
+<div class="row align-items-center">
+<div class="col-md-8">
+<h3 class="fw-bold">Sustainability Impact Report</h3>
+<p class="opacity-75">Summary of your eco-friendly packaging decisions</p>
+
+<div class="d-flex gap-3 flex-wrap">
+<div class="bg-white bg-opacity-25 p-3 rounded">
+<h4 id="pCO2">0%</h4><small>CO₂ Reduction</small>
+</div>
+<div class="bg-white bg-opacity-25 p-3 rounded">
+<h4 id="pCost">0%</h4><small>Cost Savings</small>
+</div>
+<div class="bg-white bg-opacity-25 p-3 rounded">
+<h4 id="pRecs">0</h4><small>Recommendations</small>
+</div>
+</div>
+</div>
+
+<div class="col-md-4 text-end">
+<span class="badge bg-light text-dark mb-2" id="pRange">Last 30 days</span><br>
+<button class="btn btn-light" onclick="loadMetrics()">
+<i class="fas fa-sync-alt me-1"></i>Refresh
+</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- CONFIG -->
+<div class="row g-4">
+
+<!-- TEMPLATE -->
+<div class="col-lg-4">
+<div class="card border-0 shadow-sm h-100">
+<div class="card-header bg-white"><strong>Template</strong></div>
+<div class="card-body">
+<div class="template-card p-4 mb-3 active" onclick="selectTemplate(this,'executive')">
+<h6 class="fw-bold">Executive Summary</h6>
+<p class="text-muted small">High-level overview</p>
+</div>
+<div class="template-card p-4 mb-3" onclick="selectTemplate(this,'detailed')">
+<h6 class="fw-bold">Detailed Report</h6>
+<p class="text-muted small">Technical insights</p>
+</div>
+<div class="template-card p-4" onclick="selectTemplate(this,'compliance')">
+<h6 class="fw-bold">Compliance</h6>
+<p class="text-muted small">Standards & audit</p>
+</div>
+</div>
+</div>
+</div>
+
+<!-- OPTIONS -->
+<div class="col-lg-8">
+<div class="card border-0 shadow-sm h-100">
+<div class="card-header bg-white"><strong>Options</strong></div>
+<div class="card-body">
+
+<label class="fw-bold">Date Range</label>
+<div class="row mb-3">
+<div class="col"><input type="date" id="start" class="form-control"></div>
+<div class="col"><input type="date" id="end" class="form-control"></div>
+</div>
+
+<label class="fw-bold">Sections</label>
+<div class="d-flex flex-wrap gap-2 mb-3">
+<span class="param bg-success bg-opacity-10 text-success active" data-key="summary" onclick="toggleSection(this)">Summary</span>
+<span class="param bg-info bg-opacity-10 text-info active" data-key="metrics" onclick="toggleSection(this)">Metrics</span>
+<span class="param bg-warning bg-opacity-10 text-warning active" data-key="charts" onclick="toggleSection(this)">Charts</span>
+<span class="param bg-primary bg-opacity-10 text-primary active" data-key="recs" onclick="toggleSection(this)">Recommendations</span>
+</div>
+
+<label class="fw-bold">Export</label>
+<div class="mb-3">
+<label><input type="radio" name="fmt" value="PDF" checked> PDF</label>
+<label class="ms-3"><input type="radio" name="fmt" value="EXCEL"> Excel</label>
+<label class="ms-3"><input type="radio" name="fmt" value="WORD"> Word</label>
+</div>
+
+<label class="fw-bold">Title</label>
+<input class="form-control" id="title" value="EcoPackAI Sustainability Report">
+
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- GENERATED -->
+<div class="card border-0 shadow-sm mt-4">
+<div class="card-header bg-white"><strong>Generated Reports</strong></div>
+<div class="card-body">
+<table class="table">
+<thead>
+<tr><th>Name</th><th>Date</th><th>Format</th><th>Action</th></tr>
+</thead>
+<tbody id="list"></tbody>
+</table>
+<p class="text-muted text-center d-none" id="empty">No reports yet</p>
+</div>
+</div>
+
+</div>
+
+<script>
+let template="executive";
+let sections=new Set(["summary","metrics","charts","recs"]);
+
+document.addEventListener("DOMContentLoaded",()=>{
+const e=new Date(),s=new Date();s.setDate(e.getDate()-30);
+start.value=s.toISOString().split("T")[0];
+end.value=e.toISOString().split("T")[0];
+loadMetrics();
+loadReports();
+});
+
+function selectTemplate(el,t){
+document.querySelectorAll(".template-card").forEach(c=>c.classList.remove("active"));
+el.classList.add("active");
+template=t;
+}
+
+function toggleSection(el){
+const k=el.dataset.key;
+sections.has(k)?sections.delete(k):sections.add(k);
+el.classList.toggle("active");
+}
+
+async function loadMetrics(){
+try{
+const token=localStorage.getItem("token");
+if(!token) return;
+const r=await fetch("/api/analytics/dashboard",{headers:{Authorization:"Bearer "+token}});
+const d=await r.json();const m=d.metrics||{};
+pCO2.textContent=(m.total_co2_reduced||0)+"%";
+pCost.textContent=(m.total_cost_saved||0)+"%";
+pRecs.textContent=m.total_recommendations||0;
+pRange.textContent=start.value+" → "+end.value;
+}catch{}
+}
+
+function generateReport(){
+const fmt=document.querySelector("input[name=fmt]:checked").value;
+const rep={
+id:Date.now(),
+name:title.value,
+date:new Date().toISOString(),
+format:fmt
+};
+const list=JSON.parse(localStorage.getItem("reports")||"[]");
+list.unshift(rep);
+localStorage.setItem("reports",JSON.stringify(list));
+loadReports();
+downloadById(rep.id);
+}
+
+function loadReports(){
+const list=JSON.parse(localStorage.getItem("reports")||"[]");
+const tbody=document.getElementById("list");
+tbody.innerHTML="";
+if(!list.length){
+empty.classList.remove("d-none");
+return;
+}
+empty.classList.add("d-none");
+list.forEach(r=>{
+tbody.innerHTML+=`
+<tr>
+<td>${r.name}</td>
+<td>${new Date(r.date).toLocaleDateString()}</td>
+<td>${r.format}</td>
+<td><button class="btn btn-sm btn-outline-success" onclick="downloadById(${r.id})">Download</button></td>
+</tr>`;
+});
+}
+
+function downloadById(id){
+const list=JSON.parse(localStorage.getItem("reports")||"[]");
+const r=list.find(x=>x.id===id);
+if(!r) return;
+const blob=new Blob([r.name],{type:"text/plain"});
+const a=document.createElement("a");
+a.href=URL.createObjectURL(blob);
+a.download=r.name+"."+r.format.toLowerCase();
+a.click();
+URL.revokeObjectURL(a.href);
+}
+</script>
+{% endblock %}
