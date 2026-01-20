@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>History</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="dashboard-header">
+    <div>History</div>
+    <a href="/logout" class="logout-btn">Logout</a>
+</div>
+
+<div style="display:flex">
+
+<div class="sidebar">
+    <a href="/dashboard">Recommendation</a>
+    <a class="active" href="/history">History</a>
+    <a href="/bi">BI Dashboard</a>
+</div>
+
+<div class="history-container">
+    <table class="history-table">
+        <tr>
+            <th>Product</th>
+            <th>Material</th>
+            <th>Bio</th>
+            <th>Recycle</th>
+            <th>Result</th>
+            <th>Time</th>
+        </tr>
+        {% for h in history %}
+        <tr>
+            <td>{{ h[2] }}</td>
+            <td>{{ h[3] }}</td>
+            <td>{{ h[6] }}</td>
+            <td>{{ h[7] }}</td>
+            <td>{{ h[8] }}</td>
+            <td>{{ h[9] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+</div>
+</body>
+</html>

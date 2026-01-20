@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Recommendation Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="dashboard-header">
+    <div>Prediction Result</div>
+    <a href="/dashboard" class="logout-btn">Back</a>
+</div>
+
+<div class="container">
+
+    <h2>Input Parameters</h2>
+    <table class="history-table">
+        <tr><th>Parameter</th><th>Value</th></tr>
+        <tr><td>Product Type</td><td>{{ type }}</td></tr>
+        <tr><td>Material Category</td><td>{{ material_category }}</td></tr>
+        <tr><td>Strength</td><td>{{ strength }}</td></tr>
+        <tr><td>Weight Capacity</td><td>{{ weight_capacity }}</td></tr>
+        <tr><td>Bio Score</td><td>{{ bio_score }}</td></tr>
+        <tr><td>Recycle %</td><td>{{ recycle_percent }}</td></tr>
+    </table>
+
+    <hr>
+
+    <h2>AI Prediction</h2>
+    <table class="history-table">
+        <tr><td>Predicted Cost</td><td>{{ cost }}</td></tr>
+        <tr><td>Predicted CO₂</td><td>{{ co2 }}</td></tr>
+        <tr><td>Environmental Score</td><td>{{ score }}</td></tr>
+        <tr><td>Sustainability Grade</td><td><b>{{ sustainability_grade }}</b></td></tr>
+    </table>
+
+    <hr>
+
+    <h2>Environmental Impact Comparison</h2>
+
+    <!-- DESKTOP BI CHARTS -->
+    <div class="charts-wrapper">
+
+        <div class="chart-card">
+            <h3>CO₂ Emissions Comparison</h3>
+            <canvas id="co2Chart"></canvas>
+        </div>
+
+        <div class="chart-card">
+            <h3>Cost Comparison</h3>
+            <canvas id="costChart"></canvas>
+        </div>
+
+    </div>
+
+    <p id="bestMaterial" class="best-material"></p>
+
+</div>
+
+<script>
+    const materials = {{ materials | tojson }};
+
+    const labels = materials.map(m => m.name);
+    const co2Data = materials.map(m => m.co2);
+    const costData = materials.map(m => m.cost);
+
+    // Find best material (lowest CO2)
+    const bestIndex = co2Data.indexOf(Math.min(...co2Data));
+    const bestMaterialName = labels[bestIndex];
+
+    // Show best material text
+    document.getElementById("bestMaterial").innerHTML =
+        "✅ <b>Best Recommended Material:</b> " + bestMaterialName;
+
+    const co2Colors = co2Data.map((_, i) =>
+        i === bestIndex ? "#2ecc71" : "#e74c3c"
+    );
+
+    const costColors = costData.map((_, i) =>
+        i === bestIndex ? "#2ecc71" : "#3498db"
+    );
+
+    new Chart(document.getElementById("co2Chart"), {
+        type: "bar",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "CO₂ Emissions",
+                data: co2Data,
+                backgroundColor: co2Colors
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    new Chart(document.getElementById("costChart"), {
+        type: "bar",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Cost",
+                data: costData,
+                backgroundColor: costColors
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

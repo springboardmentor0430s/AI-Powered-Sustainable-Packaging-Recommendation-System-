@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BI Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="dashboard-header">
+    <div>📊 BI Dashboard</div>
+    <a href="/dashboard" class="logout-btn">Back</a>
+</div>
+
+<div class="container bi-container">
+
+    <!-- KPI CARDS -->
+    <div class="kpi-grid">
+
+        <div class="kpi-card">
+            <h4>Total Predictions</h4>
+            <p class="kpi-value">{{ total }}</p>
+        </div>
+
+        <div class="kpi-card">
+            <h4>Avg Bio Score</h4>
+            <p class="kpi-value">{{ avg_bio }}</p>
+        </div>
+
+        <div class="kpi-card">
+            <h4>Avg Recycle %</h4>
+            <p class="kpi-value">{{ avg_recycle }}%</p>
+        </div>
+
+    </div>
+
+    <!-- CHARTS -->
+    <div class="bi-charts">
+
+        <div class="chart-card large">
+            <h3>Bio Score vs Recycle Trend</h3>
+            <canvas id="trendChart"></canvas>
+        </div>
+
+        <div class="chart-card">
+            <h3>Recycle Distribution</h3>
+            <canvas id="donutChart"></canvas>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    const trendCtx = document.getElementById("trendChart");
+    const donutCtx = document.getElementById("donutChart");
+
+    new Chart(trendCtx, {
+        type: "line",
+        data: {
+            labels: ["Low", "Medium", "High"],
+            datasets: [{
+                label: "Bio Score",
+                data: [20, {{ avg_bio }}, 90],
+                borderColor: "#2ecc71",
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+
+    new Chart(donutCtx, {
+        type: "doughnut",
+        data: {
+            labels: ["Low", "Medium", "High"],
+            datasets: [{
+                data: [20, 50, 30],
+                backgroundColor: ["#e74c3c", "#f1c40f", "#2ecc71"]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+</script>
+
+</body>
+</html>

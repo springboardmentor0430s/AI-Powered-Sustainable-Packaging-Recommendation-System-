@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EcoPackAI Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="dashboard-header">
+    <div>Welcome, <b>{{ username }}</b></div>
+    <a href="/logout" class="logout-btn">Logout</a>
+</div>
+
+<div style="display:flex">
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a class="active" href="/dashboard">Recommendation</a>
+        <a href="/history">History</a>
+        <a href="/bi">BI Dashboard</a>
+    </div>
+
+    <!-- Main -->
+    <div class="container">
+        <h2>AI Packaging Recommendation</h2>
+        <form method="post" action="/predict_form">
+            <label>Product Type</label>
+            <input name="Type" required>
+
+            <label>Material Category</label>
+            <input name="material_category" required>
+
+            <label>Strength</label>
+            <input type="number" name="Strength" required>
+
+            <label>Weight Capacity</label>
+            <input type="number" name="Weight Capacity" required>
+
+            <label>Bio Score</label>
+            <input type="number" name="Bio Score" required>
+
+            <label>Recycle %</label>
+            <input type="number" name="recycle_percent" required>
+
+            <button type="submit">Predict</button>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>
