@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>EcoPackAI — Login</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body {
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #0f2d1c, #08150e);
+    font-family: "Segoe UI", sans-serif;
+    color: #e6fff1;
+}
+
+/* Navbar */
+.navbar {
+    background: transparent;
+    padding: 20px 60px;
+}
+.navbar-brand {
+    font-weight: 700;
+    color: #2bff88;
+    font-size: 1.4rem;
+}
+.nav-link {
+    color: #a7f3ce;
+}
+.nav-link:hover {
+    color: #2bff88;
+}
+
+/* Login card */
+.login-card {
+    max-width: 420px;
+    margin: 120px auto;
+    background: rgba(14, 40, 26, 0.85);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+h1 {
+    font-weight: 700;
+}
+
+.subtitle {
+    color: #9be5c0;
+    margin-bottom: 30px;
+}
+
+.form-control {
+    background: #08150e;
+    border: 1px solid #1e4630;
+    color: #e6fff1;
+    padding: 12px;
+    border-radius: 10px;
+}
+.form-control:focus {
+    border-color: #2bff88;
+    box-shadow: 0 0 0 0.15rem rgba(43,255,136,.25);
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #1aff7c, #2bff88);
+    border: none;
+    color: #06371f;
+    font-weight: 700;
+    padding: 12px;
+    border-radius: 10px;
+}
+.btn-primary:hover {
+    background: linear-gradient(135deg, #2bff88, #1aff7c);
+}
+
+.footer-text {
+    margin-top: 25px;
+    text-align: center;
+    color: #a7f3ce;
+}
+.footer-text a {
+    color: #2bff88;
+    font-weight: 600;
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+  <a class="navbar-brand" href="/">EcoPackAI</a>
+  <div>
+    <a class="nav-link d-inline me-3" href="#">About</a>
+    <a class="nav-link d-inline me-3" href="#">Features</a>
+    <a class="nav-link d-inline" href="#">Contact</a>
+  </div>
+</nav>
+
+<div class="login-card">
+
+    <h1>Welcome to EcoPackAI</h1>
+    <div class="subtitle">Log in to optimize your packaging footprint with AI-driven insights.</div>
+
+    <form id="loginForm">
+        <div class="mb-3">
+            <label class="form-label">Username</label>
+            <input type="text" name="username" class="form-control" required>
+        </div>
+
+        <div class="mb-4">
+            <label class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" required>
+        </div>
+
+        <button class="btn btn-primary w-100">Log In →</button>
+    </form>
+
+    <div class="footer-text">
+        Don’t have an account? <a href="/signup">Sign up for free</a>
+    </div>
+
+</div>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const data = {
+        username: e.target.username.value,
+        password: e.target.password.value
+    };
+
+    const res = await fetch("/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    });
+
+    const result = await res.json();
+    if (result.redirect) {
+        window.location = result.redirect;
+    } else {
+        alert(result.error || "Login failed");
+    }
+});
+</script>
+
+</body>
+</html>

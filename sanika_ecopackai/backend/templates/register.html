@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>EcoPackAI Signup</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "primary": "#13ec5b",
+        "background-light": "#f6f8f6",
+        "background-dark": "#102216",
+        "accent-dark": "#193322",
+        "border-dark": "#326744",
+        "text-muted": "#92c9a4"
+      },
+      fontFamily: {
+        "display": ["Space Grotesk", "sans-serif"],
+        "body": ["Noto Sans", "sans-serif"]
+      },
+      borderRadius: {
+        "DEFAULT": "0.25rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "full": "9999px"
+      },
+    },
+  },
+}
+</script>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white antialiased">
+
+<div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-neutral-200 dark:border-[#23482f] px-6 lg:px-10 py-4 bg-background-light dark:bg-background-dark z-10">
+  <div class="flex items-center gap-3 cursor-pointer">
+    <div class="size-8 text-primary">
+      <svg class="w-full h-full" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor" fill-rule="evenodd"></path>
+      </svg>
+    </div>
+    <h2 class="text-xl font-bold leading-tight tracking-[-0.015em] dark:text-white text-slate-900">EcoPackAI</h2>
+  </div>
+
+  <div class="hidden sm:flex text-sm font-medium gap-2">
+    <span class="text-slate-600 dark:text-text-muted">Already have an account?</span>
+    <a class="text-primary hover:text-green-400 transition-colors" href="/">Log In</a>
+  </div>
+</header>
+
+<div class="flex-1 flex flex-col lg:flex-row">
+
+<div class="hidden lg:flex w-1/2 relative bg-accent-dark overflow-hidden flex-col justify-between p-12">
+  <div class="absolute inset-0 z-0">
+    <div class="w-full h-full bg-center bg-no-repeat bg-cover opacity-60 mix-blend-overlay" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDHIc3fDptmzsuah7JV_QqaBh7tZff5ahl1NWT9qdpk5ns1cqG8aMWuk9In8nk-f53RTgzxd9mVZt4gr0IZTfj9BPT4SsM9a3alc9wVCwLc0ki35tBpavPzQ2bkFFIraE_AD7v9kKX-OHsSQuReoxQ08kD0VwZA9ZBA6wsXAZmn1IU8MqQQQBzRl8WwGmiR57aBeh0K9gSxcurODFbBymn-qQYM9EJlHmrp-ti_lNAPdYf_2NaMW6Ub2VUb0pREh4SsNOm23feDUAbT");'></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-background-dark via-transparent to-transparent"></div>
+  </div>
+</div>
+
+<div class="flex-1 flex flex-col justify-center items-center p-6 lg:p-24 bg-background-light dark:bg-background-dark w-full">
+
+<div class="w-full max-w-md flex flex-col gap-6">
+
+<div class="flex flex-col gap-2 mb-2">
+  <h1 class="text-4xl font-black leading-tight tracking-[-0.033em]">Create Account</h1>
+  <p class="text-slate-600 dark:text-text-muted">Optimize your sustainability impact with AI-driven insights.</p>
+</div>
+
+<form id="signupForm" class="flex flex-col gap-5" autocomplete="off">
+
+<div>
+  <label class="text-sm font-medium">Username</label>
+  <input id="username" class="form-input w-full h-12 px-4 rounded-lg border dark:bg-accent-dark" required>
+</div>
+
+<div>
+  <label class="text-sm font-medium">Email</label>
+  <input id="email" type="email" class="form-input w-full h-12 px-4 rounded-lg border dark:bg-accent-dark" required>
+</div>
+
+<div>
+  <label class="text-sm font-medium">Password</label>
+  <input id="password" type="password" class="form-input w-full h-12 px-4 rounded-lg border dark:bg-accent-dark" required>
+</div>
+
+<button class="mt-4 flex w-full items-center justify-center rounded-lg bg-primary py-3.5 text-base font-bold text-background-dark">
+  Sign Up
+</button>
+
+</form>
+
+</div>
+</div>
+
+</div>
+</div>
+
+<script>
+document.getElementById("signupForm").addEventListener("submit", async function(e){
+  e.preventDefault();
+
+  const res = await fetch("/register", {
+    method: "POST",
+    headers: {"Content-Type":"application/json"},
+    body: JSON.stringify({
+      username: document.getElementById("username").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      password: document.getElementById("password").value
+    })
+  });
+
+  const data = await res.json();
+
+  if(data.redirect){
+    window.location.href = data.redirect;
+  } else {
+    alert(data.error || "Signup failed");
+  }
+});
+</script>
+
+</body>
+</html>

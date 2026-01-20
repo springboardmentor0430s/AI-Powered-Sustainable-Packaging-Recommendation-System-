@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>EcoPackAI Analytics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Plotly CDN -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f6f9;
+      color: #333;
+    }
+    header {
+      background: #1b5e20;
+      color: #fff;
+      padding: 1rem 2rem;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+    .container {
+      padding: 2rem;
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .kpi {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 1.5rem;
+      text-align: center;
+    }
+    .kpi h2 {
+      margin: 0;
+      font-size: 2rem;
+      color: #1b5e20;
+    }
+    .kpi p {
+      margin: 0.5rem 0 0;
+      color: #555;
+    }
+    .charts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    .chart-card {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 1rem;
+    }
+    .exports {
+      margin-top: 2rem;
+      text-align: center;
+    }
+    .exports button {
+      margin: 0.5rem;
+      padding: 0.8rem 1.2rem;
+      background: #1b5e20;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .exports button:hover {
+      background: #145a1f;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>EcoPackAI Analytics Dashboard</h1>
+  </header>
+
+  <div class="container">
+    <!-- KPI Cards -->
+    <div class="kpi-grid">
+      <div class="kpi">
+        <h2 id="co2Reduction">--%</h2>
+        <p>CO₂ Reduction</p>
+      </div>
+      <div class="kpi">
+        <h2 id="costSavings">--</h2>
+        <p>Cost Savings (Rs.)</p>
+      </div>
+      <div class="kpi">
+        <h2 id="materialCount">--</h2>
+        <p>Materials Predicted</p>
+      </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="charts">
+      <div class="chart-card">
+        <h3>Average CO₂ by Material</h3>
+        <div id="co2Chart"></div>
+      </div>
+      <div class="chart-card">
+        <h3>Average Cost by Material</h3>
+        <div id="costChart"></div>
+      </div>
+      <div class="chart-card" style="grid-column: span 2;">
+        <h3>Material Usage Trends</h3>
+        <div id="usageChart"></div>
+      </div>
+    </div>
+
+    <!-- Export Button -->
+    <div class="exports">
+      <button onclick="window.location='/analytics/export/pdf'">Export PDF</button>
+    </div>
+  </div>
+
+  <script>
+    async function loadAnalytics() {
+      const res = await fetch("/analytics/data");
+      const summary = await res.json();
+
+      // Compute KPIs
+      let totalCount = 0;
+      let avgCo2 = [];
+      let avgCost = [];
+      let materials = [];
+
+      for (const [material, vals] of Object.entries(summary)) {
+        totalCount += vals.count;
+        materials.push(material);
+        avgCo2.push(vals.avg_co2);
+        avgCost.push(vals.avg_cost);
+      }
+
+      document.getElementById("materialCount").innerText = totalCount;
+      const baselineCo2 = 1000;
+      const totalCo2 = avgCo2.reduce((a,b)=>a+b,0);
+      const co2Reduction = ((baselineCo2 - totalCo2)/baselineCo2*100).toFixed(1);
+      document.getElementById("co2Reduction").innerText = co2Reduction + "%";
+
+      const baselineCost = 20000;
+      const totalCost = avgCost.reduce((a,b)=>a+b,0);
+      const costSavings = (baselineCost - totalCost).toFixed(0);
+      document.getElementById("costSavings").innerText = costSavings;
+
+      // Charts
+      Plotly.newPlot("co2Chart", [{
+        type: "bar",
+        x: materials,
+        y: avgCo2,
+        marker: {color: "#ef4444"}
+      }], {margin: {t:30}});
+
+      Plotly.newPlot("costChart", [{
+        type: "bar",
+        x: materials,
+        y: avgCost,
+        marker: {color: "#1b5e20"}
+      }], {margin: {t:30}});
+
+      Plotly.newPlot("usageChart", [{
+        type: "line",
+        x: materials,
+        y: avgCo2,
+        name: "CO₂"
+      },{
+        type: "line",
+        x: materials,
+        y: avgCost,
+        name: "Cost"
+      }], {margin: {t:30}});
+    }
+
+    loadAnalytics();
+  </script>
+</body>
+</html>
