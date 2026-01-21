@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoPackAI - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <div class="d-flex" id="wrapper">
+        <!-- Sidebar -->
+        <div class="bg-light border-end" id="sidebar-wrapper" style="width: 250px;">
+            <div class="sidebar-heading border-bottom bg-white fw-bold text-success p-3">
+                <i class="bi bi-box-seam me-2"></i>EcoPackAI
+            </div>
+            <div class="list-group list-group-flush">
+                <a href="#" class="list-group-item list-group-item-action list-group-item-light p-3 active"
+                    id="nav-recommend" onclick="showSection('recommend')">
+                    📦 Recommendations
+                </a>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-light p-3" id="nav-analytics"
+                    onclick="showSection('analytics')">
+                    📊 Analytics Dashboard
+                </a>
+                <a href="#" class="list-group-item list-group-item-action list-group-item-light p-3" id="nav-history"
+                    onclick="loadHistory()">
+                    🕒 History
+                </a>
+                <a href="/logout" class="list-group-item list-group-item-action list-group-item-light p-3 text-danger">
+                    👋 Logout
+                </a>
+            </div>
+        </div>
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper" class="w-100">
+            <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-3">
+                <button class="btn btn-outline-secondary" id="menu-toggle">Toggle Menu</button>
+            </nav>
+
+            <div class="container-fluid p-4">
+
+                <!-- SECTION: Recommendation -->
+                <div id="section-recommend">
+                    <h3 class="mb-4 text-success"><i class="bi bi-magic"></i> AI Packaging Analysis</h3>
+
+                    <div class="card shadow-sm mb-4">
+                        <div class="card-body">
+                            <form id="recommendForm">
+                                <div class="row g-3">
+                                    <div class="col-md-4">
+                                        <label class="form-label">Product Name</label>
+                                        <input type="text" class="form-control" name="product_name"
+                                            placeholder="e.g. Organic Soap" required>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Material Category</label>
+                                        <select class="form-select" name="category">
+                                            <option>Food & Beverage</option>
+                                            <option>Electronics</option>
+                                            <option>Cosmetics</option>
+                                            <option>Clothing</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Product Quality</label>
+                                        <select class="form-select" name="quality">
+                                            <option>High</option>
+                                            <option>Medium</option>
+                                            <option>Low</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label class="form-label">No. of Units</label>
+                                        <input type="number" class="form-control" name="units" value="1000">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Product Quantity</label>
+                                        <input type="number" class="form-control" name="Quantity" value="10">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Current Unit Cost ($)</label>
+                                        <input type="number" class="form-control" name="current_cost" value="0.5"
+                                            step="0.01">
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <hr>
+                                    </div>
+                                    <h5 class="text-muted">Technical Requirements</h5>
+
+                                    <div class="col-md-4">
+                                        <label class="form-label">Tensile Strength (MPa)</label>
+                                        <input type="number" class="form-control" name="tensile_strength" value="20"
+                                            step="0.1">
+                                        <small class="text-muted">Required strength to prevent tearing</small>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Weight Capacity (kg)</label>
+                                        <input type="number" class="form-control" name="weight_capacity" value="5"
+                                            step="0.1">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="form-label">Moisture Barrier (1-10)</label>
+                                        <input type="number" class="form-control" name="moisture_barrier" value="5"
+                                            min="1" max="10">
+                                    </div>
+
+                                    <div class="col-12 mt-4">
+                                        <button type="submit" class="btn btn-success btn-lg px-5">
+                                            <span class="spinner-border spinner-border-sm d-none" role="status"
+                                                aria-hidden="true"></span>
+                                            🔍 Get Recommendations
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Results Area -->
+                    <div id="resultsArea" class="d-none">
+                        <div class="row">
+                            <!-- Top Pick -->
+                            <div class="col-md-12 mb-4">
+                                <div class="card bg-success text-white shadow">
+                                    <div class="card-body p-4">
+                                        <h6 class="text-uppercase opacity-75">Recommended Material</h6>
+                                        <h1 class="display-4 fw-bold" id="topMaterial">Mushroom Mycelium</h1>
+                                        <div class="row mt-4">
+                                            <div class="col-md-4">
+                                                <h5>Predicted Cost</h5>
+                                                <h3 id="topCost">$0.12</h3>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h5>Sustainability Score</h5>
+                                                <h3 id="topBio">95/100</h3>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <h5>Protection Level</h5>
+                                                <h3>High</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Comparison Table -->
+                            <div class="col-md-12">
+                                <div class="card shadow-sm">
+                                    <div class="card-header bg-white">
+                                        <h5 class="mb-0">Material Comparison Matrix</h5>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-hover mb-0" id="comparisonTable">
+                                            <thead class="table-light">
+                                                <tr>
+                                                    <th>Material</th>
+                                                    <th>Cost / Unit ($)</th>
+                                                    <th>CO2 Emission (kg)</th>
+                                                    <th>Sustainability</th>
+                                                    <th>Recyclability</th>
+                                                    <th>Recommendation</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <!-- JS will populate -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION: Analytics -->
+                <div id="section-analytics" class="d-none">
+                    <h3 class="mb-4">Analytics Dashboard</h3>
+
+                    <div class="row">
+                        <!-- Cost Analysis -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body">
+                                    <h5>Cost Analysis</h5>
+                                    <canvas id="costChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CO2 Impact -->
+                        <div class="col-md-6 mb-4">
+                            <div class="card shadow-sm h-100">
+                                <div class="card-body">
+                                    <h5>CO2 Impact Analysis</h5>
+                                    <canvas id="co2Chart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- General Material Matrix -->
+                <div class="col-md-12">
+                    <div class="card shadow-sm">
+                        <div class="card-header bg-white">
+                            <h5 class="mb-0">General Material Performance Matrix</h5>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0" id="analyticsTable">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Material</th>
+                                        <th>Sustainability Score</th>
+                                        <th>Recyclability Score</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- JS will populate -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION: History -->
+        <div id="section-history" class="d-none">
+            <h3 class="mb-4">Recommendation History</h3>
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="historyTable">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Product</th>
+                                    <th>Recommendation</th>
+                                    <th>Cost</th>
+                                    <th>CO2</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    </div>
+    </div>
+
+    <!-- History Matrix Modal -->
+    <div class="modal fade" id="matrixModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Historical Recommendation Matrix</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted">Reconstruction based on saved parameters.</p>
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="historyMatrixTable">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Material</th>
+                                    <th>Predicted Cost ($)</th>
+                                    <th>Predicted CO2 (kg)</th>
+                                    <th>Sustainability</th>
+                                    <th>Recyclability</th>
+                                    <th>Recommendation</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        /* ============================
+           COST ANALYSIS BAR CHART
+        ============================ */
+
+        const costCtx = document.getElementById("costChart").getContext("2d");
+
+        new Chart(costCtx, {
+            type: "bar",
+            data: {
+                labels: [
+                    "Recycled Cardboard",
+                    "Molded Pulp",
+                    "Bio-Plastic",
+                    "Standard Plastic",
+                    "Styrofoam"
+                ],
+                datasets: [{
+                    label: "Cost per Unit ($)",
+                    data: [0.12, 0.18, 0.25, 0.14, 0.10],
+                    backgroundColor: [
+                        "#16a34a",
+                        "#22c55e",
+                        "#34d399",
+                        "#6b7280",
+                        "#ef4444"
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+
+        /* ============================
+           CO2 IMPACT DONUT CHART
+        ============================ */
+
+        const co2Ctx = document.getElementById("co2Chart").getContext("2d");
+
+        new Chart(co2Ctx, {
+            type: "doughnut",
+            data: {
+                labels: [
+                    "Recycled Cardboard",
+                    "Molded Pulp",
+                    "Bio-Plastic",
+                    "Standard Plastic",
+                    "Styrofoam"
+                ],
+                datasets: [{
+                    data: [10, 15, 20, 35, 45],
+                    backgroundColor: [
+                        "#16a34a",
+                        "#22c55e",
+                        "#34d399",
+                        "#6b7280",
+                        "#b91c1c"
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: "top"
+                    }
+                }
+            }
+        });
+    </script>
+    <script>
+        document.getElementById("section-analytics").classList.remove("d-none");
+    </script>
+
+</body>
+
+</html>

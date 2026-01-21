@@ -1,0 +1,109 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+#sidebar-wrapper {
+    min-height: 100vh;
+    margin-left: -15rem;
+    transition: margin 0.25s ease-out;
+}
+
+#sidebar-wrapper .sidebar-heading {
+    padding: 0.875rem 1.25rem;
+    font-size: 1.2rem;
+}
+
+#sidebar-wrapper .list-group {
+    width: 15rem;
+}
+
+#page-content-wrapper {
+    min-width: 100vw;
+}
+
+body.sb-sidenav-toggled #sidebar-wrapper {
+    margin-left: 0;
+}
+
+@media (min-width: 768px) {
+    #sidebar-wrapper {
+        margin-left: 0;
+    }
+
+    #page-content-wrapper {
+        min-width: 0;
+        width: 100%;
+    }
+
+    body.sb-sidenav-toggled #sidebar-wrapper {
+        margin-left: -15rem;
+    }
+}
+
+.card {
+    border: none;
+    border-radius: 12px;
+}
+
+.bg-success {
+    background-color: #2e7d32 !important;
+    /* Eco Green */
+}
+
+.text-success {
+    color: #2e7d32 !important;
+}
+
+.btn-success {
+    background-color: #2e7d32;
+    border-color: #2e7d32;
+}
+
+.btn-success:hover {
+    background-color: #1b5e20;
+    border-color: #1b5e20;
+}
+
+.table th {
+    font-weight: 600;
+    color: #555;
+}
+
+.badge-highly-recommended {
+    background-color: #d1e7dd;
+    color: #0f5132;
+}
+
+.badge-avoid {
+    background-color: #f8d7da;
+    color: #842029;
+}
+
+.badge-consider {
+    background-color: #fff3cd;
+    color: #664d03;
+}
+
+/* Sidebar Custom Active State */
+#sidebar-wrapper .list-group-item {
+    border: none;
+    color: #555;
+    font-weight: 500;
+    margin-right: 15px;
+    /* Spacing */
+    border-radius: 0 25px 25px 0;
+    /* Rounded tabs */
+}
+
+#sidebar-wrapper .list-group-item:hover {
+    background-color: #f1f8e9;
+    color: #2e7d32;
+}
+
+#sidebar-wrapper .list-group-item.active {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: none;
+    font-weight: 700;
+}

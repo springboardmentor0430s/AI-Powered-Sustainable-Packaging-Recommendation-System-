@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+*$py.class
+instance/
+.pytest_cache/
+.env
+venv/
+.vscode/
+.idea/
+.DS_Store
+*.ipynb_checkpoints

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EcoPackAI - Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
+        <div class="text-center mb-4">
+            <h2 class="text-success fw-bold">EcoPackAI</h2>
+            <p class="text-muted">Sustainable Packaging Solutions</p>
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-danger" role="alert">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <ul class="nav nav-pills mb-3 justify-content-center" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="pills-login-tab" data-bs-toggle="pill" data-bs-target="#pills-login" type="button" role="tab">Login</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="pills-register-tab" data-bs-toggle="pill" data-bs-target="#pills-register" type="button" role="tab">Register</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="pills-tabContent">
+            <!-- Login Form -->
+            <div class="tab-pane fade show active" id="pills-login" role="tabpanel">
+                <form action="/login" method="POST">
+                    <input type="hidden" name="action" value="login">
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <input type="text" name="username" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Login</button>
+                </form>
+            </div>
+
+            <!-- Register Form -->
+            <div class="tab-pane fade" id="pills-register" role="tabpanel">
+                <form action="/login" method="POST">
+                    <input type="hidden" name="action" value="register">
+                    <div class="mb-3">
+                        <label class="form-label">Choose Username</label>
+                        <input type="text" name="username" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Choose Password</label>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Register</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
