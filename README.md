@@ -116,7 +116,7 @@ gunicorn app:app --workers 4 --bind 0.0.0.0:5000
 
 ### AI/ML
 - **XGBoost 2.0+**: Primary ML algorithm (both models)
-  - Cost: Optuna-optimized (R²=0.9961)
+  - Cost: Optuna-optimized (R²=0.9749)
   - CO₂: Manually-tuned (R²=0.9955)
 - **Optuna 3.5+**: Bayesian hyperparameter optimization (50 trials)
 - **Scikit-learn 1.3+**: Preprocessing, cross-validation, metrics
