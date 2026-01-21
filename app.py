@@ -281,13 +281,13 @@ class PredictionValidator:
     }
     
     MATERIAL_CO2_RANGES = {
-        'glass': {'min': 0.1, 'max': 2.0, 'typical_max': 1.2},
-        'metal': {'min': 0.3, 'max': 3.0, 'typical_max': 2.0},
-        'aluminium': {'min': 0.5, 'max': 4.0, 'typical_max': 2.5},
-        'aluminum': {'min': 0.5, 'max': 4.0, 'typical_max': 2.5},
-        'plastic': {'min': 0.05, 'max': 1.5, 'typical_max': 0.8},
-        'cardboard': {'min': 0.01, 'max': 0.5, 'typical_max': 0.3},
-        'paper': {'min': 0.01, 'max': 0.5, 'typical_max': 0.3},
+         'glass': {'min': 0.01, 'max': 0.15, 'typical_max': 0.08},      
+         'metal': {'min': 0.03, 'max': 0.25, 'typical_max': 0.12},     
+         'aluminium': {'min': 0.05, 'max': 0.35, 'typical_max': 0.18},  
+         'aluminum': {'min': 0.05, 'max': 0.35, 'typical_max': 0.18},
+         'plastic': {'min': 0.005, 'max': 0.08, 'typical_max': 0.04},   
+         'cardboard': {'min': 0.001, 'max': 0.03, 'typical_max': 0.015},
+         'paper': {'min': 0.001, 'max': 0.03, 'typical_max': 0.015},
     }
     
     @classmethod
@@ -841,10 +841,6 @@ class MLModelManager:
         return features
     
     def predict(self, product_dict):
-        """
-        Generate predictions with EXACT feature order
-        Returns: (cost_pred, co2_pred, features_dict)
-        """
         try:
             if self.cost_model is None or self.co2_model is None:
                 print("[ERROR] Models not loaded")
@@ -853,22 +849,32 @@ class MLModelManager:
             # Generate ALL features
             features = self.engineer_features(product_dict)
             
-            # ============================================================
-            # COST PREDICTION - EXACT ORDER
-            # ============================================================
+            # COST PREDICTION
             X_cost = np.array([features[f] for f in self.cost_features]).reshape(1, -1)
             cost_pred = float(self.cost_model.predict(X_cost)[0])
             
-            # ============================================================
-            # CO2 PREDICTION - EXACT ORDER + LOG TRANSFORM
-            # ============================================================
+            # CO2 PREDICTION with LOG TRANSFORM REVERSAL
             X_co2 = np.array([features[f] for f in self.co2_features]).reshape(1, -1)
             co2_pred_log = self.co2_model.predict(X_co2)[0]
-            co2_pred = float(np.expm1(co2_pred_log))
+            co2_pred = float(np.expm1(co2_pred_log))  # ← This reverses log transform
             
-            # ============================================================
-            # VALIDATION
-            # ============================================================
+            # 🔧 FIX: ADD REALISTIC CO₂ BOUNDS
+            material = str(product_dict.get('material', 'plastic')).lower()
+            weight = float(product_dict.get('weight_measured', 50))
+            
+            co2_ranges = PredictionValidator.MATERIAL_CO2_RANGES.get(
+                material, 
+                PredictionValidator.MATERIAL_CO2_RANGES['plastic']
+            )
+            
+            # Cap at realistic maximum (typical_max * weight)
+            max_realistic_co2 = co2_ranges['typical_max'] * weight
+            
+            if co2_pred > max_realistic_co2 * 2:  # Allow 2x buffer
+                print(f"[WARNING] CO₂ capped: {co2_pred:.2f} → {max_realistic_co2:.2f}")
+                co2_pred = max_realistic_co2
+            
+            # Validation
             is_valid, diagnostics = PredictionValidator.validate_prediction(
                 cost_pred=cost_pred,
                 co2_pred=co2_pred,
@@ -1750,7 +1756,12 @@ def get_recommendations(current_user_id):
         print(f"\n✓ SUCCESS:")
         print(f"   Current cost: ₹{current_cost:.2f}")
         print(f"   Alternatives: {len(recommendations)}/{num_alternatives_requested}")
-        
+
+        # Debug: Print predictions before sending
+        print(f"\n[RECOMMENDATION DEBUG]")
+        print(f"  Current: Cost=₹{current_cost:.2f}, CO2={current_co2:.2f}")
+        for i, rec in enumerate(recommendations[:3], 1):
+            print(f"  Alt {i}: {rec['material']} → Cost=₹{rec['predicted_cost']:.2f}, CO2={rec['predicted_co2']:.2f}")
         return jsonify(response_data), 200
         
     except Exception as e:  
