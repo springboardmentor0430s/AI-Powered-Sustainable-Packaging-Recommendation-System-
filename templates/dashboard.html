@@ -2293,9 +2293,12 @@ function displayRecs(data) {
         const savingsClass = rec.cost_savings > 0 ? 'text-success' : 'text-danger';
         const savingsIcon = rec.cost_savings > 0 ? '↓' : '↑';
         
-        const co2Class = rec.co2_reduction > 0 ? 'text-success' : 'text-danger';
-        const co2Icon = rec.co2_reduction > 0 ? '↓' : '↑';
-        
+        // Positive reduction = GOOD (green down), Negative = BAD (red up)
+        const co2Reduction = rec.co2_reduction || 0;
+        const co2Class = co2Reduction > 0 ? 'text-success' : 'text-danger';
+        const co2Icon = co2Reduction > 0 ? '↓' : '↑';
+        const co2Bg = co2Reduction > 0 ? 'rgba(34, 197, 94, 0.1)' : 'rgba(220, 38, 38, 0.1)';
+                
         const rowStyle = i === 0 ? 'background: #f8f9fa;' : '';
         
         html += `
