@@ -981,35 +981,35 @@
             <div class="col-md-2 sidebar"> 
                 <ul class="nav nav-pills flex-column"> 
                     <li class="nav-item"> 
-                        <a class="nav-link active" href="#" onclick="showSection(event, 'recommendation')"> 
+                        <a class="nav-link active" href="#" data-section="recommendation"> 
                             <i class="bi bi-box-seam-fill"></i> 
                             <span>Recommendations</span> 
                         </a> 
                     </li> 
                     <li class="nav-item"> 
-                        <a class="nav-link" href="#" onclick="showSection(event, 'compare')"> 
+                        <a class="nav-link" href="#" data-section="compare"> 
                             <i class="bi bi-arrow-left-right"></i> 
                             <span>Compare</span> 
                         </a> 
                     </li> 
                     <li class="nav-item"> 
-                        <a class="nav-link" href="#" onclick="showSection(event, 'bulk')"> 
+                        <a class="nav-link" href="#" data-section="bulk"> 
                             <i class="bi bi-cloud-upload-fill"></i> 
                             <span>Bulk Upload</span> 
                         </a> 
                     </li> 
                     <li class="nav-item"> 
-                        <a class="nav-link" href="#" onclick="showSection(event, 'analytics')"> 
+                        <a class="nav-link" href="#" data-section="analytics"> 
                             <i class="bi bi-graph-up-arrow"></i> 
                             <span>Analytics</span> 
                         </a> 
                     </li> 
                     <li class="nav-item"> 
-                        <a class="nav-link" href="#" onclick="showSection(event, 'history')"> 
+                        <a class="nav-link" href="#" data-section="history"> 
                             <i class="bi bi-clock-history"></i> 
                             <span>History</span> 
                         </a> 
-                    </li> 
+                    </li>
                 </ul> 
             </div> 
  
@@ -1745,16 +1745,50 @@ let charts = {};
 // ============================================================================
 // LOAD USER INFO ON PAGE LOAD
 // ============================================================================
+// ============================================================================
+// INITIALIZE APP ON PAGE LOAD
+// ============================================================================
 document.addEventListener('DOMContentLoaded', async () => {
+    // Load user info and analytics
     await loadUserInfo();
     loadAnalytics();
     
     // Show welcome message for first-time users
-    const hasSeenWelcome = sessionStorage.getItem('hasSeenWelcome'); // Changed to sessionStorage
+    const hasSeenWelcome = sessionStorage.getItem('hasSeenWelcome');
     if (!hasSeenWelcome) {
         showWelcomeMessage();
         sessionStorage.setItem('hasSeenWelcome', 'true');
     }
+    
+    // Add event delegation for sidebar navigation
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar) {
+        sidebar.addEventListener('click', (e) => {
+            const link = e.target.closest('a[data-section]');
+            if (link) {
+                e.preventDefault();
+                const section = link.getAttribute('data-section');
+                showSection(e, section);
+            }
+        });
+    }
+    
+    // Add chatbot event listeners
+    const chatBubble = document.getElementById('chat-bubble');
+    if (chatBubble) {
+        chatBubble.addEventListener('click', toggleChatbot);
+    }
+    
+    // Hide badge after 3 seconds
+    setTimeout(() => {
+        const badge = document.getElementById('chat-badge');
+        if (badge && !chatbotOpen) {
+            badge.style.animation = 'fadeOut 0.5s';
+            setTimeout(() => {
+                badge.style.display = 'none';
+            }, 500);
+        }
+    }, 3000);
 });
 
 async function loadUserInfo() {
@@ -1827,7 +1861,6 @@ function showSessionError() {
     `;
     document.body.insertAdjacentHTML('afterbegin', alertHtml);
 }
-
  
 async function loadAnalytics() {
     try {
@@ -1849,7 +1882,7 @@ async function loadAnalytics() {
         const data = await res.json();
         console.log('[Analytics] Received data:', data);
         
-        // ===== CALCULATE FROM HISTORY IF ANALYTICS IS EMPTY =====
+        // ===== CALCULATE FROM HISTORY =====
         let totalRecs = 0;
         let totalCostSavings = 0;
         let totalCO2Reduction = 0;
@@ -1859,18 +1892,21 @@ async function loadAnalytics() {
             
             totalRecs = data.history.length;
             
-            data.history.forEach(record => {
-                const costSavings = parseFloat(record.cost_savings) || 0;
-                const co2Reduction = parseFloat(record.co2_reduction) || 0;
+            data.history.forEach((record, idx) => {
+                // These fields are at the TOP LEVEL of each record
+                const costSavings = parseFloat(record.cost_savings || 0);
+                const co2Reduction = parseFloat(record.co2_reduction || 0);
                 
                 totalCostSavings += costSavings;
                 totalCO2Reduction += co2Reduction;
+                
+                console.log(`Record ${idx + 1}: Cost=${costSavings.toFixed(2)}, CO2=${co2Reduction.toFixed(2)}`);
             });
             
-            console.log('[Analytics] Calculated totals:', {
+            console.log('[Analytics] FINAL TOTALS:', {
                 recs: totalRecs,
-                cost: totalCostSavings,
-                co2: totalCO2Reduction
+                cost: totalCostSavings.toFixed(2),
+                co2: totalCO2Reduction.toFixed(2)
             });
         } else if (data.analytics) {
             // Fallback to analytics table
@@ -1883,32 +1919,38 @@ async function loadAnalytics() {
         // ===== UPDATE UI =====
         document.getElementById('totalRecs').textContent = totalRecs;
         
-        // Cost handling
+        // ===== COST SAVINGS CARD =====
         const costElement = document.getElementById('totalCost');
         const costTrend = document.getElementById('costTrend');
         
-        if (totalCostSavings >= 0) {
-            costElement.textContent = '₹' + totalCostSavings.toFixed(2);
+        costElement.textContent = '₹' + Math.abs(totalCostSavings).toFixed(2);
+        
+        if (totalCostSavings > 0) {
             costTrend.innerHTML = '<i class="bi bi-arrow-down-short"></i> Optimized';
             costTrend.className = 'stat-change positive';
-        } else {
-            costElement.textContent = '₹' + Math.abs(totalCostSavings).toFixed(2);
+        } else if (totalCostSavings < 0) {
             costTrend.innerHTML = '<i class="bi bi-arrow-up-short"></i> Increased';
             costTrend.className = 'stat-change negative';
+        } else {
+            costTrend.innerHTML = '<i class="bi bi-dash"></i> No Change';
+            costTrend.className = 'stat-change';
         }
         
-        // CO₂ handling
+        // ===== CO₂ REDUCTION CARD =====
         const co2Element = document.getElementById('totalCO2');
         const co2Trend = document.getElementById('co2Trend');
+    
+        co2Element.textContent = Math.abs(totalCO2Reduction).toFixed(2);
         
-        if (totalCO2Reduction >= 0) {
-            co2Element.textContent = totalCO2Reduction.toFixed(2);
+        if (totalCO2Reduction > 0) {
             co2Trend.innerHTML = '<i class="bi bi-arrow-down-short"></i> Reduced';
             co2Trend.className = 'stat-change positive';
-        } else {
-            co2Element.textContent = Math.abs(totalCO2Reduction).toFixed(2);
+        } else if (totalCO2Reduction < 0) {
             co2Trend.innerHTML = '<i class="bi bi-arrow-up-short"></i> Increased';
             co2Trend.className = 'stat-change negative';
+        } else {
+            co2Trend.innerHTML = '<i class="bi bi-dash"></i> No Change';
+            co2Trend.className = 'stat-change';
         }
         
         console.log('[Analytics] UI updated successfully');
@@ -1931,7 +1973,7 @@ function showSection(e, name) {
     if (name === 'history') loadHistory();
     if (name === 'analytics') setTimeout(() => loadCharts(), 100);
 }
-
+        
 document.getElementById('recForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     
@@ -3231,23 +3273,36 @@ async function loadHistory() {
                 hour12: true
             });
             
-            const costSavings = item.total_cost_savings || 0;
-            const co2Reduction = item.total_co2_reduction || 0;
+            // ============================================
+            // RECALCULATE IMPACTS CORRECTLY FROM DISPLAYED VALUES
+            // ============================================
+            const currentCost = parseFloat(item.current.cost) || 0;
+            const altCost = parseFloat(item.best_alternative.predicted_cost) || 0;
+            const currentCO2 = parseFloat(item.current.co2) || 0;
+            const altCO2 = parseFloat(item.best_alternative.predicted_co2) || 0;
             
-            const costClass = costSavings >= 0 ? 'text-success' : 'text-danger';
-            const costIcon = costSavings >= 0 ? '↓' : '↑';
-            const costBg = costSavings >= 0 ? 'rgba(34, 197, 94, 0.1)' : 'rgba(220, 38, 38, 0.1)';
+            // Correct formula: Current - Alternative
+            const costSavings = currentCost - altCost;  // Positive = savings (good)
+            const co2Reduction = currentCO2 - altCO2;   // Positive = reduction (good)
             
-            const co2Class = co2Reduction >= 0 ? 'text-success' : 'text-danger';
-            const co2Icon = co2Reduction >= 0 ? '↓' : '↑';
-            const co2Bg = co2Reduction >= 0 ? 'rgba(34, 197, 94, 0.1)' : 'rgba(220, 38, 38, 0.1)';
+            // Positive savings = GOOD (green down arrow)
+            // Negative savings = BAD (red up arrow)
+            const costClass = costSavings > 0 ? 'text-success' : (costSavings < 0 ? 'text-danger' : 'text-secondary');
+            const costIcon = costSavings > 0 ? '↓' : (costSavings < 0 ? '↑' : '−');
+            const costBg = costSavings > 0 ? 'rgba(34, 197, 94, 0.1)' : (costSavings < 0 ? 'rgba(220, 38, 38, 0.1)' : 'rgba(156, 163, 175, 0.1)');
+            
+            // Positive reduction = GOOD (green down arrow)
+            // Negative reduction = BAD (red up arrow)
+            const co2Class = co2Reduction > 0 ? 'text-success' : (co2Reduction < 0 ? 'text-danger' : 'text-secondary');
+            const co2Icon = co2Reduction > 0 ? '↓' : (co2Reduction < 0 ? '↑' : '−');
+            const co2Bg = co2Reduction > 0 ? 'rgba(34, 197, 94, 0.1)' : (co2Reduction < 0 ? 'rgba(220, 38, 38, 0.1)' : 'rgba(156, 163, 175, 0.1)');
             
             // Format food group for display
             const foodGroup = item.product.food_group || 'N/A';
             const foodGroupDisplay = foodGroup.split('-').map(word => 
                 word.charAt(0).toUpperCase() + word.slice(1)
             ).join(' ');
-            
+        
             // Get product quantity - check multiple possible locations
             const productQty = item.product.product_quantity || 
                               item.product_quantity || 
@@ -4976,26 +5031,11 @@ function clearChat() {
     // Show confirmation
     addMessage('Chat cleared! How can I help you today?', 'bot');
 }
-
-// Initialize chatbot badge animation
-document.addEventListener('DOMContentLoaded', () => {
-    // Hide badge after 3 seconds
-    setTimeout(() => {
-        const badge = document.getElementById('chat-badge');
-        if (badge && !chatbotOpen) {
-            badge.style.animation = 'fadeOut 0.5s';
-            setTimeout(() => {
-                badge.style.display = 'none';
-            }, 500);
-        }
-    }, 3000);
-});
-
     </script>
     <!-- AI CHATBOT -->
 <div id="chatbot-container">
     <!-- Chat Bubble (Collapsed State) -->
-    <div id="chat-bubble" onclick="toggleChatbot()">
+    <div id="chat-bubble">
         <i class="bi bi-chat-dots-fill"></i>
         <span class="chat-badge" id="chat-badge">1</span>
     </div>
