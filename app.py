@@ -1277,14 +1277,14 @@ def save_recommendation(user_id, product_details, current_packaging, recommendat
     try:
         conn = get_db_connection()
         if not conn:
-            print("⚠️ Could not save recommendation - DB connection failed")
+            print("Could not save recommendation - DB connection failed")
             return False
             
         cur = conn.cursor()
         
-        # Calculate totals
-        total_cost_savings = sum(r.get('cost_savings', 0) for r in recommendations)
-        total_co2_reduction = sum(r.get('co2_reduction', 0) for r in recommendations)
+        best_alternative = recommendations[0] if recommendations else {}
+        best_cost_savings = best_alternative.get('cost_savings', 0)
+        best_co2_reduction = best_alternative.get('co2_reduction', 0)
         
         # Insert recommendation history
         cur.execute('''
@@ -1296,8 +1296,8 @@ def save_recommendation(user_id, product_details, current_packaging, recommendat
             json.dumps(product_details),
             json.dumps(current_packaging),
             json.dumps(recommendations),
-            total_cost_savings,
-            total_co2_reduction
+            best_cost_savings,      
+            best_co2_reduction      
         ))
         
         # Update user analytics
@@ -1308,7 +1308,7 @@ def save_recommendation(user_id, product_details, current_packaging, recommendat
                 total_co2_reduction = total_co2_reduction + %s,
                 last_updated = %s
             WHERE user_id = %s
-        ''', (total_cost_savings, total_co2_reduction, datetime.datetime.now(), user_id))
+        ''', (best_cost_savings, best_co2_reduction, datetime.datetime.now(), user_id))
         
         conn.commit()
         cur.close()
@@ -2168,16 +2168,23 @@ def llm_compare_analytics(current_user_id):
             }), 200
         
         # ========================================================================
-        # STEP 2: CALCULATE COMPREHENSIVE STATISTICS
+        # STEP 2: CALCULATE COMPREHENSIVE STATISTICS (FIXED)
         # ========================================================================
         total_cost_savings = 0
+        total_cost_increase = 0  # NEW: Track costs separately
         total_co2_reduction = 0
         material_stats = {}
         
         for record in history_records:
             cost = float(record['cost_savings'] or 0)
             co2 = float(record['co2_reduction'] or 0)
-            total_cost_savings += cost
+            
+            # NEW: Separate savings from increases
+            if cost >= 0:
+                total_cost_savings += cost
+            else:
+                total_cost_increase += abs(cost)
+            
             total_co2_reduction += co2
             
             product = record['product_details']
@@ -2189,13 +2196,18 @@ def llm_compare_analytics(current_user_id):
             material_stats[material]['cost'] += cost
             material_stats[material]['co2'] += co2
         
-        # Calculate averages per material
+        # Calculate averages per material AND mark type
         for material in material_stats:
             count = material_stats[material]['count']
             if count > 0:
-                material_stats[material]['avg_cost'] = material_stats[material]['cost'] / count
+                avg_cost = material_stats[material]['cost'] / count
+                material_stats[material]['avg_cost'] = avg_cost
                 material_stats[material]['avg_co2'] = material_stats[material]['co2'] / count
-        
+                
+                # NEW: Mark if this material saves or costs more
+                material_stats[material]['cost_type'] = 'saving' if avg_cost >= 0 else 'increase'
+                material_stats[material]['avg_cost_abs'] = abs(avg_cost)  # Absolute value for display
+                
         print(f"[CHATBOT] ✓ Stats: ₹{total_cost_savings:.2f} saved, {total_co2_reduction:.2f} CO2 reduced")
         print(f"[CHATBOT] ✓ Materials: {len(material_stats)} types")
         
@@ -2251,54 +2263,7 @@ def llm_compare_analytics(current_user_id):
         if is_sustainability_query and not is_cost_query:
             # SUSTAINABILITY-FOCUSED PROMPT
             print(f"[CHATBOT] Using SUSTAINABILITY-focused prompt")
-            prompt = f"""User question: "{query}"
-
-SUSTAINABILITY RANKING (by CO2 reduction - higher is better):
-"""
-            for idx, (material, stats) in enumerate(ranked_by_co2, 1):
-                emoji = "🥇" if idx == 1 else "🥈" if idx == 2 else "🥉" if idx == 3 else "🌱"
-                prompt += f"{emoji} {idx}. {material.upper()}: "
-                prompt += f"CO2 reduction = {stats.get('avg_co2', 0):.1f} avg "
-                prompt += f"(used {stats['count']} times)\n"
             
-            prompt += f"""
-SUMMARY:
-- Total recommendations: {len(history_records)}
-- Total CO2 reduction: {total_co2_reduction:.2f}
-- Materials tested: {len(material_stats)}
-
-INSTRUCTIONS:
-Answer based on CO2 reduction ONLY. Higher CO2 reduction = more sustainable.
-DO NOT mention cost. Be specific with numbers. Use emojis (🌱♻️🌍💚). Keep under 4 sentences.
-If asked "which reduces co2", name the TOP material by CO2 reduction."""
-
-        elif is_cost_query and not is_sustainability_query:
-            # COST-FOCUSED PROMPT
-            print(f"[CHATBOT] Using COST-focused prompt")
-            prompt = f"""User question: "{query}"
-
-COST SAVINGS RANKING (higher savings = better):
-"""
-            for idx, (material, stats) in enumerate(ranked_by_cost, 1):
-                emoji = "🥇" if idx == 1 else "🥈" if idx == 2 else "🥉" if idx == 3 else "💰"
-                prompt += f"{emoji} {idx}. {material.upper()}: "
-                prompt += f"Cost savings = ₹{stats.get('avg_cost', 0):.1f} avg "
-                prompt += f"(used {stats['count']} times)\n"
-            
-            prompt += f"""
-SUMMARY:
-- Total recommendations: {len(history_records)}
-- Total cost savings: ₹{total_cost_savings:.2f}
-- Materials tested: {len(material_stats)}
-
-INSTRUCTIONS:
-Answer based on cost savings ONLY. Higher savings = better value.
-DO NOT mention CO2. Be specific with numbers. Use emojis (💰💵📉💸). Keep under 4 sentences.
-If asked "which reduces cost", name the TOP material by cost savings."""
-
-        else:
-            # COMBINED PROMPT (both metrics or general query)
-            print(f"[CHATBOT] Using COMBINED prompt (both metrics)")
             prompt = f"""User question: "{query}"
 
 SUSTAINABILITY RANKING (by CO2 reduction):
@@ -2308,24 +2273,77 @@ SUSTAINABILITY RANKING (by CO2 reduction):
                 prompt += f"{emoji} {idx}. {material.upper()}: CO2={stats.get('avg_co2', 0):.1f} avg\n"
             
             prompt += f"""
-COST SAVINGS RANKING:
+COST IMPACT RANKING:
 """
             for idx, (material, stats) in enumerate(ranked_by_cost[:5], 1):
                 emoji = "🥇" if idx == 1 else "🥈" if idx == 2 else "🥉" if idx == 3 else "💰"
-                prompt += f"{emoji} {idx}. {material.upper()}: ₹{stats.get('avg_cost', 0):.1f} avg\n"
+                cost_verb = "SAVES" if stats.get('cost_type') == 'saving' else "COSTS"
+                prompt += f"{emoji} {idx}. {material.upper()}: {cost_verb} ₹{stats.get('avg_cost_abs', 0):.1f} avg\n"
             
             prompt += f"""
 SUMMARY:
 - Total recommendations: {len(history_records)}
-- Total cost savings: ₹{total_cost_savings:.2f}
+- Money SAVED: ₹{total_cost_savings:.2f}
+- Money SPENT MORE: ₹{total_cost_increase:.2f}
+- Net cost: ₹{total_cost_savings - total_cost_increase:.2f}
 - Total CO2 reduction: {total_co2_reduction:.2f}
 - Materials tested: {len(material_stats)}
 
 CRITICAL INSTRUCTION:
 These rankings may differ! Explain the tradeoff clearly:
 - Best for environment: {ranked_by_co2[0][0].upper()} (CO2={ranked_by_co2[0][1].get('avg_co2', 0):.1f})
-- Best for cost: {ranked_by_cost[0][0].upper()} (₹{ranked_by_cost[0][1].get('avg_cost', 0):.1f})
-Be specific with numbers. Use emojis (💚💰🌱📊). Keep under 5 sentences."""
+- Best for cost: {ranked_by_cost[0][0].upper()} ({'SAVES' if ranked_by_cost[0][1].get('cost_type') == 'saving' else 'COSTS'} ₹{ranked_by_cost[0][1].get('avg_cost_abs', 0):.1f})
+NEVER say "saves ₹-X" - always say "COSTS ₹X MORE"
+Be specific with numbers. Use emojis (💚💰🌱📊📈). Keep under 5 sentences."""
+
+        # COST-FOCUSED PROMPT
+        elif is_cost_query and not is_sustainability_query:
+            print(f"[CHATBOT] Using COST-focused prompt")
+            
+            prompt = f"""User question: "{query}"
+
+COST RANKING:
+"""
+            for idx, (material, stats) in enumerate(ranked_by_cost[:5], 1):
+                emoji = "🥇" if idx == 1 else "🥈" if idx == 2 else "🥉" if idx == 3 else "💰"
+                cost_verb = "SAVES" if stats.get('cost_type') == 'saving' else "COSTS"
+                prompt += f"{emoji} {idx}. {material.upper()}: {cost_verb} ₹{stats.get('avg_cost_abs', 0):.1f} avg\n"
+            
+            prompt += f"""
+SUMMARY:
+- Total recommendations: {len(history_records)}
+- Money SAVED: ₹{total_cost_savings:.2f}
+- Money SPENT MORE: ₹{total_cost_increase:.2f}
+- Net cost: ₹{total_cost_savings - total_cost_increase:.2f}
+
+Answer the user's question about cost. Be specific with numbers. Keep under 5 sentences."""
+
+        # GENERAL PROMPT (both sustainability and cost, or neither)
+        else:
+            print(f"[CHATBOT] Using GENERAL prompt")
+            
+            prompt = f"""User question: "{query}"
+
+SUSTAINABILITY RANKING (by CO2):
+"""
+            for idx, (material, stats) in enumerate(ranked_by_co2[:3], 1):
+                prompt += f"{idx}. {material.upper()}: CO2={stats.get('avg_co2', 0):.1f}\n"
+            
+            prompt += f"""
+COST RANKING:
+"""
+            for idx, (material, stats) in enumerate(ranked_by_cost[:3], 1):
+                cost_verb = "SAVES" if stats.get('cost_type') == 'saving' else "COSTS"
+                prompt += f"{idx}. {material.upper()}: {cost_verb} ₹{stats.get('avg_cost_abs', 0):.1f}\n"
+            
+            prompt += f"""
+SUMMARY:
+- Total: {len(history_records)} recommendations
+- Money SAVED: ₹{total_cost_savings:.2f}
+- Money SPENT: ₹{total_cost_increase:.2f}
+- CO2 reduction: {total_co2_reduction:.2f}
+
+Answer the question concisely. Use emojis. Keep under 5 sentences."""
         
         print(f"[CHATBOT] ✓ Prompt prepared: {len(prompt)} characters")
         
@@ -2343,7 +2361,7 @@ Be specific with numbers. Use emojis (💚💰🌱📊). Keep under 5 sentences.
                 config={
                     'temperature': 0.2,  # Lower for more consistent, factual responses
                     'top_p': 0.8,
-                    'max_output_tokens':  1024  
+                    'max_output_tokens': 1024  
                 }
             )
             
@@ -2430,12 +2448,14 @@ Be specific with numbers. Use emojis (💚💰🌱📊). Keep under 5 sentences.
                 )
                 
                 top_n = min(5, len(ranked_by_cost))
-                fallback = f"💰 Top {top_n} materials by cost savings:\n\n"
+                fallback = f"💰 Top {top_n} materials by cost impact:\n\n"
                 
                 for idx, (material, stats) in enumerate(ranked_by_cost[:top_n], 1):
                     emoji = "🥇" if idx == 1 else "🥈" if idx == 2 else "🥉" if idx == 3 else "💰"
+                    cost_type = stats.get('cost_type', 'saving')
+                    cost_verb = "SAVES" if cost_type == 'saving' else "COSTS"
                     fallback += f"{emoji} {material.upper()}: "
-                    fallback += f"₹{stats.get('avg_cost', 0):.1f} savings avg "
+                    fallback += f"{cost_verb} ₹{stats.get('avg_cost_abs', 0):.1f} avg "
                     fallback += f"({stats['count']} uses)\n"
                 
                 if len(ranked_by_cost) < 5:
@@ -2456,11 +2476,14 @@ Be specific with numbers. Use emojis (💚💰🌱📊). Keep under 5 sentences.
                     reverse=True
                 )
                 
+                top_cost = ranked_by_cost[0]
+                cost_verb = "SAVES" if top_cost[1].get('cost_type') == 'saving' else "COSTS"
+                
                 fallback = f"Based on {len(history_records)} recommendations:\n\n"
                 fallback += f"🌱 Best for environment: {ranked_by_co2[0][0].upper()} "
                 fallback += f"({ranked_by_co2[0][1].get('avg_co2', 0):.1f} CO2 reduction)\n"
-                fallback += f"💰 Best for cost: {ranked_by_cost[0][0].upper()} "
-                fallback += f"(₹{ranked_by_cost[0][1].get('avg_cost', 0):.1f} savings)\n\n"
+                fallback += f"💰 Best for cost: {top_cost[0].upper()} "
+                fallback += f"({cost_verb} ₹{top_cost[1].get('avg_cost_abs', 0):.1f})\n\n"
                 
                 if ranked_by_co2[0][0] != ranked_by_cost[0][0]:
                     fallback += f"⚖️ Note: Different materials excel at different metrics!"
@@ -2469,9 +2492,12 @@ Be specific with numbers. Use emojis (💚💰🌱📊). Keep under 5 sentences.
             
             # Total/summary questions
             elif any(word in query_lower for word in ['total', 'overall', 'summary', 'how much']):
+                net_cost = total_cost_savings - total_cost_increase
                 fallback = f"Your packaging optimization summary: 🎯\n\n"
                 fallback += f"• {len(history_records)} recommendations created\n"
-                fallback += f"• ₹{total_cost_savings:.2f} total cost savings\n"
+                fallback += f"• ₹{total_cost_savings:.2f} saved from efficient choices 💚\n"
+                fallback += f"• ₹{total_cost_increase:.2f} spent more on sustainable options 🌱\n"
+                fallback += f"• ₹{net_cost:.2f} net cost impact {'(saved!)' if net_cost >= 0 else '(invested in sustainability)'}\n"
                 fallback += f"• {total_co2_reduction:.2f} total CO2 reduction\n"
                 fallback += f"• {len(material_stats)} materials tested\n\n"
                 
