@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - EcoPackAI{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row g-4">
+        <div class="col-lg-3 col-md-6">
+            <div class="card shadow-lg border-0 glass-card">
+                <h5>Total Predictions</h5>
+                <h2>{{ stats.total }}</h2>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card shadow-lg border-0 glass-card">
+                <h5>Avg Cost Savings</h5>
+                <h2>₹{{ stats.avg_cost|round(2) }}</h2>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card shadow-lg border-0 glass-card">
+                <h5>Avg CO₂ Reduced</h5>
+                <h2>{{ stats.avg_co2|round(2) }} kg</h2>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="card shadow-lg border-0 glass-card">
+                <h5>Materials Used</h5>
+                <ul class="list-unstyled">
+                    {% for material in stats.materials|unique %}
+                    <li>{{ material }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5 g-4">
+        <div class="col-lg-6">
+            <div class="card glass-card shadow-lg p-3">
+                <h5 class="mb-3">Material Distribution</h5>
+                <img src="data:image/png;base64,{{ material_chart }}" class="img-fluid" alt="Material Chart">
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card glass-card shadow-lg p-3">
+                <h5 class="mb-3">Cost Trend</h5>
+                <img src="data:image/png;base64,{{ cost_chart }}" class="img-fluid" alt="Cost Chart">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

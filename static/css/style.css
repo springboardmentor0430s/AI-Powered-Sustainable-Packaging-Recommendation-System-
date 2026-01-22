@@ -1,0 +1,111 @@
+:root {
+    --emerald: #10b981;
+    --emerald-dark: #059669;
+}
+
+/* =========================
+   HERO SECTION
+========================= */
+.hero-bg {
+    background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('../images/eco.png') center/cover;
+    opacity: 0.08;
+    z-index: 0;
+}
+
+/* =========================
+   INFO / GLASS CARDS
+========================= */
+.info-card,
+.glass-card {
+    backdrop-filter: blur(18px);
+    border: none;
+    transition: all 0.35s ease;
+    height: 100%;
+    padding: 1.75rem;
+    border-radius: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    color: #1f2937;
+}
+
+.info-card:hover,
+.glass-card:hover {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.18);
+}
+
+/* Card Colors */
+.card-problem { background: linear-gradient(135deg, rgba(255,228,214,0.95), rgba(255,210,190,0.95)); }
+.card-solution { background: linear-gradient(135deg, rgba(219,234,254,0.95), rgba(191,219,254,0.95)); }
+.card-impact { background: linear-gradient(135deg, rgba(237,233,254,0.95), rgba(221,214,254,0.95)); }
+
+/* Icons */
+.info-card i { color: #111827; opacity: 0.85; }
+
+/* =========================
+   NAVBAR
+========================= */
+.navbar { backdrop-filter: blur(20px); background: rgba(16,185,129,0.95) !important; }
+.navbar-dark .navbar-nav .nav-link { color: white !important; padding: 0.6rem 1.3rem; border-radius: 0.6rem; font-weight: 600; transition: all 0.25s ease-in-out; }
+.navbar-dark .navbar-nav .nav-link:hover { color: #ffc107 !important; background-color: rgba(255,255,255,0.18); }
+.navbar-nav { gap: 1rem; }
+@media (max-width: 991px) { .navbar-nav { text-align: center; gap: 0.6rem; } }
+
+/* =========================
+   BUTTONS
+========================= */
+.btn { transition: all 0.3s ease; }
+.btn:hover { transform: translateY(-2px); }
+
+/* =========================
+   TABLES
+========================= */
+.table-hover tbody tr:hover { background-color: rgba(16,185,129,0.1); }
+
+/* =========================
+   UTILITIES
+========================= */
+.min-vh-90 { min-height: 90vh; }
+.min-vh-100 { min-height: 100vh; }
+.shadow-2xl { box-shadow: 0 35px 60px -12px rgba(0,0,0,0.25) !important; }
+
+/* =========================
+   GLASS CARD FIXES
+========================= */
+.glass-card {
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(22px);
+    border-radius: 1.25rem;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08), inset 0 1px 0 rgba(255,255,255,0.6);
+}
+
+/* =========================
+   AUTH PAGES
+========================= */
+.auth-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 2rem; background: linear-gradient(135deg,#eef2ff,#ecfeff); }
+.auth-container { display: flex; width: 100%; max-width: 1200px; height: auto; border-radius: 1.5rem; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.08); }
+.auth-left { flex:1; background: linear-gradient(135deg,#eef2ff,#ecfeff); display:flex; align-items:center; justify-content:center; padding:4rem; }
+.auth-left h1 { font-size:2.2rem; font-weight:700; line-height:1.3; color:#1f2937; text-align:left; }
+.auth-left span { color:#4f46e5; }
+.auth-right { flex:1; display:flex; align-items:center; justify-content:center; background:#f8fafc; padding:3rem; }
+.auth-card { width:100%; max-width:420px; background: rgba(255,255,255,0.85); backdrop-filter: blur(22px); border-radius:1.25rem; padding:2.5rem; box-shadow:0 20px 40px rgba(0,0,0,0.08); text-align:center; display:flex; flex-direction:column; justify-content:center; }
+.auth-title { font-size:1.8rem; font-weight:700; margin-bottom:1.5rem; color:#1f2937; }
+.auth-icon { font-size:3rem; color:#4f46e5; margin-bottom:1rem; }
+.auth-card .form-control { background: rgba(249,250,251,0.95); border:1px solid #e5e7eb; border-radius:0.75rem; padding:0.75rem 1rem; margin-bottom:1rem; }
+.auth-card .form-control:focus { border-color:#4f46e5; box-shadow:0 0 0 3px rgba(79,70,229,0.2); }
+.btn-auth { background: linear-gradient(135deg,#10b981,#22c55e); border:none; border-radius:0.75rem; font-weight:600; padding:0.75rem; width:100%; }
+.btn-auth:hover { background: linear-gradient(135deg,#059669,#16a34a); }
+.auth-link { color:#4f46e5; text-decoration:none; }
+.auth-link:hover { text-decoration:underline; }
+@media (max-width:992px) { .auth-left { display:none; } .auth-right { flex:1; padding:2rem; } }

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}New Prediction - EcoPackAI{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card glass-card shadow-lg p-4">
+                <h2 class="text-center mb-4">Predict Packaging Material</h2>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label>Product Category</label>
+                        <input type="text" name="product" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Weight (g)</label>
+                        <input type="number" name="weight" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Fragility Level (1-10)</label>
+                        <input type="number" name="fragility" class="form-control" min="1" max="10" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Dimensions (cm)</label>
+                        <input type="number" name="dimensions" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Strength (1-10)</label>
+                        <input type="number" name="strength" class="form-control" min="1" max="10" required>
+                    </div>
+                    <button type="submit" class="btn btn-success w-100">Predict</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

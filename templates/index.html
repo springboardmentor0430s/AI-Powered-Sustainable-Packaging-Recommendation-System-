@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}
+EcoPackAI - AI Sustainable Packaging
+{% endblock %}
+
+{% block content %}
+
+<section class="hero-bg text-white min-vh-100 d-flex align-items-center">
+    <div class="container text-center position-relative">
+
+        <!-- MAIN TITLE -->
+        <h1 class="hero-title fw-bold mb-3 animate__animated animate__fadeInDown">
+            AI-Powered Sustainable Packaging Intelligence
+        </h1>
+
+        <p class="hero-subtitle mb-5 fs-5 animate__animated animate__fadeInUp">
+            EcoPackAI helps industries and e-commerce businesses choose
+            eco-friendly, cost-efficient packaging materials without
+            compromising durability or safety.
+        </p>
+
+        <!-- INFO CARDS -->
+        <div class="row g-4 mb-5">
+
+            <!-- Problem -->
+            <div class="col-md-4">
+                <div class="info-card card-problem p-4 rounded-4 shadow-lg animate__animated animate__fadeInUp">
+                    <i class="fas fa-triangle-exclamation fa-3x mb-3 text-warning"></i>
+                    <h5 class="fw-bold mt-2">The Problem</h5>
+                    <p>
+                        Heavy reliance on non-biodegradable and costly
+                        packaging materials increases environmental
+                        damage and operational inefficiency.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Solution -->
+            <div class="col-md-4">
+                <div class="info-card card-solution p-4 rounded-4 shadow-lg animate__animated animate__fadeInUp">
+                    <i class="fas fa-brain fa-3x mb-3 text-success"></i>
+                    <h5 class="fw-bold mt-2">Our Solution</h5>
+                    <p>
+                        AI-powered recommendations predicting cost
+                        efficiency and carbon footprint using
+                        advanced machine learning.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Impact -->
+            <div class="col-md-4">
+                <div class="info-card card-impact p-4 rounded-4 shadow-lg animate__animated animate__fadeInUp">
+                    <i class="fas fa-leaf fa-3x mb-3 text-success"></i>
+                    <h5 class="fw-bold mt-2">Sustainable Impact</h5>
+                    <p>
+                        Enables greener supply chains, reduced CO₂
+                        emissions, and smarter packaging decisions.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- CTA -->
+        <a href="/signup" class="btn btn-lg btn-light text-success fw-bold px-5 py-3 shadow-lg animate__animated animate__fadeInUp">
+            Start Now
+        </a>
+
+    </div>
+</section>
+
+{% endblock %}
