@@ -1,15 +1,17 @@
 import psycopg2
+import psycopg2.errors
 from psycopg2.extras import RealDictCursor
 import hashlib
+import os
 
 def get_db_connection():
     try:
         return psycopg2.connect(
-            host="localhost",
-            database="ecopackai",
-            user="postgres",
-            password="Chinmai",
-            port=5432
+            host=os.environ.get("DB_HOST"),
+            database=os.environ.get("DB_NAME"),
+            user=os.environ.get("DB_USER"),
+            password=os.environ.get("DB_PASSWORD"),
+            port=os.environ.get("DB_PORT", 5432)
         )
     except Exception as e:
         print(f"⚠️ DB unavailable: {e}")
@@ -20,10 +22,9 @@ def init_db():
     if not conn:
         print("⚠️ Skipping DB init")
         return
-    
+
     cur = conn.cursor()
     try:
-        # Users table
         cur.execute("""
             CREATE TABLE IF NOT EXISTS users (
                 id SERIAL PRIMARY KEY,
@@ -33,8 +34,7 @@ def init_db():
                 created_at TIMESTAMP DEFAULT NOW()
             );
         """)
-        
-        # Predictions table 
+
         cur.execute("""
             CREATE TABLE IF NOT EXISTS predictions (
                 id SERIAL PRIMARY KEY,
@@ -50,7 +50,7 @@ def init_db():
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
         """)
-        
+
         conn.commit()
         print("✅ DB tables created/verified")
     except Exception as e:
@@ -64,7 +64,7 @@ def create_user(username, email, password):
     conn = get_db_connection()
     if not conn:
         return False
-    
+
     cur = conn.cursor()
     try:
         password_hash = hashlib.sha256(password.encode()).hexdigest()
@@ -73,11 +73,9 @@ def create_user(username, email, password):
             VALUES (%s, %s, %s)
         """, (username, email, password_hash))
         conn.commit()
-        print(f"✅ User created: {username}")
         return True
     except psycopg2.errors.UniqueViolation:
         conn.rollback()
-        print(f"⚠️ User exists: {username}")
         return False
     finally:
         cur.close()
@@ -87,11 +85,12 @@ def authenticate_user(username_or_email, password):
     conn = get_db_connection()
     if not conn:
         return None
-    
+
     cur = conn.cursor(cursor_factory=RealDictCursor)
     password_hash = hashlib.sha256(password.encode()).hexdigest()
     cur.execute("""
-        SELECT id, username FROM users
+        SELECT id, username
+        FROM users
         WHERE (username = %s OR email = %s)
         AND password = %s
     """, (username_or_email, username_or_email, password_hash))
@@ -99,6 +98,5 @@ def authenticate_user(username_or_email, password):
     cur.close()
     conn.close()
     return user
-
-if __name__ == "__main__":
+if os.environ.get("AUTO_INIT_DB") == "true":
     init_db()
