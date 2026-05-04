@@ -1,61 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>History</title>
-<link rel="stylesheet" href="/static/style.css">
+    <title>History</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
-<div class="sidebar">
-<h2>EcoPackAI</h2>
-<a href="/dashboard">Dashboard</a>
-<a href="/impact">Impact Insights</a>
-<a href="/history">History</a>
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>🌿 EcoPackAI</h2>
+
+        <button onclick="toggleDark()">🌙 Dark Mode</button>
+
+        <a href="/dashboard">📊 Recommendations</a>
+        <a href="/impact">🌍 Impact Insights</a>
+        <a href="/history">🕓 History</a>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+        <h2>📜 History</h2>
+
+        {% if data %}
+        <div class="card">
+
+            <table>
+                <tr>
+                    <th>Material</th>
+                    <th>Shape</th>
+                    <th>Strength</th>
+                    <th>Food</th>
+                    <th>Quantity</th>
+                    <th>Weight</th>
+                    <th>Recycle</th>
+                    <th>Cost</th>
+                    <th>CO₂</th>
+                </tr>
+
+                {% for h in data %}
+                <tr onclick="window.location.href='/load/{{ loop.index0 }}'" style="cursor:pointer;">
+                    <td>{{ h.material }}</td>
+                    <td>{{ h.shape }}</td>
+                    <td>{{ h.strength }}</td>
+                    <td>{{ h.food }}</td>
+                    <td>{{ h.quantity }}</td>
+                    <td>{{ h.weight }}</td>
+                    <td>{{ h.recycle }}%</td>
+                    <td>₹{{ h.cost }}</td>
+                    <td>{{ h.co2 }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+        {% else %}
+            <p>No history yet</p>
+        {% endif %}
+
+    </div>
 </div>
 
-<div class="main">
-<div class="section">
-<h3>Recommendation History</h3>
-
-<table id="historyTable">
-<tr>
-<th>Date & Time</th>
-<th>Material</th>
-<th>Shape</th>
-<th>Strength</th>
-<th>Food Group</th>
-<th>Qty</th>
-<th>Pkg Wt</th>
-<th>Recycle %</th>
-<th>Predicted Cost</th>
-<th>Predicted CO₂</th>
-<th>Best Alt</th>
-</tr>
-</table>
-
-</div>
-</div>
-
+<!-- DARK MODE -->
 <script>
-const history = JSON.parse(localStorage.getItem("history")) || [];
-const table = document.getElementById("historyTable");
-
-history.forEach(h => {
-    const row = table.insertRow();
-    row.innerHTML = `
-        <td>${h.dateTime}</td>
-        <td><span class="badge">${h.material}</span></td>
-        <td>${h.shape}</td>
-        <td>${h.strength}</td>
-        <td>${h.food}</td>
-        <td>${h.qty} g</td>
-        <td>${h.pkgwt} g</td>
-        <td>${h.recycle}%</td>
-        <td>₹${h.predictedCost}</td>
-        <td>${h.predictedCO2}</td>
-        <td><span class="badge">${h.bestAlt}</span></td>
-    `;
-});
+function toggleDark() {
+    document.body.classList.toggle("dark");
+}
 </script>
 
 </body>
