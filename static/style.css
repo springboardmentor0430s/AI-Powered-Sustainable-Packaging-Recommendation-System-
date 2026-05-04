@@ -1,99 +1,83 @@
-body {
-    margin: 0;
-    font-family: "Segoe UI", sans-serif;
-    background: #f4f7fb;
-    color: #1f2937;
-}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EcoPackAI Login</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
 
-.sidebar {
-    width: 220px;
-    height: 100vh;
-    position: fixed;
-    background: white;
-    border-right: 1px solid #e5e7eb;
-    padding: 20px;
-}
+<div style="display:flex;justify-content:center;align-items:center;height:100vh;background:#f4f7fb;">
 
-.sidebar h2 {
-    color: #047857;
-}
+    <!-- LEFT : ECO ILLUSTRATION -->
+    <div style="background:#f0fdf4;padding:40px;border-radius:20px 0 0 20px;width:420px;
+                display:flex;flex-direction:column;align-items:center;justify-content:center;">
 
-.sidebar a {
-    display: block;
-    margin: 14px 0;
-    color: #374151;
-    text-decoration: none;
-    font-weight: 500;
-}
+        <svg width="260" height="260" viewBox="0 0 260 260">
+            <circle cx="130" cy="130" r="105" fill="#dcfce7"/>
+            <rect x="80" y="140" width="100" height="55" rx="16" fill="#34d399"/>
+            <rect x="80" y="130" width="100" height="20" rx="10" fill="#6ee7b7"/>
+            <rect x="126" y="95" width="8" height="45" rx="4" fill="#16a34a"/>
+            <ellipse cx="110" cy="105" rx="18" ry="10" fill="#22c55e"/>
+            <ellipse cx="150" cy="105" rx="18" ry="10" fill="#22c55e"/>
+            <text x="130" y="235" text-anchor="middle" font-size="15"
+                  fill="#065f46" font-weight="600">
+                Sustainable Eco Packaging
+            </text>
+        </svg>
 
-.main {
-    margin-left: 240px;
-    padding: 30px;
-}
+        <p style="color:#047857;font-size:14px;text-align:center;">
+            Packaging that grows with nature 🌱
+        </p>
+    </div>
 
-.cards {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-}
+    <!-- RIGHT : LOGIN FORM -->
+    <div style="background:white;padding:40px;border-radius:0 20px 20px 0;width:380px;
+                box-shadow:0 2px 15px rgba(0,0,0,0.05);">
 
-.card, .section {
-    background: white;
-    padding: 20px;
-    border-radius: 14px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-}
+        <h2 style="color:#047857;text-align:center;margin-bottom:20px;">
+            EcoPackAI Login
+        </h2>
 
-.card h3 {
-    font-size: 14px;
-    color: #6b7280;
-}
+        <form method="POST">
 
-.card h1 {
-    color: #047857;
-}
+            <input
+                type="email"
+                name="email"
+                value="mishrayashashree@gmail.com"
+                placeholder="Email"
+                required
+                style="margin-bottom:15px;"
+            >
 
-input, select {
-    width: 100%;
-    padding: 11px;
-    margin-top: 10px;
-    border-radius: 10px;
-    border: 1px solid #d1d5db;
-}
+            <input
+                type="password"
+                name="password"
+                value="Yashu@123"
+                placeholder="Password"
+                required
+                style="margin-bottom:20px;"
+            >
 
-button {
-    background: #047857;
-    color: white;
-    padding: 12px;
-    border: none;
-    border-radius: 10px;
-    margin-top: 16px;
-    cursor: pointer;
-    font-size: 15px;
-}
+            <button type="submit" style="width:100%;">Login</button>
+        </form>
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-}
+        {% if error %}
+        <p style="color:red;text-align:center;margin-top:10px;">
+            {{ error }}
+        </p>
+        {% endif %}
 
-th, td {
-    padding: 12px;
-    border-bottom: 1px solid #e5e7eb;
-    font-size: 14px;
-}
+        <!-- REGISTER LINK -->
+        <p style="text-align:center;margin-top:18px;font-size:14px;">
+            New user?
+            <a href="/register" style="color:#047857;font-weight:600;text-decoration:none;">
+                Register here
+            </a>
+        </p>
 
-.badge {
-    background: #d1fae5;
-    color: #065f46;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-size: 12px;
-}
+    </div>
 
-.pie-container {
-  width: 280px;     
-  height: 280px;
-  margin: auto;
-}
+</div>
+
+</body>
+</html>
