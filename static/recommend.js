@@ -1,165 +1,204 @@
-let count = 0;
-let costChart;
+let costChart = null;
 
+/* ================= DARK MODE ================= */
+function toggleDarkMode() {
+  document.body.classList.toggle("dark");
+  localStorage.setItem("darkMode", document.body.classList.contains("dark"));
+}
+
+window.addEventListener("load", () => {
+  if (localStorage.getItem("darkMode") === "true") {
+    document.body.classList.add("dark");
+  }
+});
+
+/* ================= MAIN FUNCTION ================= */
 function recommend() {
 
-    /* ===== 1. READ INPUTS ===== */
-    const material = document.getElementById("material").value;
-    const shape = document.getElementById("shape").value;
-    const strength = document.getElementById("strength").value;
-    const food = document.getElementById("food").value;
-    const qty = document.getElementById("qty").value || 500;
-    const pkgwt = document.getElementById("pkgwt").value || 25;
-    const recycle = document.getElementById("recycle").value || 70;
+  // ===== INPUTS =====
+  const material = document.getElementById("material").value;
+  const shape = document.getElementById("shape").value;
+  const strength = document.getElementById("strength").value;
+  const food = document.getElementById("food").value;
 
-    /* ===== 2. PREDICT VALUES (DEMO LOGIC) ===== */
-    // SIMPLE DYNAMIC PREDICTION (UI-LEVEL)
-const baseCost = 50;
-const baseCO2 = 20;
+  const qtyInput = document.getElementById("qty").value;
+  const pkgwtInput = document.getElementById("pkgwt").value;
+  const recycleInput = document.getElementById("recycle").value;
 
-const predictedCost =
-  baseCost +
-  qty * 0.08 +
-  pkgwt * 0.5 -
-  recycle * 0.2;
+  // ===== VALIDATION =====
+  if (!qtyInput || !pkgwtInput || !recycleInput) {
+    document.getElementById("out").innerHTML = `
+      <span style="color:red;font-weight:bold;">
+        ⚠️ Please enter:
+        ${!qtyInput ? " Product Quantity" : ""}
+        ${!pkgwtInput ? " Package Weight" : ""}
+        ${!recycleInput ? " Recyclability %" : ""}
+      </span>
+    `;
+    return;
+  }
 
-const predictedCO2 =
-  baseCO2 +
-  qty * 0.03 +
-  pkgwt * 0.4 -
-  recycle * 0.15;
+  // ===== CONVERT =====
+  const qty = Number(qtyInput);
+  const pkgwt = Number(pkgwtInput);
+  const recycle = Number(recycleInput);
 
-  
-    /* ===== 3. SMART UI LOGIC (NeoSmartUI) ===== */
-     let bestAlt = "";
+  // ===== ML PREDICTION =====
+  fetch("/predict", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ qty, pkgwt, recycle })
+  })
+  .then(res => res.json())
+  .then(data => {
+
+    const predictedCost = data.cost;
+    const predictedCO2 = data.co2;
+
+    // ===== SMART LOGIC =====
+    let bestAlt = "";
     let altReason = "";
 
     if (qty < 500 && recycle >= 80) {
-    bestAlt = "Molded Pulp";
-    altReason = "Lightweight product with high recyclability is best suited for molded pulp packaging.";
-    }
-    else if (qty >= 500 && qty <= 1000) {
-    bestAlt = "Paper-based Carton";
-    altReason = "Medium-weight products benefit from paper-based cartons due to balanced strength and sustainability.";
-    }
-    else if (qty > 1000 && recycle >= 70) {
-    bestAlt = "Corrugated Cardboard";
-    altReason = "Heavy products require corrugated cardboard for structural strength and recyclability.";
-    }
-    else if (recycle < 60) {
-    bestAlt = "Recycled Cardboard";
-    altReason = "Low recyclability inputs are improved using recycled cardboard alternatives.";
-    }
-    else if (pkgwt > 80) {
-    bestAlt = "Reinforced Cardboard";
-    altReason = "Higher package weight requires reinforced cardboard for durability.";
-    }
-    else {
-    bestAlt = "Standard Cardboard";
-    altReason = "Default sustainable option based on packaging constraints.";
+      bestAlt = "Molded Pulp";
+      altReason = "Lightweight + highly recyclable → best for sustainability.";
+    } else if (qty <= 1000) {
+      bestAlt = "Paper-based Carton";
+      altReason = "Balanced eco-friendly and cost efficient.";
+    } else if (qty > 1000 && recycle >= 70) {
+      bestAlt = "Corrugated Cardboard";
+      altReason = "Best for heavy products.";
+    } else if (recycle < 60) {
+      bestAlt = "Recycled Cardboard";
+      altReason = "Improves recyclability.";
+    } else if (pkgwt > 80) {
+      bestAlt = "Reinforced Cardboard";
+      altReason = "Handles high weight.";
+    } else {
+      bestAlt = "Standard Cardboard";
+      altReason = "Default sustainable choice.";
     }
 
-    /* ===== 4. OUTPUT UI ===== */
+    // ===== OUTPUT + AI PANEL =====
     document.getElementById("out").innerHTML = `
-        <b>Material:</b> ${material}<br>
-        <b>Shape:</b> ${shape}<br>
-        <b>Strength:</b> ${strength}<br>
-        <b>Food Group:</b> ${food}<br>
-        <b>Product Qty:</b> ${qty} g<br>
-        <b>Package Weight:</b> ${pkgwt} g<br>
-        <b>Recycle %:</b> ${recycle}%<br>
-        <b>Predicted Cost:</b> ₹${predictedCost}<br>
-        <b>Predicted CO₂:</b> ${predictedCO2}<br><br>
+      <b>Material:</b> ${material}<br>
+      <b>Shape:</b> ${shape}<br>
+      <b>Strength:</b> ${strength}<br>
+      <b>Food:</b> ${food}<br>
+      <b>Qty:</b> ${qty} g<br>
+      <b>Weight:</b> ${pkgwt} g<br>
+      <b>Recycle:</b> ${recycle}%<br><br>
 
-        <b>Recommended Packaging Material:</b>
-        <span class="badge">${bestAlt}</span><br>
+      <b>Cost:</b> ₹${predictedCost.toFixed(2)}<br>
+      <b>CO₂:</b> ${predictedCO2.toFixed(2)}<br><br>
 
-        <small style="color:#047857;">
-            Why? ${altReason}
-        </small>
+      <b>Best:</b> ${bestAlt}<br>
+
+      <div style="margin-top:10px;padding:12px;background:#ecfdf5;border-radius:12px;">
+        🤖 <b>AI Insight:</b><br>
+        ${altReason}
+        <br><br>
+        This recommendation balances cost, weight, and sustainability.
+      </div>
     `;
 
-    /* ===== 5. KPI UPDATE ===== */
-    count++;
-    document.getElementById("k1").innerText = count;
-    document.getElementById("k2").innerText = "₹" + (count * 300);
-    document.getElementById("k3").innerText = count * 40;
-    document.getElementById("k4").innerText = "95%";
+    // ===== KPI UPDATE =====
+    let totalRec = Number(localStorage.getItem("totalRec")) || 0;
+    let totalCostSaved = Number(localStorage.getItem("totalCostSaved")) || 0;
+    let totalCO2Saved = Number(localStorage.getItem("totalCO2Saved")) || 0;
 
-    /* ===== 6. SAVE TO HISTORY ===== */
+    totalRec++;
+
+    const costSaved = predictedCost * 0.2;
+    const co2Saved = predictedCO2 * 0.3;
+
+    totalCostSaved += costSaved;
+    totalCO2Saved += co2Saved;
+
+    localStorage.setItem("totalRec", totalRec);
+    localStorage.setItem("totalCostSaved", totalCostSaved);
+    localStorage.setItem("totalCO2Saved", totalCO2Saved);
+
+    // 🔥 LIVE UPDATE
+    document.getElementById("k1").innerText = totalRec;
+    document.getElementById("k2").innerText = "₹" + totalCostSaved.toFixed(2);
+    document.getElementById("k3").innerText = totalCO2Saved.toFixed(2);
+
+    // ===== SAVE LAST INPUT =====
+    localStorage.setItem("lastInput", JSON.stringify({
+      material, shape, strength, food, qty, pkgwt, recycle
+    }));
+
+    // ===== SAVE HISTORY =====
     const history = JSON.parse(localStorage.getItem("history")) || [];
+
     history.unshift({
-        dateTime: new Date().toLocaleString(),
-        material,
-        shape,
-        strength,
-        food,
-        qty,
-        pkgwt,
-        recycle,
-        predictedCost,
-        predictedCO2,
-        bestAlt
+      dateTime: new Date().toLocaleString(),
+      material,
+      shape,
+      strength,
+      food,
+      qty,
+      pkgwt,
+      recycle,
+      predictedCost,
+      predictedCO2,
+      bestAlt
     });
+
     localStorage.setItem("history", JSON.stringify(history));
 
-    /* ===== 7. COST GRAPH ===== */
+    // ===== GRAPH =====
+    const altCost = predictedCost * 0.8;
+
     if (!costChart) {
-        costChart = new Chart(document.getElementById("costChart"), {
-            type: "bar",
-            data: {
-                labels: ["Predicted", "Best Alternative"],
-                datasets: [{
-                    data: [predictedCost, 120],
-                    backgroundColor: ["#ef4444", "#10b981"],
-                    barThickness: 40
-                }]
-            },
-            options: {
-                plugins: { legend: { display: false } },
-                scales: { y: { beginAtZero: true } }
-            }
-        });
-    } else {
-        costChart.data.datasets[0].data = [predictedCost, 120];
-        costChart.update();
-    }
-}
-// ===== CO2 IMPACT GRAPH =====
-const altCO2 = predictedCO2 * 0.7; // 30% reduction assumption
-
-if (!window.co2Chart) {
-    window.co2Chart = new Chart(
-        document.getElementById("co2Chart"),
-        {
-            type: "bar",
-            data: {
-                labels: ["Predicted", "Best Alternative"],
-                datasets: [{
-                    label: "CO₂ Impact (kg)",
-                    data: [predictedCO2, altCO2],
-                    backgroundColor: ["#ef4444", "#10b981"],
-                    barThickness: 40
-                }]
-            },
-            options: {
-                plugins: {
-                    legend: { display: false }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: "CO₂ Impact (kg)"
-                        }
-                    }
-                }
-            }
+      costChart = new Chart(document.getElementById("costChart"), {
+        type: "bar",
+        data: {
+          labels: ["Predicted", "Best Alternative"],
+          datasets: [{
+            data: [predictedCost, altCost],
+            backgroundColor: ["#ef4444", "#10b981"]
+          }]
+        },
+        options: {
+          plugins: { legend: { display: false } },
+          scales: { y: { beginAtZero: true } }
         }
-    );
-} else {
-    window.co2Chart.data.datasets[0].data = [predictedCO2, altCO2];
-    window.co2Chart.update();
+      });
+    } else {
+      costChart.data.datasets[0].data = [predictedCost, altCost];
+      costChart.update();
+    }
+
+    // ===== CLEAR INPUTS =====
+    document.getElementById("qty").value = "";
+    document.getElementById("pkgwt").value = "";
+    document.getElementById("recycle").value = "";
+
+  }); // END FETCH
 }
 
+/* ================= DOWNLOAD CSV ================= */
+function downloadCSV() {
+  const history = JSON.parse(localStorage.getItem("history")) || [];
+
+  if (history.length === 0) {
+    alert("No data to download");
+    return;
+  }
+
+  let csv = "Date,Material,Qty,Weight,Recycle,Cost,CO2,Best\n";
+
+  history.forEach(h => {
+    csv += `${h.dateTime},${h.material},${h.qty},${h.pkgwt},${h.recycle},${h.predictedCost},${h.predictedCO2},${h.bestAlt}\n`;
+  });
+
+  const blob = new Blob([csv], { type: "text/csv" });
+  const url = window.URL.createObjectURL(blob);
+
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "ecopack_data.csv";
+  a.click();
+}
