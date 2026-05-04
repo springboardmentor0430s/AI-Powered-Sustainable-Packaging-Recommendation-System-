@@ -61,21 +61,25 @@ Why: Low recyclability plastic → switch to biodegradable option.
 ---
 
 ## 📂 Project Structure
+
+```
+EcopackAI/
 │
 ├── app.py
 ├── final_ecopack_data.csv
 │
 ├── templates/
-│ ├── login.html
-│ ├── register.html
-│ ├── dashboard.html
-│ ├── impact.html
-│ └── history.html
+│   ├── login.html
+│   ├── register.html
+│   ├── dashboard.html
+│   ├── impact.html
+│   └── history.html
 │
 ├── static/
-│ ├── style.css
-│ ├── recommend.js
-│ └── impact.js
+│   ├── style.css
+│   ├── recommend.js
+│   └── impact.js
+```
 
 ---
 
