@@ -7,7 +7,7 @@ app.secret_key = "secret123"
 
 # ===== LOGIN =====
 VALID_EMAIL = "mishrayashashree@gmail.com"
-VALID_PASSWORD = "Yashu@123"
+VALID_PASSWORD = "Mishra@123"
 
 # ===== MEMORY =====
 history_data = []
