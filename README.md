@@ -1,64 +1,69 @@
-# 🌱 EcoPackAI
-## AI-Powered Sustainable Packaging Recommendation System
+# 🌿 EcoPackAI — AI-Powered Sustainable Packaging Recommendation System
+
+An intelligent web-based system that predicts **packaging cost, CO₂ emissions**, and recommends **eco-friendly alternatives** based on user inputs.
 
 ---
 
-## 📌 Overview
+## 🚀 Features
 
-EcoPackAI is an **AI-powered sustainable packaging recommendation system** designed to help businesses choose **eco-friendly, cost-effective packaging materials**.  
-The system uses **machine learning models** to analyze material properties, cost factors, and carbon footprint (CO₂ impact), and provides **data-driven packaging recommendations**.
-
-An integrated **Impact Analytics Dashboard** visualizes sustainability metrics such as cost savings, CO₂ reduction, and material usage trends.
-
----
-
-## 🎯 Problem Statement
-
-Conventional packaging solutions often:
-- Rely on non-biodegradable materials  
-- Increase environmental pollution  
-- Lack data-driven sustainability insights  
-
-EcoPackAI addresses these challenges by combining **AI, ML, and analytics** to support **sustainable decision-making** in packaging design.
+- 📦 Smart Packaging Input System  
+- 🤖 AI-based Cost & CO₂ Prediction (ML Model)  
+- ♻️ Sustainable Material Recommendation  
+- 📊 Impact Analysis (Why prediction happened)  
+- 📈 Best vs Average vs Worst Graphs  
+- 🌍 Impact Insights Dashboard  
+- 🕓 History Tracking  
+- 🌙 Dark Mode UI  
+- 📄 Export PDF (Impact Insights)
 
 ---
 
-## ✅ Project Objectives
+## 🧠 How It Works
 
-- Recommend sustainable packaging materials using AI  
-- Predict **cost efficiency** and **CO₂ impact**  
-- Rank materials based on sustainability scores  
-- Provide an interactive analytics dashboard  
-- Deliver a complete end-to-end AI system  
+1. User enters:
+   - Material
+   - Shape
+   - Strength
+   - Food Type
+   - Quantity
+   - Weight
+   - Recyclability %
+
+2. System:
+   - Uses **Linear Regression Model**
+   - Calculates **Cost & CO₂**
+   - Applies rule-based logic for recommendation
+
+3. Output:
+   - 💰 Predicted Cost  
+   - 🌱 CO₂ Emissions  
+   - ♻️ Recommended Material  
+   - 📊 Explanation (Impact Factors)
 
 ---
 
-## 🧠 System Architecture
+## 📊 Example Output
+💰 Cost: ₹93.22
+🌱 CO₂: 46.26 kg
 
-### High-Level Flow
-- Frontend UI → Flask Backend → ML Models → Analytics Dashboard
-
-### Layers
-- **Frontend Layer** – HTML, CSS, JavaScript  
-- **Backend Layer** – Flask (API & routing)  
-- **ML Layer** – Random Forest & XGBoost models  
-- **Data Layer** – Processed eco-packaging dataset  
-- **Analytics Layer** – Charts & sustainability metrics  
+Recommended: Bioplastic
+Why: Low recyclability plastic → switch to biodegradable option.
 
 ---
 
-## 🗂️ Project Structure
-EcoPackAI/
+## 🛠️ Tech Stack
+
+- **Frontend:** HTML, CSS, JavaScript, Chart.js  
+- **Backend:** Flask (Python)  
+- **ML Model:** Scikit-learn (Linear Regression)  
+- **Data Handling:** NumPy  
+
+---
+
+## 📂 Project Structure
 │
-├── dataset/
-│ └── final_ecopack_dataset.csv
-│
-├── ML_Integration/
-│ └── ECOPACK_ML/
-│ ├── model_training.ipynb
-│ ├── cost_model.pkl
-│ ├── co2_model.pkl
-│ └── feature_engineering.py
+├── app.py
+├── final_ecopack_data.csv
 │
 ├── templates/
 │ ├── login.html
@@ -71,96 +76,78 @@ EcoPackAI/
 │ ├── style.css
 │ ├── recommend.js
 │ └── impact.js
-│
-├── app.py
-├── README.md
-└── requirements.txt
----
-
-## 🧩 Modules Description
-
-### 1️⃣ Data Collection & Dataset Preparation
-- Eco-friendly material dataset  
-- Product attributes and sustainability indicators  
-- CSV-based structured data  
-
-### 2️⃣ Data Pre-processing & Feature Engineering
-- Data cleaning and normalization  
-- Encoding categorical variables  
-- Cost Efficiency Score  
-- CO₂ Impact Score  
-- Material Suitability Index  
-
-### 3️⃣ Machine Learning Models
-- **Random Forest Regressor** – Cost prediction  
-- **XGBoost Regressor** – CO₂ emission prediction  
-- Performance evaluation using RMSE, MAE, and R²  
-
-### 4️⃣ Recommendation Engine
-- Predicts cost and CO₂ footprint  
-- Generates ranked sustainable alternatives  
-- Supports multiple material types and shapes  
-
-### 5️⃣ Backend Integration (Flask)
-- REST-based routing  
-- ML inference integration  
-- Data exchange using JSON  
-
-### 6️⃣ Frontend User Interface
-- Login & registration pages  
-- Product input forms  
-- Recommendation display screens  
-
-### 7️⃣ Impact Analytics Dashboard
-- CO₂ reduction visualization  
-- Cost savings trends  
-- Material usage analytics  
-- Exportable reports  
 
 ---
 
-## 📊 Key Features
+## ⚙️ Installation & Setup
 
-- AI-based packaging recommendations  
-- Sustainability impact analysis  
-- Interactive BI dashboard  
-- Clean and modular codebase  
-- Academic milestone aligned  
+### 1. Clone Repository
+
+git clone https://github.com/your-username/ecopack-ai.git
+
+cd ecopack-ai
+
+
+### 2. Install Dependencies
+
+pip install flask numpy scikit-learn
+
+
+### 3. Run the App
+
+python app.py
+
+## 🔐 Authentication
+---
+
+## 🔐 Login Credentials (Demo)
+
+
+Email: mishrayashashree@gmail.com
+
+Password: Mishra@123
+
+Users need to **register first** to access the system.
+
+### Steps:
+1. Go to the Register page  
+2. Create a new account  
+3. Login using your registered credentials  
+
+This ensures a simple user-based access system for the application.
+
 
 ---
 
-## 🛠️ Technologies Used
+## 📈 Key Highlights
 
-### Backend
-- Python  
-- Flask  
+- Real-time prediction system  
+- Explainable AI (impact reasoning)  
+- Sustainability-focused recommendations  
+- Clean dashboard with analytics  
+- Beginner-friendly ML integration  
 
-### Machine Learning
-- Random Forest  
-- XGBoost  
-- Scikit-learn  
-- Pandas, NumPy  
+---
 
-### Frontend
-- HTML5  
-- CSS3  
-- JavaScript  
-- Chart.js  
+## 🎯 Future Improvements
 
-## Future Scope
+- 🔍 Advanced ML model (Random Forest / XGBoost)  
+- 📦 Real packaging dataset integration  
+- 🌐 Deployment (Render / AWS)  
+- 📊 More detailed analytics  
+- 👥 Multi-user authentication  
 
-Cloud database integration
+---
 
-Explainable AI (XAI) support
+## 👩‍💻 Author
 
-Mobile-responsive UI
+**Yashashree Mishra**  
+Aspiring AI/ML Developer  
 
-Industry-specific models
+---
 
-Role-based authentication
+## ⭐ If you like this project
 
-# 👩‍💻 Author
+Give it a ⭐ on GitHub and share feedback!
 
-# Yashashree Mishra
-## AI-Powered Sustainable Packaging ### Recommendation System
-### Milestone-4 Submission (2026)
+
