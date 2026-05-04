@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>History</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>🌿 EcoPackAI</h2>
+
+        <button onclick="toggleDark()">🌙 Dark Mode</button>
+
+        <a href="/dashboard">📊 Recommendations</a>
+        <a href="/impact">🌍 Impact Insights</a>
+        <a href="/history">🕓 History</a>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+        <h2>📜 History</h2>
+
+        {% if data %}
+        <div class="card">
+
+            <table>
+                <tr>
+                    <th>Material</th>
+                    <th>Shape</th>
+                    <th>Strength</th>
+                    <th>Food</th>
+                    <th>Quantity</th>
+                    <th>Weight</th>
+                    <th>Recycle</th>
+                    <th>Cost</th>
+                    <th>CO₂</th>
+                </tr>
+
+                {% for h in data %}
+                <tr onclick="window.location.href='/load/{{ loop.index0 }}'" style="cursor:pointer;">
+                    <td>{{ h.material }}</td>
+                    <td>{{ h.shape }}</td>
+                    <td>{{ h.strength }}</td>
+                    <td>{{ h.food }}</td>
+                    <td>{{ h.quantity }}</td>
+                    <td>{{ h.weight }}</td>
+                    <td>{{ h.recycle }}%</td>
+                    <td>₹{{ h.cost }}</td>
+                    <td>{{ h.co2 }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+        </div>
+        {% else %}
+            <p>No history yet</p>
+        {% endif %}
+
+    </div>
+</div>
+
+<!-- DARK MODE -->
+<script>
+function toggleDark() {
+    document.body.classList.toggle("dark");
+}
+</script>
+
+</body>
+</html>
