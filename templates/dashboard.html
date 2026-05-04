@@ -1,88 +1,187 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Dashboard</title>
-<link rel="stylesheet" href="/static/style.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>EcoPackAI Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-<div class="sidebar">
-<h2>🌿 EcoPackAI</h2>
-<a href="/dashboard">📊 Recommendations</a>
-<a href="/impact">🌍 Impact Insights</a>
-<a href="/history">🕒 History</a>
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>🌿 EcoPackAI</h2>
+
+        <button onclick="toggleDark()">🌙 Dark Mode</button>
+
+        <a href="/dashboard">📊 Recommendations</a>
+        <a href="/impact">🌍 Impact Insights</a>
+        <a href="/history">🕓 History</a>
+        <a href="/logout">🚪 Logout</a>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+
+        <!-- STATS -->
+        <div class="stats">
+            <div class="card">Total<br><b>{{ costs|length }}</b></div>
+            <div class="card">Cost Savings<br><b>₹{{ (costs|sum * 0.1)|round(0) if costs else 0 }}</b></div>
+            <div class="card">CO₂ Reduced<br><b>{{ (co2_vals|sum * 0.2)|round(0) if co2_vals else 0 }}</b></div>
+            <div class="card">Sustainability<br><b>95%</b></div>
+        </div>
+
+        <!-- INPUT + OUTPUT -->
+        <div class="grid">
+
+            <!-- INPUT -->
+            <div class="card">
+                <h3>📦 Packaging Inputs</h3>
+
+                <form method="POST">
+
+                    <input type="number" name="quantity" placeholder="Quantity"
+                    value="{{ form_data.quantity if form_data else '' }}">
+
+                    <input type="number" name="weight" placeholder="Weight (g)"
+                    value="{{ form_data.weight if form_data else '' }}">
+
+                    <input type="number" name="recycle" placeholder="Recycle %"
+                    value="{{ form_data.recycle if form_data else '' }}">
+
+                    <select name="material">
+                        <option value="Plastic" {{ 'selected' if form_data and form_data.material=='Plastic' else '' }}>🧴 Plastic</option>
+                        <option value="Glass" {{ 'selected' if form_data and form_data.material=='Glass' else '' }}>🍶 Glass</option>
+                        <option value="Paper" {{ 'selected' if form_data and form_data.material=='Paper' else '' }}>📄 Paper</option>
+                        <option value="Metal" {{ 'selected' if form_data and form_data.material=='Metal' else '' }}>🔩 Metal</option>
+                        <option value="Bioplastic" {{ 'selected' if form_data and form_data.material=='Bioplastic' else '' }}>🌿 Bioplastic</option>
+                        <option value="Wood" {{ 'selected' if form_data and form_data.material=='Wood' else '' }}>🪵 Wood</option>
+                    </select>
+
+                    <select name="shape">
+                        <option value="Box" {{ 'selected' if form_data and form_data.shape=='Box' else '' }}>📦 Box</option>
+                        <option value="Bottle" {{ 'selected' if form_data and form_data.shape=='Bottle' else '' }}>🧴 Bottle</option>
+                        <option value="Can" {{ 'selected' if form_data and form_data.shape=='Can' else '' }}>🥫 Can</option>
+                        <option value="Pouch" {{ 'selected' if form_data and form_data.shape=='Pouch' else '' }}>🛍️ Pouch</option>
+                        <option value="Tray" {{ 'selected' if form_data and form_data.shape=='Tray' else '' }}>🍱 Tray</option>
+                        <option value="Wrap" {{ 'selected' if form_data and form_data.shape=='Wrap' else '' }}>🎁 Wrap</option>
+                    </select>
+
+                    <select name="strength">
+                        <option value="Low" {{ 'selected' if form_data and form_data.strength=='Low' else '' }}>🟢 Low</option>
+                        <option value="Medium" {{ 'selected' if form_data and form_data.strength=='Medium' else '' }}>🟡 Medium</option>
+                        <option value="High" {{ 'selected' if form_data and form_data.strength=='High' else '' }}>🔴 High</option>
+                    </select>
+
+                    <select name="food">
+                        <option value="Alcoholic Beverages" {{ 'selected' if form_data and form_data.food=='Alcoholic Beverages' else '' }}>🍷 Alcoholic</option>
+                        <option value="Dairy" {{ 'selected' if form_data and form_data.food=='Dairy' else '' }}>🥛 Dairy</option>
+                        <option value="Snacks" {{ 'selected' if form_data and form_data.food=='Snacks' else '' }}>🍿 Snacks</option>
+                        <option value="Frozen" {{ 'selected' if form_data and form_data.food=='Frozen' else '' }}>❄️ Frozen</option>
+                        <option value="Fruits" {{ 'selected' if form_data and form_data.food=='Fruits' else '' }}>🍎 Fruits</option>
+                        <option value="Bakery" {{ 'selected' if form_data and form_data.food=='Bakery' else '' }}>🥐 Bakery</option>
+                        <option value="Meat" {{ 'selected' if form_data and form_data.food=='Meat' else '' }}>🍗 Meat</option>
+                        <option value="Seafood" {{ 'selected' if form_data and form_data.food=='Seafood' else '' }}>🐟 Seafood</option>
+                    </select>
+
+                    <button type="submit">✨ Get Recommendation</button>
+                </form>
+            </div>
+
+            <!-- OUTPUT -->
+            <div class="card">
+                <h3>📊 AI Prediction Output</h3>
+
+{% if result %}
+
+    <!-- 🔹 INPUT SUMMARY -->
+    <h4>📦 Packaging Inputs</h4>
+
+    <p><b>Material:</b> {{ result.input.material }}</p>
+    <p><b>Shape:</b> {{ result.input.shape }}</p>
+    <p><b>Strength:</b> {{ result.input.strength }}</p>
+    <p><b>Food Type:</b> {{ result.input.food }}</p>
+    <p><b>Quantity:</b> {{ result.input.quantity }}</p>
+    <p><b>Weight:</b> {{ result.input.weight }} g</p>
+    <p><b>Recyclability:</b> {{ result.input.recycle }}%</p>
+
+    <hr>
+
+    <!-- 🔹 PREDICTION -->
+    <h4>🤖 Prediction Results</h4>
+
+    <p><b>💰 Cost:</b> ₹{{ result.cost }}</p>
+    <p><b>🌱 CO₂:</b> {{ result.co2 }} kg</p>
+
+    <p><b>♻️ Recommended Material:</b> {{ result.best }}</p>
+    <p><b>Why:</b> {{ result.reason }}</p>
+
+    <hr>
+
+    <!-- 🔹 IMPACT -->
+    <h4>📊 What influenced this prediction?</h4>
+    <ul>
+        {% for i in result.impact %}
+            <li>{{ i }}</li>
+        {% endfor %}
+    </ul>
+
+{% endif %}
+                
+
+        </div>
+
+        <!-- GRAPHS -->
+        <div class="grid">
+
+            <div class="card">
+                <h3>💰 Cost (Best vs Avg vs Worst)</h3>
+                <canvas id="costChart"></canvas>
+            </div>
+
+            <div class="card">
+                <h3>🌱 CO₂ (Best vs Avg vs Worst)</h3>
+                <canvas id="co2Chart"></canvas>
+            </div>
+
+        </div>
+
+    </div>
 </div>
 
-<div class="main">
+<!-- SCRIPT -->
+<script>
+window.onload = function () {
 
-<div class="cards">
-<div class="card"><h3>📈 Total Recommendations</h3><h1 id="k1">0</h1></div>
-<div class="card"><h3>💰 Cost Savings</h3><h1 id="k2">₹0</h1></div>
-<div class="card"><h3>🌱 CO₂ Reduced</h3><h1 id="k3">0</h1></div>
-<div class="card"><h3>♻️ Sustainability</h3><h1 id="k4">0%</h1></div>
-</div>
+    new Chart(document.getElementById("costChart"), {
+        type: "bar",
+        data: {
+            labels: ["Best", "Average", "Worst"],
+            datasets: [{
+                data: {{ [best_cost, avg_cost, worst_cost] | tojson }},
+                backgroundColor: ["#22c55e", "#facc15", "#ef4444"]
+            }]
+        }
+    });
 
-<div class="section">
-<h3>📦 Packaging Inputs</h3>
+    new Chart(document.getElementById("co2Chart"), {
+        type: "bar",
+        data: {
+            labels: ["Best", "Average", "Worst"],
+            datasets: [{
+                data: {{ [best_co2, avg_co2, worst_co2] | tojson }},
+                backgroundColor: ["#22c55e", "#facc15", "#ef4444"]
+            }]
+        }
+    });
 
-<input id="qty" placeholder="⚖️ Product Quantity (g)">
-<input id="pkgwt" placeholder="📦 Package Weight (g)">
-<input id="recycle" placeholder="♻️ Recyclability %">
+};
 
-<select id="material">
-<option>🧴 Plastic</option>
-<option>🥫 Aluminium</option>
-<option>🍶 Glass</option>
-<option>📄 Paper</option>
-<option>📦 Cardboard</option>
-<option>🌱 Biodegradable Plastic</option>
-<option>🪵 Molded Pulp</option>
-</select>
+function toggleDark() {
+    document.body.classList.toggle("dark");
+}
+</script>
 
-<select id="shape">
-<option>📦 Box</option>
-<option>🫙 Container</option>
-<option>🍾 Bottle</option>
-<option>🏺 Jar</option>
-<option>🛍️ Pouch</option>
-<option>🥫 Can</option>
-</select>
-
-<select id="strength">
-<option>🟢 Low</option>
-<option>🟡 Medium</option>
-<option>🔴 High</option>
-</select>
-
-<select id="food">
-<option>🍷 Alcoholic Beverages</option>
-<option>🥤 Non-Alcoholic Beverages</option>
-<option>🥛 Dairy Products</option>
-<option>❄️ Frozen Foods</option>
-<option>🍰 Bakery & Confectionery</option>
-<option>🍱 Ready-to-Eat Meals</option>
-<option>🍎 Fruits & Vegetables</option>
-<option>🥩 Meat & Seafood</option>
-<option>🍿 Snacks</option>
-<option>🌾 Dry Foods & Grains</option>
-</select>
-
-<button type="button" onclick="recommend()">✨ Get Recommendation</button>
-</div>
-
-<div class="section">
-<h3>✅ Recommendation Output</h3>
-<div id="out"></div>
-</div>
-
-<div class="section">
-<h3>📊 Cost Comparison</h3>
-<canvas id="costChart"></canvas>
-</div>
-
-</div>
-
-<script src="/static/recommend.js"></script>
 </body>
 </html>
